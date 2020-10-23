@@ -4,17 +4,32 @@ import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import ch.fhnw.digibp.AbstractEntity;
 
+@Entity
+@Table(name = "orders")
 public class Order extends AbstractEntity {
     public enum State {
         NEW, CANCELLED, CONFIRMED, ANALYSIS, DONE
     }
 
+    @Id
     private String uuid;
+    @Column
     private String clientId;
+    @Column
     private String analysis;
+    @Column
     private ZonedDateTime dueDate;
+    @Column
+    @Enumerated(EnumType.STRING)
     private State state;
 
     public Order() {

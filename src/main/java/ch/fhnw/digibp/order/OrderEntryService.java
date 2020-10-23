@@ -1,9 +1,10 @@
 package ch.fhnw.digibp.order;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.UUID;
 
 import org.camunda.bpm.engine.RuntimeService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class OrderEntryService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrderEntryService.class);
 
     private final RuntimeService runtimeService;
 
@@ -21,10 +24,11 @@ public class OrderEntryService {
 
     @PostMapping("/order")
     public void newOrder(@RequestBody Order order) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("clientId", order.getClientId());
-        map.put("analysis", order.getAnalysis());
-        map.put("dueDate", order.getDueDate());
-        runtimeService.startProcessInstanceByMessage("OrderEntryMessage", map);
+        order.setUuid(UUID.randomUUID().toString());
+        order.setState(Order.State.NEW);
+        LOGGER.info("Received new order {}", order);
+        runtimeService.startProcessInstanceByMessage("OrderEntryMessage", order.toMap());
     }
+
+
 }

@@ -7,20 +7,11 @@
       <bpmn:messageEventDefinition id="MessageEventDefinition_1qtt5lq" messageRef="Message_0gmhlfc" />
     </bpmn:startEvent>
     <bpmn:dataStoreReference id="DataStoreReference_1datr1w" name="LIMS" />
-    <bpmn:task id="Activity_1gh20o2" name="Send request cancellation">
+    <bpmn:endEvent id="cancel_order" name="Send cancellation">
       <bpmn:incoming>Flow_0dcl7xe</bpmn:incoming>
-      <bpmn:outgoing>Flow_0olfklr</bpmn:outgoing>
-    </bpmn:task>
-    <bpmn:endEvent id="Event_0hthzgn" name="Request&#10;cancelled">
-      <bpmn:incoming>Flow_0olfklr</bpmn:incoming>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_0zif7bi" />
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0zif7bi" camunda:delegateExpression="#{orderDelegate}" />
     </bpmn:endEvent>
-    <bpmn:businessRuleTask id="check_request" name="Check request" implementation="##unspecified" camunda:decisionRef="order_entry_check">
-      <bpmn:extensionElements>
-        <camunda:inputOutput>
-          <camunda:outputParameter name="order_ok" />
-        </camunda:inputOutput>
-      </bpmn:extensionElements>
+    <bpmn:businessRuleTask id="check_request" name="Check request" implementation="##unspecified" camunda:resultVariable="state" camunda:decisionRef="order_entry_check" camunda:mapDecisionResult="singleEntry">
       <bpmn:incoming>Flow_1cuibf4</bpmn:incoming>
       <bpmn:outgoing>Flow_16vxb93</bpmn:outgoing>
       <bpmn:ioSpecification>
@@ -39,21 +30,20 @@
       <bpmn:outgoing>Flow_0dcl7xe</bpmn:outgoing>
       <bpmn:outgoing>Flow_0ayc4j7</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:endEvent id="Event_06p52x4" name="Sent confirmation">
+    <bpmn:endEvent id="confirm_order" name="Send confirmation">
       <bpmn:incoming>Flow_0ayc4j7</bpmn:incoming>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_0rf4r06" />
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0rf4r06" camunda:delegateExpression="#{orderDelegate}" />
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="Flow_1m5b0l3" sourceRef="Event_07z3g29" targetRef="Activity_166qzq3" />
-    <bpmn:sequenceFlow id="Flow_0dcl7xe" name="nok" sourceRef="order_ok_gateway" targetRef="Activity_1gh20o2">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${order_ok != 'true'}</bpmn:conditionExpression>
+    <bpmn:sequenceFlow id="Flow_0dcl7xe" name="nok" sourceRef="order_ok_gateway" targetRef="cancel_order">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${state != 'CONFIRMED'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_0olfklr" sourceRef="Activity_1gh20o2" targetRef="Event_0hthzgn" />
-    <bpmn:sequenceFlow id="Flow_1cuibf4" sourceRef="Activity_166qzq3" targetRef="check_request" />
     <bpmn:sequenceFlow id="Flow_16vxb93" sourceRef="check_request" targetRef="order_ok_gateway" />
-    <bpmn:sequenceFlow id="Flow_0ayc4j7" name="ok" sourceRef="order_ok_gateway" targetRef="Event_06p52x4">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${order_ok == 'true'}</bpmn:conditionExpression>
+    <bpmn:sequenceFlow id="Flow_0ayc4j7" name="ok" sourceRef="order_ok_gateway" targetRef="confirm_order">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${state == 'CONFIRMED'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:task id="Activity_166qzq3" name="Store order">
+    <bpmn:sequenceFlow id="Flow_1cuibf4" sourceRef="store_order" targetRef="check_request" />
+    <bpmn:sequenceFlow id="Flow_1m5b0l3" sourceRef="Event_07z3g29" targetRef="store_order" />
+    <bpmn:serviceTask id="store_order" name="Store order" camunda:delegateExpression="#{orderDelegate}">
       <bpmn:incoming>Flow_1m5b0l3</bpmn:incoming>
       <bpmn:outgoing>Flow_1cuibf4</bpmn:outgoing>
       <bpmn:ioSpecification>
@@ -64,7 +54,7 @@
       <bpmn:dataOutputAssociation id="DataOutputAssociation_18tdrbv">
         <bpmn:targetRef>DataStoreReference_1datr1w</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
-    </bpmn:task>
+    </bpmn:serviceTask>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="order_entry">
@@ -74,14 +64,11 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0dcl7xe_di" bpmnElement="Flow_0dcl7xe">
         <di:waypoint x="545" y="210" />
-        <di:waypoint x="545" y="162" />
+        <di:waypoint x="545" y="124" />
+        <di:waypoint x="692" y="124" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="519" y="186" width="18" height="14" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0olfklr_di" bpmnElement="Flow_0olfklr">
-        <di:waypoint x="593" y="124" />
-        <di:waypoint x="640" y="123" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1cuibf4_di" bpmnElement="Flow_1cuibf4">
         <di:waypoint x="344" y="230" />
@@ -110,15 +97,6 @@
           <dc:Bounds x="348" y="336" width="26" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1gh20o2_di" bpmnElement="Activity_1gh20o2">
-        <dc:Bounds x="497" y="86" width="96" height="76" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0hthzgn_di" bpmnElement="Event_0hthzgn">
-        <dc:Bounds x="639" y="104" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="634" y="150" width="47" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0wsp352_di" bpmnElement="check_request">
         <dc:Bounds x="372" y="192" width="96" height="76" />
       </bpmndi:BPMNShape>
@@ -128,14 +106,20 @@
           <dc:Bounds x="519" y="258" width="52" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_06p52x4_di" bpmnElement="Event_06p52x4">
+      <bpmndi:BPMNShape id="Event_06p52x4_di" bpmnElement="confirm_order">
         <dc:Bounds x="692" y="212" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="667" y="258" width="86" height="14" />
+          <dc:Bounds x="666" y="258" width="89" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_00r3fal_di" bpmnElement="Activity_166qzq3">
+      <bpmndi:BPMNShape id="Activity_1h0cjl1_di" bpmnElement="store_order">
         <dc:Bounds x="248" y="192" width="96" height="76" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0hthzgn_di" bpmnElement="cancel_order">
+        <dc:Bounds x="692" y="105" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="668" y="151" width="87" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="DataOutputAssociation_18tdrbv_di" bpmnElement="DataOutputAssociation_18tdrbv">
         <di:waypoint x="296" y="268" />

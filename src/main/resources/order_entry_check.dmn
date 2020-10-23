@@ -1,19 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="Definitions_1pcj47j" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.2.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_1pcj47j" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.2.0">
   <decision id="order_entry_check" name="Order Entry Check">
     <decisionTable id="DecisionTable_17ce13i">
-      <input id="Input_1">
+      <input id="Input_1" camunda:inputVariable="analysis">
         <inputExpression id="InputExpression_1" typeRef="string">
-          <text></text>
+          <text>analysis</text>
         </inputExpression>
       </input>
-      <output id="Output_1" name="order_ok" typeRef="boolean" />
+      <output id="OutputClause_1n41x3g" name="state" typeRef="string" />
       <rule id="DecisionRule_1t42wsa">
         <inputEntry id="UnaryTests_0vvn9oz">
-          <text></text>
+          <text>"sars_cov_2"</text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_1k0zpx6">
-          <text>true</text>
+        <outputEntry id="LiteralExpression_1qvqobr">
+          <text>"CONFIRMED"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1q6n0xm">
+        <inputEntry id="UnaryTests_0zji8ox">
+          <text>not("sars_cov_2")</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_08qdsqp">
+          <text>"CANCELLED"</text>
         </outputEntry>
       </rule>
     </decisionTable>

@@ -2,7 +2,7 @@
 
     <process-archive>
         <properties>
-            <property name="additionalResourceSuffixes">html,js</property>
+            <property name="resourceRootPath">process/</property>
         </properties>
     </process-archive>
 

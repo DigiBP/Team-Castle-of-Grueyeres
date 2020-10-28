@@ -16,6 +16,18 @@ public abstract class AbstractEntity {
         return mapHasKey(key, map) ? (String) map.get(key) : null;
     }
 
+    protected Long getLong(String key, Map<String, Object> map) {
+        return mapHasKey(key, map) ? (Long) map.get(key) : null;
+    }
+
+    protected boolean getBoolean(String key, Map<String, Object> map) {
+        return mapHasKey(key, map) ? (Boolean) map.get(key) : false;
+    }
+
+    protected double getDouble(String key, Map<String, Object> map) {
+        return mapHasKey(key, map) ? (double) map.get(key) : -0.0;
+    }
+
     protected ZonedDateTime getZonedDateTime(String key, Map<String, Object> map) {
         if (mapHasKey(key, map)) {
             String str = (String) map.get(key);

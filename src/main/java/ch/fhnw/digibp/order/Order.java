@@ -4,20 +4,25 @@ import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import ch.fhnw.digibp.AbstractEntity;
+import ch.fhnw.digibp.sample.Sample;
 
 @Entity
 @Table(name = "orders")
 public class Order extends AbstractEntity {
     public enum State {
-        NEW, CANCELLED, CONFIRMED, ANALYSIS, DONE
+        NEW, CANCELLED, CONFIRMED, SAMPLE_RECEIVED, ANALYSIS, DONE
     }
 
     @Id
@@ -32,6 +37,10 @@ public class Order extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private State state;
 
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "sample_id")
+    private Sample sample;
+
     public Order() {
     }
 
@@ -40,7 +49,8 @@ public class Order extends AbstractEntity {
         this.clientId = getString("clientId", map);
         this.analysis = getString("analysis", map);
         this.dueDate = getZonedDateTime("dueDate", map);
-        this.state = getState(map);
+        loadState(map);
+        loadSample(map);
     }
 
     public String getClientId() {
@@ -83,6 +93,14 @@ public class Order extends AbstractEntity {
         this.state = state;
     }
 
+    public Sample getSample() {
+        return sample;
+    }
+
+    public void setSample(Sample sample) {
+        this.sample = sample;
+    }
+
     @Override
     public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>();
@@ -91,11 +109,22 @@ public class Order extends AbstractEntity {
         map.put("analysis", getAnalysis());
         map.put("dueDate", toString(getDueDate()));
         map.put("state", getState().name());
+        if (getSample() != null) {
+            map.put("sample", getSample().toMap());
+        }
         return map;
     }
 
-    private State getState(Map<String, Object> map) {
-        return mapHasKey("state", map) ? State.valueOf((String) map.get("state")) : null;
+    private void loadState(Map<String, Object> map) {
+        if (mapHasKey("state", map)) {
+            state = State.valueOf((String) map.get("state"));
+        }
+    }
+
+    private void loadSample(Map<String, Object> map) {
+        if (mapHasKey("sample", map)) {
+            sample = new Sample((Map<String, Object>) map.get("sample"));
+        }
     }
 
     @Override

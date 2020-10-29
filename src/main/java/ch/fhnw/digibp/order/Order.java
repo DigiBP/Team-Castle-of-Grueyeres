@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -22,10 +23,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name = "orders")
 public class Order extends AbstractEntity {
-    public enum State {
-        NEW, CANCELLED, CONFIRMED, SAMPLE_RECEIVED, ANALYSIS, DONE
-    }
-
     @Id
     private String uuid;
     @Column
@@ -38,12 +35,17 @@ public class Order extends AbstractEntity {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dueDate;
     @Column
+    private Order.Priority priority;
+    @Column
     @Enumerated(EnumType.STRING)
     private State state;
-
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "sample_id")
-    private Sample sample = new Sample();
+    private Sample sample;
+    @Embedded
+    private BillingInformation billingInformation = new BillingInformation();
+    @Embedded
+    private SampleRequirements sampleRequirements = new SampleRequirements();
 
     public Order() {
     }
@@ -56,6 +58,8 @@ public class Order extends AbstractEntity {
         this.dueDate = getLocalDate("dueDate", map);
         loadState(map);
         loadSample(map);
+        loadSampleRequirements(map);
+        loadBillingInformation(map);
     }
 
     public String getClientId() {
@@ -114,6 +118,34 @@ public class Order extends AbstractEntity {
         this.sample = sample;
     }
 
+    public boolean isBiohazard() {
+        return sampleRequirements != null && sampleRequirements.getHazardCategory() != null;
+    }
+
+    public BillingInformation getBillingInformation() {
+        return billingInformation;
+    }
+
+    public void setBillingInformation(BillingInformation billingInformation) {
+        this.billingInformation = billingInformation;
+    }
+
+    public SampleRequirements getSampleRequirements() {
+        return sampleRequirements;
+    }
+
+    public void setSampleRequirements(SampleRequirements sampleRequirements) {
+        this.sampleRequirements = sampleRequirements;
+    }
+
+    public Priority getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Priority priority) {
+        this.priority = priority;
+    }
+
     @Override
     public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>();
@@ -123,8 +155,15 @@ public class Order extends AbstractEntity {
         map.put("comment", getComment());
         map.put("dueDate", toString(getDueDate()));
         map.put("state", getState().name());
+        map.put("biohazard", isBiohazard());
         if (getSample() != null) {
             map.put("sample", getSample().toMap());
+        }
+        if (getSampleRequirements() != null) {
+            map.put("sampleRequirement", getSampleRequirements().toMap());
+        }
+        if (getBillingInformation() != null) {
+            map.put("billingInformation", getBillingInformation().toMap());
         }
         return map;
     }
@@ -141,14 +180,39 @@ public class Order extends AbstractEntity {
         }
     }
 
+    private void loadSampleRequirements(Map<String, Object> map) {
+        if (mapHasKey("sampleRequirements", map)) {
+            sampleRequirements = new SampleRequirements((Map<String, Object>) map.get("sampleRequirements"));
+        }
+    }
+
+    private void loadBillingInformation(Map<String, Object> map) {
+        if (mapHasKey("billingInformation", map)) {
+            billingInformation = new BillingInformation((Map<String, Object>) map.get("billingInformation"));
+        }
+    }
+
     @Override
     public String toString() {
         return "Order{" +
                 "uuid='" + uuid + '\'' +
                 ", clientId='" + clientId + '\'' +
+                ", analysis='" + analysis + '\'' +
                 ", comment='" + comment + '\'' +
                 ", dueDate=" + dueDate +
+                ", priority=" + priority +
                 ", state=" + state +
+                ", sample=" + sample +
+                ", billingInformation=" + billingInformation +
+                ", sampleRequirements=" + sampleRequirements +
                 '}';
+    }
+
+    public enum State {
+        NEW, CANCELLED, CONFIRMED, SAMPLE_RECEIVED, ANALYSIS, DONE
+    }
+
+    public enum Priority {
+        HIGH, MEDIUM, LOW
     }
 }

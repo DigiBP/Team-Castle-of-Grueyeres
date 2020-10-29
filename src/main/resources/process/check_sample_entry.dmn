@@ -1,13 +1,135 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="Definitions_0imp5sc" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.2.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="Definitions_0imp5sc" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.2.0">
   <decision id="check_sample_entry" name="Check Sample">
     <decisionTable id="DecisionTable_06825dp">
-      <input id="Input_1">
-        <inputExpression id="InputExpression_1" typeRef="string">
+      <input id="Input_1" label="actual temperature" camunda:inputVariable="sample.temperature">
+        <inputExpression id="InputExpression_1" typeRef="double">
           <text></text>
         </inputExpression>
       </input>
-      <output id="Output_1" typeRef="string" />
+      <input id="InputClause_0d16ub7" label="actual package type" camunda:inputVariable="sample.packageType">
+        <inputExpression id="LiteralExpression_1insua9" typeRef="string">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1pjbuyz" label="actual sample type" camunda:inputVariable="sample.sampleType">
+        <inputExpression id="LiteralExpression_1brswso" typeRef="string">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1yev01h" label="package damaged" camunda:inputVariable="sample.damaged">
+        <inputExpression id="LiteralExpression_1tby86x" typeRef="boolean">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0ev69uq" label="expected temprature" camunda:inputVariable="sampleRequirements.temprature">
+        <inputExpression id="LiteralExpression_0ww8f7g" typeRef="double">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1jhtgew" label="expected package type" camunda:inputVariable="sampleRequirements.packageType">
+        <inputExpression id="LiteralExpression_146ieaj" typeRef="string">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1u0c9lt" label="expected sample type" camunda:inputVariable="sampleRequirements.sampleType">
+        <inputExpression id="LiteralExpression_1g0jw54" typeRef="string">
+          <text></text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="state" name="state" typeRef="string" biodi:width="192">
+        <outputValues id="UnaryTests_1b7kkw1">
+          <text>"SAMPLE_RECEIVED","CANCELLED"</text>
+        </outputValues>
+      </output>
+      <output id="OutputClause_0udxrrn" label="cancel reason" name="cancelReason" typeRef="string" />
+      <rule id="DecisionRule_015avuw">
+        <inputEntry id="UnaryTests_1irbhu2">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1165kdz">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_021ngy6">
+          <text>not("URINE")</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0v2szav">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0lghxoc">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1y84wqk">
+          <text>"URINE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07xcrco">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ehvgwt">
+          <text>"CANCELLED"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0k88m5p">
+          <text></text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0s8thcj">
+        <inputEntry id="UnaryTests_1vz9dhe">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ubkn5m">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1v9e64q">
+          <text>not("BLOOD")</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_18t607h">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ywxhk1">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07lzx88">
+          <text>"BLOOD"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0gtkwdc">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1x7egaa">
+          <text>"CANCELLED"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_12pkskm">
+          <text></text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1hkzmk0">
+        <inputEntry id="UnaryTests_08a3ool">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1a3dkh9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0hfbmn1">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1i2c2o4">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1yeiyss">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0re3cnp">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0rbsgnw">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_162nr5a">
+          <text>"SAMPLE_RECEIVED"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1flrp9d">
+          <text></text>
+        </outputEntry>
+      </rule>
     </decisionTable>
   </decision>
   <dmndi:DMNDI>

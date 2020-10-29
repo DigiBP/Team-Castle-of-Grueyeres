@@ -1,10 +1,12 @@
 package ch.fhnw.digibp.sample;
 
 import java.time.ZonedDateTime;
+import java.util.Map;
 import java.util.Optional;
 
 import ch.fhnw.digibp.order.Order;
 import ch.fhnw.digibp.order.OrderRepository;
+import org.camunda.bpm.engine.RuntimeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +24,14 @@ public class SampleController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SampleController.class);
 
+    private final RuntimeService runtimeService;
+
     private final OrderRepository orderRepository;
 
     @Autowired
-    public SampleController(OrderRepository orderRepository) {
+    public SampleController(OrderRepository orderRepository, RuntimeService runtimeService) {
         this.orderRepository = orderRepository;
+        this.runtimeService = runtimeService;
     }
 
     @GetMapping("/sample/{order}")
@@ -50,7 +55,19 @@ public class SampleController {
         orderRepository.save(order);
         model.addAttribute("sample", order.getSample());
         model.addAttribute("uuid", orderUuid);
+
+        runtimeService.startProcessInstanceByKey("sample_entry", order.getUuid(), loadProcessContext(order));
         return "redirect:" + orderUuid;
+    }
+
+    /**
+     * This is a workaround, since I didn't find any better solution for now
+     */
+    public Map<String, Object> loadProcessContext(Order order) {
+        Map<String, Object> processContext = order.toMap();
+        processContext.putAll(order.getSample().toMapWithPrefix());
+        processContext.putAll(order.getSampleRequirements().toMapWithPrefix());
+        return processContext;
     }
 
     private Order find(String orderUuid) {

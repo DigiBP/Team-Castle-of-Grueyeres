@@ -12,6 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import ch.fhnw.digibp.AbstractEntity;
+import ch.fhnw.digibp.domain.PackageType;
+import ch.fhnw.digibp.domain.SampleType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "samples")
@@ -25,6 +28,8 @@ public class Sample extends AbstractEntity {
     private boolean damaged;
     @Column
     private SampleType sampleType;
+    @Column
+    private PackageType packageType;
     @Column
     private double amount;
     @Column
@@ -44,7 +49,8 @@ public class Sample extends AbstractEntity {
     public Sample(Map<String, Object> map) {
         id = getLong("id", map);
         damaged = getBoolean("damaged", map);
-        loadSampleType(map);
+        this.packageType = PackageType.valueOf(map);
+        this.sampleType = SampleType.valueOf(map);
         amount = getDouble("amount", map);
         loadAmountUnit(map);
         temperature = getDouble("temperature", map);
@@ -56,16 +62,25 @@ public class Sample extends AbstractEntity {
 
     @Override
     public Map<String, Object> toMap() {
+        return toMapWithPrefix("");
+    }
+
+    public Map<String, Object> toMapWithPrefix() {
+        return toMapWithPrefix("sample.");
+    }
+
+    private Map<String, Object> toMapWithPrefix(String prefix) {
         Map<String, Object> map = new HashMap<>();
-        map.put("id", getId());
-        map.put("damaged", isDamaged());
-        map.put("sampleType", getSampleTypeValue());
-        map.put("amount", getAmount());
-        map.put("amountUnit", getAmountUnitValue());
-        map.put("temperature", getTemperature());
-        map.put("temperatureUnit", getTemperatureUnitValue());
-        map.put("entryDate", toString(getEntryDate()));
-        map.put("updateDate", toString(getUpdateDate()));
+        map.put(prefix + "id", getId());
+        map.put(prefix + "damaged", isDamaged());
+        map.put(prefix + "sampleType", getSampleTypeValue());
+        map.put(prefix + "packageType", getPackageTypeValue());
+        map.put(prefix + "amount", getAmount());
+        map.put(prefix + "amountUnit", getAmountUnitValue());
+        map.put(prefix + "temperature", getTemperature());
+        map.put(prefix + "temperatureUnit", getTemperatureUnitValue());
+        map.put(prefix + "entryDate", toString(getEntryDate()));
+        map.put(prefix + "updateDate", toString(getUpdateDate()));
         return map;
     }
 
@@ -89,14 +104,14 @@ public class Sample extends AbstractEntity {
         return sampleType;
     }
 
-    private void loadSampleType(Map<String, Object> map) {
-        if (mapHasKey("sampleType", map)) {
-            sampleType = SampleType.valueOf((String) map.get("sampleType"));
-        }
-    }
-
+    @JsonIgnore
     public String getSampleTypeValue() {
         return sampleType != null ? sampleType.name() : null;
+    }
+
+    @JsonIgnore
+    public String getPackageTypeValue() {
+        return packageType != null ? packageType.name() : null;
     }
 
     public void loadSampleType(SampleType sampleType) {
@@ -125,6 +140,7 @@ public class Sample extends AbstractEntity {
         this.amountUnit = amountUnit;
     }
 
+    @JsonIgnore
     public String getAmountUnitValue() {
         return amountUnit != null ? amountUnit.name() : null;
     }
@@ -151,6 +167,7 @@ public class Sample extends AbstractEntity {
         this.temperatureUnit = temperatureUnit;
     }
 
+    @JsonIgnore
     public String getTemperatureUnitValue() {
         return temperatureUnit != null ? temperatureUnit.name() : null;
     }
@@ -171,8 +188,41 @@ public class Sample extends AbstractEntity {
         this.updateDate = updateDate;
     }
 
-    public enum SampleType {
-        BLOOD, TISSUE, URINE
+    public PackageType getPackageType() {
+        return packageType;
+    }
+
+
+    public void setSampleType(SampleType sampleType) {
+        this.sampleType = sampleType;
+    }
+
+    public void setAmountUnit(AmountUnit amountUnit) {
+        this.amountUnit = amountUnit;
+    }
+
+    public void setTemperatureUnit(TemperatureUnit temperatureUnit) {
+        this.temperatureUnit = temperatureUnit;
+    }
+
+    public void setPackageType(PackageType packageType) {
+        this.packageType = packageType;
+    }
+
+    @Override
+    public String toString() {
+        return "Sample{" +
+                "id=" + id +
+                ", damaged=" + damaged +
+                ", sampleType=" + sampleType +
+                ", packageType=" + packageType +
+                ", amount=" + amount +
+                ", amountUnit=" + amountUnit +
+                ", temperature=" + temperature +
+                ", temperatureUnit=" + temperatureUnit +
+                ", entryDate=" + entryDate +
+                ", updateDate=" + updateDate +
+                '}';
     }
 
     public enum AmountUnit {

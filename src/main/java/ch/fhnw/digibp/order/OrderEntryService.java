@@ -3,7 +3,6 @@ package ch.fhnw.digibp.order;
 import java.util.Optional;
 import java.util.UUID;
 
-import ch.fhnw.digibp.sample.Sample;
 import org.camunda.bpm.engine.RuntimeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,9 +31,6 @@ public class OrderEntryService {
         final String uuid = UUID.randomUUID().toString();
         try {
             order.setUuid(uuid);
-            if (order.getSample() == null) {
-                order.setSample(new Sample());
-            }
             order.setState(Order.State.NEW);
             LOGGER.info("Received new order {}", order);
             runtimeService.startProcessInstanceByMessage("OrderEntryMessage", uuid, order.toMap());

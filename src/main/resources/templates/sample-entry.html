@@ -10,8 +10,15 @@
     <p>
         Sample Type:
         <select name="sampleType" th:field="*{sampleType}">
-            <option th:each="sampleTypeOpt : ${T(ch.fhnw.digibp.sample.Sample.SampleType).values()}"
+            <option th:each="sampleTypeOpt : ${T(ch.fhnw.digibp.domain.SampleType).values()}"
                     th:value="${sampleTypeOpt}" th:text="${sampleTypeOpt}"></option>
+        </select>
+    </p>
+    <p>
+        Package Type:
+        <select name="sampleType" th:field="*{packageType}">
+            <option th:each="packageTypeOpt : ${T(ch.fhnw.digibp.domain.PackageType).values()}"
+                    th:value="${packageTypeOpt}" th:text="${packageTypeOpt}"></option>
         </select>
     </p>
     <p>

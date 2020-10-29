@@ -1,5 +1,7 @@
-package ch.fhnw.digibp.order;
+package ch.fhnw.digibp.sample;
 
+import ch.fhnw.digibp.order.Order;
+import ch.fhnw.digibp.order.OrderRepository;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.slf4j.Logger;
@@ -8,26 +10,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class OrderDelegate implements JavaDelegate {
-    private static final Logger LOGGER = LoggerFactory.getLogger(OrderDelegate.class);
+public class SampleDelegate implements JavaDelegate {
+    private static final Logger LOGGER = LoggerFactory.getLogger(SampleDelegate.class);
 
     private final OrderRepository orderRepository;
 
     @Autowired
-    public OrderDelegate(OrderRepository orderRepository) {
+    public SampleDelegate(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
     }
 
     public void execute(DelegateExecution execution) {
         switch (execution.getCurrentActivityId()) {
-            case "store_order":
-                storeOrder(execution);
-                break;
-            case "cancel_order":
+            case "sample_cancel_notification":
                 cancelOrder(execution);
                 break;
-            case "confirm_order":
-                confirmOrder(execution);
+            case "sample_entry_finished":
+                storeOrder(execution);
                 break;
             default:
                 LOGGER.error("Unexpected activity '{}'", execution.getCurrentActivityId());
@@ -44,11 +43,5 @@ public class OrderDelegate implements JavaDelegate {
         Order order = new Order(execution.getVariables());
         orderRepository.save(order);
         LOGGER.info("Cancelling order {}", order);
-    }
-
-    private void confirmOrder(DelegateExecution execution) {
-        Order order = new Order(execution.getVariables());
-        orderRepository.save(order);
-        LOGGER.info("Confirming order {}", order);
     }
 }

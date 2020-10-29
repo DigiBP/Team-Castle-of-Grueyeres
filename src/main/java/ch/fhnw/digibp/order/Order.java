@@ -1,6 +1,6 @@
 package ch.fhnw.digibp.order;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,6 +17,7 @@ import javax.persistence.Table;
 
 import ch.fhnw.digibp.AbstractEntity;
 import ch.fhnw.digibp.sample.Sample;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "orders")
@@ -32,14 +33,17 @@ public class Order extends AbstractEntity {
     @Column
     private String analysis;
     @Column
-    private ZonedDateTime dueDate;
+    private String comment;
+    @Column
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dueDate;
     @Column
     @Enumerated(EnumType.STRING)
     private State state;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "sample_id")
-    private Sample sample;
+    private Sample sample = new Sample();
 
     public Order() {
     }
@@ -48,7 +52,8 @@ public class Order extends AbstractEntity {
         this.uuid = getString("uuid", map);
         this.clientId = getString("clientId", map);
         this.analysis = getString("analysis", map);
-        this.dueDate = getZonedDateTime("dueDate", map);
+        this.comment = getString("comment", map);
+        this.dueDate = getLocalDate("dueDate", map);
         loadState(map);
         loadSample(map);
     }
@@ -69,11 +74,19 @@ public class Order extends AbstractEntity {
         this.analysis = analysis;
     }
 
-    public ZonedDateTime getDueDate() {
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String analysis) {
+        this.comment = analysis;
+    }
+
+    public LocalDate getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(ZonedDateTime dueDate) {
+    public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
 
@@ -107,6 +120,7 @@ public class Order extends AbstractEntity {
         map.put("uuid", getUuid());
         map.put("clientId", getClientId());
         map.put("analysis", getAnalysis());
+        map.put("comment", getComment());
         map.put("dueDate", toString(getDueDate()));
         map.put("state", getState().name());
         if (getSample() != null) {
@@ -132,7 +146,7 @@ public class Order extends AbstractEntity {
         return "Order{" +
                 "uuid='" + uuid + '\'' +
                 ", clientId='" + clientId + '\'' +
-                ", analysis='" + analysis + '\'' +
+                ", comment='" + comment + '\'' +
                 ", dueDate=" + dueDate +
                 ", state=" + state +
                 '}';

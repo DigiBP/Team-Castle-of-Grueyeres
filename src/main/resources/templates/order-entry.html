@@ -1,0 +1,29 @@
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Lab Order</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h1>Form</h1>
+<form action="#" th:action="@{/order/}" th:object="${order}" method="post">
+    <p>
+        Client ID:
+        <input type="number" th:field="*{clientId}"/>
+    </p>
+    <p>
+        Analysis:
+        <input type="text" th:value="*{analysis}" th:field="*{analysis}"/>
+    </p>
+    <p>
+        Due Date:
+        <input type="date" th:value="*{dueDate}" th:field="*{dueDate}"/>
+    </p>
+    <p>
+        Comment:
+        <textarea rows="5" th:field="*{comment}"/>
+    </p>
+    <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
+</form>
+</body>
+</html>
+

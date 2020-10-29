@@ -9,13 +9,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.client.HttpServerErrorException;
 
-@RestController
+@Controller
 public class OrderEntryService {
 
     private static final String UNEXPECTED_ERROR_MSG_TEMPLATE = "Unfortunately we were not able to process your request with id %s!";
@@ -31,9 +28,7 @@ public class OrderEntryService {
         this.orderRepository = orderRepository;
     }
 
-    @PostMapping("/rest/order")
-    public @ResponseBody
-    Order newOrder(@RequestBody Order order) {
+    public Order create(Order order) {
         final String uuid = UUID.randomUUID().toString();
         try {
             order.setUuid(uuid);
@@ -57,6 +52,18 @@ public class OrderEntryService {
             throwHttpServerError(HttpStatus.INTERNAL_SERVER_ERROR, UNEXPECTED_ERROR_MSG_TEMPLATE, uuid);
         }
         return null;
+    }
+
+    public Order update(Order order, String uuid) {
+        Order persistedOrder = load(uuid);
+        persistedOrder.setClientId(order.getClientId());
+        persistedOrder.setDueDate(order.getDueDate());
+        return order;
+    }
+
+    public Order load(String uuid) {
+        Optional<Order> order = orderRepository.findById(uuid);
+        return order.orElseThrow(() -> new HttpServerErrorException(HttpStatus.NOT_FOUND));
     }
 
     private void throwHttpServerError(HttpStatus httpStatus, String template, String uuid) throws HttpServerErrorException {

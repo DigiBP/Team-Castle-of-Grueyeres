@@ -1,5 +1,6 @@
 package ch.fhnw.digibp;
 
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
@@ -10,6 +11,10 @@ public abstract class AbstractEntity {
 
     protected String toString(ZonedDateTime zonedDateTime) {
         return zonedDateTime != null ? zonedDateTime.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME) : null;
+    }
+
+    protected String toString(LocalDate localDate) {
+        return localDate != null ? localDate.format(DateTimeFormatter.ISO_DATE) : null;
     }
 
     protected String getString(String key, Map<String, Object> map) {
@@ -32,6 +37,14 @@ public abstract class AbstractEntity {
         if (mapHasKey(key, map)) {
             String str = (String) map.get(key);
             return ZonedDateTime.parse(str, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+        }
+        return null;
+    }
+
+    protected LocalDate getLocalDate(String key, Map<String, Object> map) {
+        if (mapHasKey(key, map)) {
+            String str = (String) map.get(key);
+            return LocalDate.parse(str, DateTimeFormatter.ISO_DATE);
         }
         return null;
     }

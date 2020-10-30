@@ -12,16 +12,42 @@
           <text></text>
         </inputExpression>
       </input>
-      <output id="Output_1" label="laboratory" name="laboratory" typeRef="string" />
+      <output id="Output_1" label="laboratory" name="laboratory" typeRef="string">
+        <outputValues id="UnaryTests_1hpfeur">
+          <text>"Biohazard Lab","Histo Lab","General Lab"</text>
+        </outputValues>
+      </output>
       <rule id="DecisionRule_0hujfmc">
         <inputEntry id="UnaryTests_0gsvxgk">
-          <text></text>
+          <text>true</text>
         </inputEntry>
         <inputEntry id="UnaryTests_02l6pvi">
-          <text>"sars_cov_2"</text>
+          <text>-</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_08ziw9j">
-          <text>"Some Lab"</text>
+          <text>"Biohazard Lab"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_19o38g6">
+        <inputEntry id="UnaryTests_02gc1lg">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ifrtmc">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0h4qude">
+          <text>"General Lab"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0itwsn0">
+        <inputEntry id="UnaryTests_10utczx">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0enfztl">
+          <text>"Tissue"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1cx35rg">
+          <text>"Histo Lab"</text>
         </outputEntry>
       </rule>
     </decisionTable>

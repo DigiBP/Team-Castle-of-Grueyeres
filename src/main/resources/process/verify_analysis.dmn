@@ -3,11 +3,74 @@
   <decision id="verify_analysis" name="Sample Verification">
     <decisionTable id="DecisionTable_1i3dax9">
       <input id="Input_1">
-        <inputExpression id="InputExpression_1" typeRef="string">
-          <text></text>
+        <inputExpression id="InputExpression_1" typeRef="integer">
+          <text>ML Result</text>
         </inputExpression>
       </input>
-      <output id="Output_1" typeRef="string" />
+      <input id="InputClause_1ck2h9s">
+        <inputExpression id="LiteralExpression_1umkpyq" typeRef="string">
+          <text>Severity of Misclassification</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0z0fg39">
+          <text>"low","medium","high"</text>
+        </inputValues>
+      </input>
+      <output id="Output_1" name="Verification needed" typeRef="boolean" />
+      <rule id="DecisionRule_0hmn5cc">
+        <inputEntry id="UnaryTests_0tjys1c">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0octj32">
+          <text>"high"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0gys488">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ogf29o">
+        <inputEntry id="UnaryTests_1rrd2uv">
+          <text>&lt;70</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0dwkkdg">
+          <text>"low"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0anj8e6">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0hrulnb">
+        <inputEntry id="UnaryTests_0391i0y">
+          <text>&gt;=70</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0x2adm8">
+          <text>"low"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_165mdoz">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0hwmhvy">
+        <inputEntry id="UnaryTests_015zqai">
+          <text>&lt;80</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1x27lep">
+          <text>"medium"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_027wx5h">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1rzbswt">
+        <inputEntry id="UnaryTests_1776z7j">
+          <text>&gt;=80</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_146rluz">
+          <text>"medium"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_144ilsx">
+          <text>false</text>
+        </outputEntry>
+      </rule>
     </decisionTable>
   </decision>
   <dmndi:DMNDI>

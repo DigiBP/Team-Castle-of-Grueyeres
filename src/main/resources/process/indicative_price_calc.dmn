@@ -11,29 +11,141 @@
         <inputExpression id="LiteralExpression_1gexlf4" typeRef="string">
           <text></text>
         </inputExpression>
-      </input>
-      <input id="InputClause_1dgleja" label="biohazard" camunda:inputVariable="biohazard">
-        <inputExpression id="LiteralExpression_0jre9kj" typeRef="boolean">
-          <text></text>
-        </inputExpression>
+        <inputValues id="UnaryTests_0e47a2f">
+          <text>"low","medium","high"</text>
+        </inputValues>
       </input>
       <output id="Output_1" label="price" name="price" typeRef="double" />
-      <output id="OutputClause_08b9jzj" name="currency" typeRef="string" />
       <rule id="DecisionRule_0w3rg7k">
         <inputEntry id="UnaryTests_033u831">
-          <text></text>
+          <text>"Sars_Cov_2"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0xlqgh8">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0cvui9m">
-          <text></text>
+          <text>"low"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0jz2hgh">
-          <text>100</text>
+          <text>106</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_0epl8g4">
-          <text>"CHF"</text>
+      </rule>
+      <rule id="DecisionRule_0uuw5db">
+        <inputEntry id="UnaryTests_137jd7p">
+          <text>"Sars_Cov_2"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0366y01">
+          <text>"medium"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_17pwpj0">
+          <text>126</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0eiwgeq">
+        <inputEntry id="UnaryTests_0ifrhgw">
+          <text>"Sars_Cov_2"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_15zj7n4">
+          <text>"high"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_06q7sig">
+          <text>146</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0qlcoer">
+        <inputEntry id="UnaryTests_1vqz30s">
+          <text>"HIV"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1vu7fsy">
+          <text>"low"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0sogr58">
+          <text>60</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_173tygf">
+        <inputEntry id="UnaryTests_15a7vse">
+          <text>"HIV"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_16pbelh">
+          <text>"medium"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0c31qs0">
+          <text>120</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1ofx625">
+        <inputEntry id="UnaryTests_0dr4pu4">
+          <text>"HIV"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ram0xo">
+          <text>"high"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1os4igi">
+          <text>180</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_006dlyy">
+        <inputEntry id="UnaryTests_14opuvv">
+          <text>"THC"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14ueej2">
+          <text>"low"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1lvby93">
+          <text>69</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1s5cca6">
+        <inputEntry id="UnaryTests_0ed4ffc">
+          <text>"THC"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0g175v9">
+          <text>"medium"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1utw4sg">
+          <text>79</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1ib9t8e">
+        <inputEntry id="UnaryTests_10m4ypc">
+          <text>"THC"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1bb58rs">
+          <text>"high"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1rw9ryr">
+          <text>89</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1dfo4j3">
+        <inputEntry id="UnaryTests_1b9ida9">
+          <text>"Tissue"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_028exss">
+          <text>"low"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0iwpbfi">
+          <text>329</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0r0zft4">
+        <inputEntry id="UnaryTests_0zmhoy8">
+          <text>"Tissue"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1if6ika">
+          <text>"medium"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1hpy6wc">
+          <text>369</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1xmk1b4">
+        <inputEntry id="UnaryTests_1xgkrk5">
+          <text>"Tissue"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1yqjh88">
+          <text>"high"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_10zrcff">
+          <text>449</text>
         </outputEntry>
       </rule>
     </decisionTable>

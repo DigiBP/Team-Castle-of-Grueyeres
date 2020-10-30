@@ -7,41 +7,53 @@
           <text>analysis</text>
         </inputExpression>
       </input>
-      <output id="OutputClause_1n41x3g" label="temperature" name="temperature" typeRef="double" />
-      <output id="OutputClause_0tgfbc0" label="hazard category" name="hazardCategory" typeRef="string" />
-      <output id="OutputClause_0v7f1xi" label="package type" name="packageType" typeRef="string" />
-      <output id="OutputClause_0ltet5m" label="sample type" name="sampleType" typeRef="string" />
+      <output id="OutputClause_0tgfbc0" label="biohazard" name="biohazard" typeRef="boolean" />
+      <output id="OutputClause_0swr8pl" label="Severity of Misclassification" typeRef="string">
+        <outputValues id="UnaryTests_1uu13an">
+          <text>"low","medium","high"</text>
+        </outputValues>
+      </output>
       <rule id="DecisionRule_1t42wsa">
         <inputEntry id="UnaryTests_0vvn9oz">
-          <text>"sars_cov_2"</text>
+          <text>"Sars_Cov_2"</text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_1qvqobr">
-          <text>10</text>
-        </outputEntry>
         <outputEntry id="LiteralExpression_1joh5we">
-          <text></text>
+          <text>true</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_1ai7mg0">
-          <text>"LETTER"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0dbb5ql">
-          <text>"BLOOD"</text>
+        <outputEntry id="LiteralExpression_11ng0dl">
+          <text>"medium"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1q6n0xm">
         <inputEntry id="UnaryTests_0zji8ox">
-          <text>not("sars_cov_2")</text>
+          <text>"Tissue"</text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_08qdsqp">
-          <text></text>
-        </outputEntry>
         <outputEntry id="LiteralExpression_10x5fkj">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1k2r1ss">
+          <text>"high"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_009a5h5">
+        <inputEntry id="UnaryTests_0qbbb7u">
+          <text>"THC"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1n0xpqy">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0hh3pwe">
+          <text>"low"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1crarzp">
+        <inputEntry id="UnaryTests_02ip2et">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1s8cy60">
           <text></text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_1rn715f">
-          <text></text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_17u78pq">
+        <outputEntry id="LiteralExpression_15c9gqn">
           <text></text>
         </outputEntry>
       </rule>

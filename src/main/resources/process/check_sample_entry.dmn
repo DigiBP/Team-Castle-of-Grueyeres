@@ -60,10 +60,10 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1y84wqk">
-          <text>"URINE"</text>
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_07xcrco">
-          <text></text>
+          <text>"URINE"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1ehvgwt">
           <text>"CANCELLED"</text>
@@ -89,10 +89,10 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_07lzx88">
-          <text>"BLOOD"</text>
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0gtkwdc">
-          <text></text>
+          <text>"BLOOD"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1x7egaa">
           <text>"CANCELLED"</text>

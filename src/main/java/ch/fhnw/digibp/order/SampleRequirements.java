@@ -46,10 +46,14 @@ public class SampleRequirements extends AbstractEntity {
         map.put(prefix + "temperature", getTemperature());
         map.put(prefix + "hazardCategory", getHazardCategory());
         if (getPackageType() != null) {
-            map.put(prefix + "packageType", getPackageType());
+            map.put(prefix + "packageType", getPackageType().name());
+        } else {
+            map.put(prefix + "packageType", null);
         }
         if (getSampleType() != null) {
-            map.put(prefix + "sampleType", getSampleType());
+            map.put(prefix + "sampleType", getSampleType().name());
+        } else {
+            map.put(prefix + "sampleType", null);
         }
         return map;
     }

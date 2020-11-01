@@ -6,38 +6,38 @@
 <body>
 <h1>Form</h1>
 <form action="#" th:action="@{/sample/{path}(path=${uuid})}" th:object="${sample}" method="post">
-    <p>Damaged: <input type="checkbox" th:field="*{damaged}"/></p>
+    <p>Damaged: <input id="damaged" type="checkbox" th:field="*{damaged}"/></p>
     <p>
         Sample Type:
-        <select name="sampleType" th:field="*{sampleType}">
+        <select id="sampleType" name="sampleType" th:field="*{sampleType}">
             <option th:each="sampleTypeOpt : ${T(ch.fhnw.digibp.domain.SampleType).values()}"
                     th:value="${sampleTypeOpt}" th:text="${sampleTypeOpt}"></option>
         </select>
     </p>
     <p>
         Package Type:
-        <select name="sampleType" th:field="*{packageType}">
+        <select id="packageType" name="packageType" th:field="*{packageType}">
             <option th:each="packageTypeOpt : ${T(ch.fhnw.digibp.domain.PackageType).values()}"
                     th:value="${packageTypeOpt}" th:text="${packageTypeOpt}"></option>
         </select>
     </p>
     <p>
         Amount:
-        <input type="number" th:field="*{amount}"/>
-        <select name="amountUnit" th:field="*{amountUnit}">
+        <input id="amount" type="number" th:field="*{amount}"/>
+        <select id="amountUnit" name="amountUnit" th:field="*{amountUnit}">
             <option th:each="amountUnitOpt : ${T(ch.fhnw.digibp.sample.Sample.AmountUnit).values()}"
                     th:value="${amountUnitOpt}" th:text="${amountUnitOpt}"></option>
         </select>
     </p>
     <p>
         Temperature:
-        <input type="number" th:field="*{temperature}"/>
-        <select name="temperatureUnit" th:field="*{temperatureUnit}">
+        <input id="temperature" type="number" th:field="*{temperature}"/>
+        <select id="temperatureUnit" name="temperatureUnit" th:field="*{temperatureUnit}">
             <option th:each="temperatureUnitOpt : ${T(ch.fhnw.digibp.sample.Sample.TemperatureUnit).values()}"
                     th:value="${temperatureUnitOpt}" th:text="${temperatureUnitOpt}"></option>
         </select>
     </p>
-    <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
+    <p><input id="submit" type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
 </form>
 </body>
 </html>

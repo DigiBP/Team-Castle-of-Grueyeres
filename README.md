@@ -3,7 +3,7 @@
 [![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 [![Deploy to Heroku](https://img.shields.io/badge/deploy%20to-Heroku-6762a6.svg?longCache=true)](https://heroku.com/deploy)
 
-![Java CI with Maven](https://github.com/DigiBP/Team-Castle-of-Grueyeres/workflows/Java%20CI%20with%20Maven/badge.svg?branch=develop)
+![Java CI with Maven](https://github.com/DigiBP/Team-Castle-of-Grueyeres/workflows/Java%20CI%20with%20Maven/badge.svg?branch=feature/initial_setup)
 
 ## Releases
 

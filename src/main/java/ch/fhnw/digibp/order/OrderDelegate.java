@@ -36,7 +36,9 @@ public class OrderDelegate implements JavaDelegate {
 
     private void storeOrder(DelegateExecution execution) {
         Order order = new Order(execution.getVariables());
-        orderRepository.save(order);
+        order = orderRepository.save(order);
+        execution.getVariables().clear();
+        execution.setVariables(order.toMap());
         LOGGER.info("Persisting order {}", order);
     }
 

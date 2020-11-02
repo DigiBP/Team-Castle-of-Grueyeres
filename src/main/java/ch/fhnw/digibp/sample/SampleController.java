@@ -1,7 +1,6 @@
 package ch.fhnw.digibp.sample;
 
 import java.time.ZonedDateTime;
-import java.util.Map;
 import java.util.Optional;
 
 import ch.fhnw.digibp.order.Order;
@@ -56,18 +55,8 @@ public class SampleController {
         model.addAttribute("sample", order.getSample());
         model.addAttribute("uuid", orderUuid);
 
-        runtimeService.startProcessInstanceByKey("sample_entry", order.getUuid(), loadProcessContext(order));
+        runtimeService.startProcessInstanceByKey("sample_entry", order.getUuid(), order.toMap());
         return "redirect:/order/" + orderUuid;
-    }
-
-    /**
-     * This is a workaround, since I didn't find any better solution for now
-     */
-    public Map<String, Object> loadProcessContext(Order order) {
-        Map<String, Object> processContext = order.toMap();
-        processContext.putAll(order.getSample().toMapWithPrefix());
-        processContext.putAll(order.getSampleRequirements().toMapWithPrefix());
-        return processContext;
     }
 
     private Order find(String orderUuid) {

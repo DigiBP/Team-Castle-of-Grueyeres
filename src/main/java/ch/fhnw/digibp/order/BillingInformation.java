@@ -12,7 +12,7 @@ import ch.fhnw.digibp.AbstractEntity;
 @Embeddable
 public class BillingInformation extends AbstractEntity {
     @Column
-    private Currency currency;
+    private Currency currency = Currency.getInstance("CHF");
     @Column
     private double price;
 
@@ -20,7 +20,7 @@ public class BillingInformation extends AbstractEntity {
     }
 
     public BillingInformation(Map<String, Object> map) {
-        this.price = getDouble("price", map);
+        this.price = getDouble("billingInformation.price", map);
         loadCurrency(map);
     }
 
@@ -40,19 +40,27 @@ public class BillingInformation extends AbstractEntity {
         this.price = price;
     }
 
-    @Override
-    public Map<String, Object> toMap() {
+    private Map<String, Object> toMapWithPrefix(String prefix) {
         Map<String, Object> map = new HashMap<>();
-        map.put("price", getPrice());
+        map.put(prefix + "price", getPrice());
         if (getCurrency() != null) {
-            map.put("currency", getCurrency().getCurrencyCode());
+            map.put(prefix + "currency", getCurrency().getCurrencyCode());
         }
         return map;
     }
 
+    public Map<String, Object> toMapWithPrefix() {
+        return toMapWithPrefix("billingInformation.");
+    }
+
+    @Override
+    public Map<String, Object> toMap() {
+        return toMapWithPrefix("");
+    }
+
     private void loadCurrency(Map<String, Object> map) {
-        if (mapHasKey("currency", map)) {
-            currency = Currency.getInstance((String) map.get("currency"));
+        if (mapHasKey("billingInformation.currency", map)) {
+            currency = Currency.getInstance((String) map.get("billingInformation.currency"));
         }
     }
 

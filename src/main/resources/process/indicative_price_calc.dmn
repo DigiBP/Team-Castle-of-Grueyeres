@@ -12,16 +12,16 @@
           <text></text>
         </inputExpression>
         <inputValues id="UnaryTests_0e47a2f">
-          <text>"low","medium","high"</text>
+          <text>"LOW","HIGH","MEDIUM"</text>
         </inputValues>
       </input>
-      <output id="Output_1" label="price" name="price" typeRef="double" />
+      <output id="Output_1" label="price" name="billingInformation.price" typeRef="double" />
       <rule id="DecisionRule_0w3rg7k">
         <inputEntry id="UnaryTests_033u831">
           <text>"Sars_Cov_2"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0xlqgh8">
-          <text>"low"</text>
+          <text>"LOW"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0jz2hgh">
           <text>106</text>
@@ -32,7 +32,7 @@
           <text>"Sars_Cov_2"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0366y01">
-          <text>"medium"</text>
+          <text>"MEDIUM"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_17pwpj0">
           <text>126</text>
@@ -43,7 +43,7 @@
           <text>"Sars_Cov_2"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_15zj7n4">
-          <text>"high"</text>
+          <text>"HIGH"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_06q7sig">
           <text>146</text>
@@ -54,7 +54,7 @@
           <text>"HIV"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1vu7fsy">
-          <text>"low"</text>
+          <text>"LOW"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0sogr58">
           <text>60</text>
@@ -65,7 +65,7 @@
           <text>"HIV"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_16pbelh">
-          <text>"medium"</text>
+          <text>"MEDIUM"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0c31qs0">
           <text>120</text>
@@ -76,7 +76,7 @@
           <text>"HIV"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0ram0xo">
-          <text>"high"</text>
+          <text>"HIGH"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1os4igi">
           <text>180</text>
@@ -87,7 +87,7 @@
           <text>"THC"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_14ueej2">
-          <text>"low"</text>
+          <text>"LOW"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1lvby93">
           <text>69</text>
@@ -98,7 +98,7 @@
           <text>"THC"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0g175v9">
-          <text>"medium"</text>
+          <text>"MEDIUM"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1utw4sg">
           <text>79</text>
@@ -109,7 +109,7 @@
           <text>"THC"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1bb58rs">
-          <text>"high"</text>
+          <text>"HIGH"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1rw9ryr">
           <text>89</text>
@@ -120,7 +120,7 @@
           <text>"Tissue"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_028exss">
-          <text>"low"</text>
+          <text>"LOW"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0iwpbfi">
           <text>329</text>
@@ -131,7 +131,7 @@
           <text>"Tissue"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1if6ika">
-          <text>"medium"</text>
+          <text>"MEDIUM"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1hpy6wc">
           <text>369</text>
@@ -142,7 +142,7 @@
           <text>"Tissue"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1yqjh88">
-          <text>"high"</text>
+          <text>"HIGH"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_10zrcff">
           <text>449</text>

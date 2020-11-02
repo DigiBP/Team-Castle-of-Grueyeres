@@ -7,12 +7,13 @@
           <text>analysis</text>
         </inputExpression>
       </input>
-      <output id="OutputClause_0tgfbc0" label="biohazard" name="biohazard" typeRef="boolean" />
-      <output id="OutputClause_0swr8pl" label="Severity of Misclassification" typeRef="string">
+      <output id="OutputClause_0tgfbc0" label="biohazard" name="sampleRequirements.biohazard" typeRef="boolean" />
+      <output id="OutputClause_0swr8pl" label="Severity of Misclassification" name="sampleRequirements.severityOfMisClassification" typeRef="string">
         <outputValues id="UnaryTests_1uu13an">
-          <text>"low","medium","high"</text>
+          <text>"LOW","HIGH","MEDIUM"</text>
         </outputValues>
       </output>
+      <output id="OutputClause_1s1o2js" label="Sample Type" name="sampleRequirements.sampleType" typeRef="string" />
       <rule id="DecisionRule_1t42wsa">
         <inputEntry id="UnaryTests_0vvn9oz">
           <text>"Sars_Cov_2"</text>
@@ -21,7 +22,10 @@
           <text>true</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_11ng0dl">
-          <text>"medium"</text>
+          <text>"MEDIUM"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1doyxpm">
+          <text>"SALIVA"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1q6n0xm">
@@ -32,7 +36,10 @@
           <text>false</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1k2r1ss">
-          <text>"high"</text>
+          <text>"HIGH"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1cc10vo">
+          <text>"TISSUE"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_009a5h5">
@@ -43,18 +50,10 @@
           <text>false</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0hh3pwe">
-          <text>"low"</text>
+          <text>"LOW"</text>
         </outputEntry>
-      </rule>
-      <rule id="DecisionRule_1crarzp">
-        <inputEntry id="UnaryTests_02ip2et">
-          <text></text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_1s8cy60">
-          <text></text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_15c9gqn">
-          <text></text>
+        <outputEntry id="LiteralExpression_1x4u0d6">
+          <text>"URINE"</text>
         </outputEntry>
       </rule>
     </decisionTable>

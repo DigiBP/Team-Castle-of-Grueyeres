@@ -35,6 +35,8 @@ public class Sample extends AbstractEntity {
     @Column
     private double temperature;
     @Column
+    private boolean temperatureIndicatorOk;
+    @Column
     private ZonedDateTime entryDate;
     @Column
     private ZonedDateTime updateDate;
@@ -43,14 +45,15 @@ public class Sample extends AbstractEntity {
     }
 
     public Sample(Map<String, Object> map) {
-        id = getLong("id", map);
-        damaged = getBoolean("damaged", map);
+        id = getLong("sample.id", map);
+        damaged = getBoolean("sample.damaged", map);
         this.packageType = PackageType.valueOf(map);
-        this.sampleType = SampleType.valueOf(map);
-        amount = getDouble("amount", map);
-        temperature = getDouble("temperature", map);
-        entryDate = getZonedDateTime("entryDate", map);
-        updateDate = getZonedDateTime("updateDate", map);
+        this.sampleType = SampleType.valueOf("sample.sampleType", map);
+        amount = getDouble("sample.amount", map);
+        temperature = getDouble("sample.temperature", map);
+        entryDate = getZonedDateTime("sample.entryDate", map);
+        updateDate = getZonedDateTime("sample.updateDate", map);
+        temperatureIndicatorOk = getBoolean("sample.temperatureIndicatorOk", map);
     }
 
 
@@ -155,6 +158,14 @@ public class Sample extends AbstractEntity {
         this.packageType = packageType;
     }
 
+    public boolean isTemperatureIndicatorOk() {
+        return temperatureIndicatorOk;
+    }
+
+    public void setTemperatureIndicatorOk(boolean temperatureIndicatorOk) {
+        this.temperatureIndicatorOk = temperatureIndicatorOk;
+    }
+
     @Override
     public String toString() {
         return "Sample{" +
@@ -164,9 +175,10 @@ public class Sample extends AbstractEntity {
                 ", packageType=" + packageType +
                 ", amount=" + amount +
                 ", temperature=" + temperature +
+                ", temperatureIndicatorOk=" + temperatureIndicatorOk +
                 ", entryDate=" + entryDate +
                 ", updateDate=" + updateDate +
                 '}';
     }
-    
+
 }

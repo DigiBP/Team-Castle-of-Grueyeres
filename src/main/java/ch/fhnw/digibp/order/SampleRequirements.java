@@ -7,7 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 import ch.fhnw.digibp.AbstractEntity;
-import ch.fhnw.digibp.domain.PackageType;
+import ch.fhnw.digibp.domain.Priority;
 import ch.fhnw.digibp.domain.SampleType;
 
 @Embeddable
@@ -20,11 +20,11 @@ public class SampleRequirements extends AbstractEntity {
     @Column
     private double temperature;
     @Column
-    private String hazardCategory;
-    @Column
-    private PackageType packageType;
+    private Priority severityOfMisClassification;
     @Column
     private SampleType sampleType;
+    @Column
+    private boolean biohazard;
     @Column
     private TestingMethod testingMethod;
 
@@ -32,10 +32,10 @@ public class SampleRequirements extends AbstractEntity {
     }
 
     public SampleRequirements(Map<String, Object> map) {
-        this.temperature = getDouble("temperature", map);
-        this.hazardCategory = getString("hazardCategory", map);
-        this.packageType = PackageType.valueOf(map);
-        this.sampleType = SampleType.valueOf(map);
+        this.temperature = getDouble("sampleRequirements.temperature", map);
+        this.biohazard = getBoolean("sampleRequirements.biohazard", map);
+        this.sampleType = SampleType.valueOf("sampleRequirements.sampleType", map);
+        this.severityOfMisClassification = Priority.valueOf("sampleRequirements.severityOfMisClassification", map);
     }
 
     @Override
@@ -50,11 +50,11 @@ public class SampleRequirements extends AbstractEntity {
     private Map<String, Object> toMapWithPrefix(String prefix) {
         Map<String, Object> map = new HashMap<>();
         map.put(prefix + "temperature", getTemperature());
-        map.put(prefix + "hazardCategory", getHazardCategory());
-        if (getPackageType() != null) {
-            map.put(prefix + "packageType", getPackageType().name());
+        map.put(prefix + "biohazard", isBiohazard());
+        if (getSeverityOfMisClassification() != null) {
+            map.put(prefix + "severityOfMisClassification", getSeverityOfMisClassification().name());
         } else {
-            map.put(prefix + "packageType", null);
+            map.put(prefix + "severityOfMisClassification", null);
         }
         if (getSampleType() != null) {
             map.put(prefix + "sampleType", getSampleType().name());
@@ -72,22 +72,6 @@ public class SampleRequirements extends AbstractEntity {
         this.temperature = temperature;
     }
 
-    public String getHazardCategory() {
-        return hazardCategory;
-    }
-
-    public void setHazardCategory(String hazardCategory) {
-        this.hazardCategory = hazardCategory;
-    }
-
-    public PackageType getPackageType() {
-        return packageType;
-    }
-
-    public void setPackageType(PackageType packageType) {
-        this.packageType = packageType;
-    }
-
     public SampleType getSampleType() {
         return sampleType;
     }
@@ -96,13 +80,29 @@ public class SampleRequirements extends AbstractEntity {
         this.sampleType = sampleType;
     }
 
+    public Priority getSeverityOfMisClassification() {
+        return severityOfMisClassification;
+    }
+
+    public void setSeverityOfMisClassification(Priority severityOfMisClassification) {
+        this.severityOfMisClassification = severityOfMisClassification;
+    }
+
+    public boolean isBiohazard() {
+        return biohazard;
+    }
+
+    public void setBiohazard(boolean biohazard) {
+        this.biohazard = biohazard;
+    }
+
     @Override
     public String toString() {
         return "SampleRequirements{" +
                 "temperature=" + temperature +
-                ", hazardCategory='" + hazardCategory + '\'' +
-                ", packageType=" + packageType +
+                ", severityOfMisClassification=" + severityOfMisClassification +
                 ", sampleType=" + sampleType +
+                ", biohazard=" + biohazard +
                 '}';
     }
 }

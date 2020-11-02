@@ -18,6 +18,7 @@ import javax.persistence.Table;
 
 import ch.fhnw.digibp.AbstractEntity;
 import ch.fhnw.digibp.analysis.Analysis;
+import ch.fhnw.digibp.domain.Priority;
 import ch.fhnw.digibp.sample.Sample;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -39,7 +40,7 @@ public class Order extends AbstractEntity {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate orderDate;
     @Column
-    private Order.Priority priority;
+    private Priority priority = Priority.LOW;
     @Column
     @Enumerated(EnumType.STRING)
     private State state;
@@ -62,6 +63,7 @@ public class Order extends AbstractEntity {
         this.analysis = getString("analysis", map);
         this.comment = getString("comment", map);
         this.dueDate = getLocalDate("dueDate", map);
+        this.priority = Priority.valueOf("priority", map);
         loadState(map);
         loadSample(map);
         loadSampleRequirements(map);
@@ -124,10 +126,6 @@ public class Order extends AbstractEntity {
         this.sample = sample;
     }
 
-    public boolean isBiohazard() {
-        return sampleRequirements != null && sampleRequirements.getHazardCategory() != null;
-    }
-
     public BillingInformation getBillingInformation() {
         return billingInformation;
     }
@@ -168,6 +166,14 @@ public class Order extends AbstractEntity {
         this.analysisResult = analysisResult;
     }
 
+    public boolean isSampleTypeMismatch() {
+        return sample != null && sampleRequirements.getSampleType() != null && !sampleRequirements.getSampleType().equals(sample.getSampleType());
+    }
+
+    public boolean isTemperatureOk() {
+        return sample != null && sampleRequirements.getTemperature() == sample.getTemperature();
+    }
+
     @Override
     public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>();
@@ -177,15 +183,20 @@ public class Order extends AbstractEntity {
         map.put("comment", getComment());
         map.put("dueDate", toString(getDueDate()));
         map.put("state", getState().name());
-        map.put("biohazard", isBiohazard());
+        map.put("sampleTypeMismatch", isSampleTypeMismatch());
+        map.put("temperatureOk", isTemperatureOk());
+
         if (getSample() != null) {
-            map.put("sample", getSample().toMap());
+            map.putAll(getSample().toMapWithPrefix());
         }
         if (getSampleRequirements() != null) {
-            map.put("sampleRequirement", getSampleRequirements().toMap());
+            map.putAll(getSampleRequirements().toMapWithPrefix());
         }
         if (getBillingInformation() != null) {
-            map.put("billingInformation", getBillingInformation().toMap());
+            map.putAll(getBillingInformation().toMapWithPrefix());
+        }
+        if (getPriority() != null) {
+            map.put("priority", getPriority().name());
         }
         return map;
     }
@@ -199,18 +210,24 @@ public class Order extends AbstractEntity {
     private void loadSample(Map<String, Object> map) {
         if (mapHasKey("sample", map)) {
             sample = new Sample((Map<String, Object>) map.get("sample"));
+        } else {
+            sample = new Sample(map);
         }
     }
 
     private void loadSampleRequirements(Map<String, Object> map) {
         if (mapHasKey("sampleRequirements", map)) {
             sampleRequirements = new SampleRequirements((Map<String, Object>) map.get("sampleRequirements"));
+        } else {
+            sampleRequirements = new SampleRequirements(map);
         }
     }
 
     private void loadBillingInformation(Map<String, Object> map) {
         if (mapHasKey("billingInformation", map)) {
             billingInformation = new BillingInformation((Map<String, Object>) map.get("billingInformation"));
+        } else {
+            sampleRequirements = new SampleRequirements(map);
         }
     }
 
@@ -232,9 +249,5 @@ public class Order extends AbstractEntity {
 
     public enum State {
         NEW, CANCELLED, CONFIRMED, SAMPLE_RECEIVED, IN_ANALYSIS, ANALYSIS_DONE, DONE
-    }
-
-    public enum Priority {
-        HIGH, MEDIUM, LOW
     }
 }

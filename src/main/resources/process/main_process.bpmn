@@ -372,6 +372,7 @@
     </semantic:subProcess>
     <semantic:subProcess id="_a061e097-ce95-4d5a-80ac-8cbb81c6e466" name="Check Sample Entry">
       <semantic:incoming>_79358f4a-e7bd-442e-a38f-441b10cdae38</semantic:incoming>
+      <semantic:outgoing>Flow_0ffbic7</semantic:outgoing>
       <semantic:laneSet>
         <semantic:lane id="_c03ffa1b-ec4e-4ce8-aa96-b97e9e4e7e15" name="Logistician">
           <semantic:flowNodeRef>_8edcbca2-9109-42f6-9f04-079e30e61570</semantic:flowNodeRef>
@@ -521,6 +522,10 @@
     <semantic:sequenceFlow id="_db004e63-4272-4ebc-86d1-91763aa1d7e1" sourceRef="order_entry" targetRef="_ef666400-eac9-48e8-bf07-be37839f7e66" />
     <semantic:sequenceFlow id="_19077ce8-681f-472b-804f-c08510970e9d" sourceRef="_ccc7e41c-62cd-47f4-b19a-7a8aefe0b851" targetRef="order_entry" />
     <semantic:sequenceFlow id="_51ba41eb-79e2-4010-ab54-c6a19f18b404" sourceRef="_c537c8ea-7a1e-4174-bfd7-b85302231392" targetRef="_fdc011c5-a9c6-4fd4-91e0-e1ce1fbf6bd7" />
+    <semantic:endEvent id="Event_0i7l58m">
+      <semantic:incoming>Flow_0ffbic7</semantic:incoming>
+    </semantic:endEvent>
+    <semantic:sequenceFlow id="Flow_0ffbic7" sourceRef="_a061e097-ce95-4d5a-80ac-8cbb81c6e466" targetRef="Event_0i7l58m" />
   </semantic:process>
   <bpmndi:BPMNDiagram id="_0fbf4f1b-a8ad-4ba2-a28c-b70f657910d8" name="Digital">
     <bpmndi:BPMNPlane id="_0fbf4f1b-a8ad-4ba2-a28c-b70f657910d8_plane" bpmnElement="_65e02d2b-32cf-4afb-a709-4ac1f0a49601" trisobpmn:diagramWidth="4157.933982849121" trisobpmn:diagramHeight="1321">
@@ -576,6 +581,13 @@
         <di:waypoint x="1239" y="299.2530486434698" />
         <bpmndi:BPMNLabel labelStyle="LS_0fbf4f1b-a8ad-4ba2-a28c-b70f657910d8_0" color:color="#000000" triso:defaultBounds="true" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ffbic7_di" bpmnElement="Flow_0ffbic7">
+        <di:waypoint x="742" y="416" />
+        <di:waypoint x="792" y="416" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_0i7l58m_di" bpmnElement="Event_0i7l58m">
+        <dc:Bounds x="792" y="398" width="36" height="36" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="_b48e75a3-fc8c-499e-8827-83d52c8e4f95" bpmnElement="order_entry" triso:targetpage="_8db1f574-47a9-40a8-978b-10041c02a38d" color:background-color="#ffffff" color:border-color="#000000">
         <dc:Bounds x="305" y="261" width="96" height="76" />
         <bpmndi:BPMNLabel labelStyle="LS_0fbf4f1b-a8ad-4ba2-a28c-b70f657910d8_0" color:color="#000000" triso:defaultBounds="true">

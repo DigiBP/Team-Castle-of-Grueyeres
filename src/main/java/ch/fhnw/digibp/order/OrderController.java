@@ -49,7 +49,7 @@ public class OrderController {
     }
 
     @PostMapping("/order/{uuid}")
-    public String sample_submit(@ModelAttribute Order order, @ModelAttribute Sample sample, @PathVariable(name = "order") String orderUuid, Model model) {
+    public String sample_submit(@ModelAttribute Order order, @ModelAttribute Sample sample, @PathVariable(name = "uuid") String orderUuid, Model model) {
         order.setSample(sample);
         Order actualOrder = orderEntryService.update(order, orderUuid);
         model.addAttribute("order", actualOrder);

@@ -52,9 +52,10 @@ public class OrderEntryService {
 
     public Order update(Order order, String uuid) {
         Order persistedOrder = load(uuid);
+        persistedOrder.setComment(order.getComment());
         persistedOrder.setClientId(order.getClientId());
         persistedOrder.setDueDate(order.getDueDate());
-        return order;
+        return orderRepository.save(persistedOrder);
     }
 
     public Order load(String uuid) {

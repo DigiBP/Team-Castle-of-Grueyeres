@@ -1,6 +1,5 @@
 package ch.fhnw.digibp.order;
 
-import ch.fhnw.digibp.sample.Sample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +20,7 @@ public class OrderController {
     }
 
     @GetMapping("/order")
-    public String sample(Model model) {
+    public String order(Model model) {
         model.addAttribute("order", new Order());
         return "order-entry";
     }
@@ -33,7 +32,7 @@ public class OrderController {
     }
 
     @GetMapping("/order/{order}")
-    public String sample(Model model, @PathVariable(name = "order") String orderUuid) {
+    public String order(Model model, @PathVariable(name = "order") String orderUuid) {
         Order order = orderEntryService.load(orderUuid);
         model.addAttribute("order", order);
         model.addAttribute("uuid", orderUuid);
@@ -41,16 +40,14 @@ public class OrderController {
     }
 
     @PostMapping("/order/")
-    public String sample_submit(@ModelAttribute Order order, @ModelAttribute Sample sample, Model model) {
-        order.setSample(sample);
+    public String order_submit(@ModelAttribute Order order, Model model) {
         Order actualOrder = orderEntryService.create(order);
         model.addAttribute("order", actualOrder);
         return "redirect:" + order.getUuid();
     }
 
-    @PostMapping("/order/{uuid}")
-    public String sample_submit(@ModelAttribute Order order, @ModelAttribute Sample sample, @PathVariable(name = "uuid") String orderUuid, Model model) {
-        order.setSample(sample);
+    @PostMapping(value = "/order/{order}", params = "action=submit")
+    public String order_submit(@ModelAttribute Order order, @PathVariable(name = "order") String orderUuid, Model model) {
         Order actualOrder = orderEntryService.update(order, orderUuid);
         model.addAttribute("order", actualOrder);
         return "redirect:" + order.getUuid();

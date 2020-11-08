@@ -53,4 +53,18 @@ public class OrderController {
         return "redirect:" + order.getUuid();
     }
 
+    @PostMapping(value = "/order/{order}", params = "action=enterSample")
+    public String enter_sample(@ModelAttribute Order order, @PathVariable(name = "order") String orderUuid, Model model) {
+        return "redirect:/sample/" + order.getUuid();
+    }
+
+    @PostMapping(value = "/order/{order}", params = "action=startAnalysis")
+    public String start_order_analysis(@ModelAttribute Order order, @PathVariable(name = "order") String orderUuid, Model model) {
+        return "redirect:" + order.getUuid();
+    }
+
+    @PostMapping(value = "/order/{order}", params = "action=enterAnalysisResult")
+    public String enter_order_analysis(@ModelAttribute Order order, @PathVariable(name = "order") String orderUuid, Model model) {
+        return "redirect:" + order.getUuid();
+    }
 }

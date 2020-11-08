@@ -34,7 +34,7 @@ public class SampleController {
         this.runtimeService = runtimeService;
     }
 
-    @GetMapping("/sample/{order}")
+    @GetMapping("/order/{order}/sample")
     public String sample(Model model, @PathVariable(name = "order") String orderUuid) {
         Order order = find(orderUuid);
         if (order.getSample() == null) {
@@ -45,7 +45,7 @@ public class SampleController {
         return "sample-entry";
     }
 
-    @PostMapping("/sample/{order}")
+    @PostMapping("/order/{order}/sample")
     public String sample_submit(@ModelAttribute Sample sample, @PathVariable(name = "order") String orderUuid, Model model) {
         Order order = find(orderUuid);
         order.setSample(sample);
@@ -57,7 +57,7 @@ public class SampleController {
         model.addAttribute("uuid", orderUuid);
 
         runtimeService.startProcessInstanceByKey("sample_entry", order.getUuid(), loadProcessContext(order));
-        return "redirect:" + orderUuid;
+        return "redirect:/order/" + orderUuid + "/sample";
     }
 
     /**

@@ -33,7 +33,7 @@ class SampleControllerTest extends AbstractSeleniumTest {
 
     @Test
     public void test() {
-        openUrl("sample/" + TestDataFactory.ORDER_UUID);
+        openUrl("order/" + TestDataFactory.ORDER_UUID + "/sample");
 
         WebElement amount = findElementByCss("#amount");
         amount.clear();

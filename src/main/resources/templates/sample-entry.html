@@ -5,7 +5,7 @@
 </head>
 <body>
 <h1>Form</h1>
-<form action="#" th:action="@{/sample/{path}(path=${uuid})}" th:object="${sample}" method="post">
+<form action="#" th:action="@{/order/{path}/sample(path=${uuid})}" th:object="${sample}" method="post">
     <p>Damaged: <input id="damaged" type="checkbox" th:field="*{damaged}"/></p>
     <p>
         Sample Type:

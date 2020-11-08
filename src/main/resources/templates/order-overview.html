@@ -1,0 +1,29 @@
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Lab Order</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h1>Order Overview</h1>
+<table>
+    <thead>
+    <tr>
+        <th> UUID</th>
+        <th> Analysis</th>
+        <th> State</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${orders.empty}">
+        <td colspan="2"> No Orders</td>
+    </tr>
+    <tr th:each="order : ${orders}">
+        <td><span th:text="${order.uuid}"> UUID </span></td>
+        <td><span th:text="${order.analysis}"> Analysis </span></td>
+        <td><span th:text="${order.state}"> State </span></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
+

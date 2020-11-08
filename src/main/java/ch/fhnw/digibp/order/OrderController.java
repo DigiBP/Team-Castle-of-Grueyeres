@@ -12,16 +12,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class OrderController {
     private final OrderEntryService orderEntryService;
+    private final OrderRepository orderRepository;
 
     @Autowired
-    public OrderController(OrderEntryService orderEntryService) {
+    public OrderController(OrderEntryService orderEntryService, OrderRepository orderRepository) {
         this.orderEntryService = orderEntryService;
+        this.orderRepository = orderRepository;
     }
 
     @GetMapping("/order")
     public String sample(Model model) {
         model.addAttribute("order", new Order());
         return "order-entry";
+    }
+
+    @GetMapping("/orders")
+    public String ordersOverview(Model model) {
+        model.addAttribute("orders", orderRepository.findAll());
+        return "order-overview";
     }
 
     @GetMapping("/order/{order}")

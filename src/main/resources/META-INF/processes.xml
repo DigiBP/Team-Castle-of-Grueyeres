@@ -1,8 +1,10 @@
 <process-application xmlns="http://www.camunda.org/schema/1.0/ProcessApplication">
 
     <process-archive>
+        <resource>process/</resource>
         <properties>
-            <property name="resourceRootPath">process/</property>
+            <property name="isDeleteUponUndeploy">false</property>
+            <property name="isScanForProcessDefinitions">true</property>
         </properties>
     </process-archive>
 

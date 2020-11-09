@@ -57,7 +57,7 @@ public class SampleController {
         model.addAttribute("uuid", orderUuid);
 
         runtimeService.startProcessInstanceByKey("sample_entry", order.getUuid(), loadProcessContext(order));
-        return "redirect:/order/" + orderUuid + "/sample";
+        return "redirect:/order/" + orderUuid;
     }
 
     /**

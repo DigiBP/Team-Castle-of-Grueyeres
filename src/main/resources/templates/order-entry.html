@@ -22,6 +22,9 @@
         Comment:
         <textarea rows="5" th:field="*{comment}"/>
     </p>
+    <p th:if="${order.sample != null}">
+        <a th:href="@{/order/{path}/sample(path=${order.uuid})}">Sample</a>
+    </p>
     <button type="submit" name="action" value="submit">Save</button>
     <button th:if="${T(ch.fhnw.digibp.order.Order.State).CONFIRMED == order.state}" type="submit" name="action" value="enterSample">Enter Sample
     </button>

@@ -24,18 +24,10 @@
     <p>
         Amount:
         <input id="amount" type="number" th:field="*{amount}"/>
-        <select id="amountUnit" name="amountUnit" th:field="*{amountUnit}">
-            <option th:each="amountUnitOpt : ${T(ch.fhnw.digibp.sample.Sample.AmountUnit).values()}"
-                    th:value="${amountUnitOpt}" th:text="${amountUnitOpt}"></option>
-        </select>
     </p>
     <p>
         Temperature:
         <input id="temperature" type="number" th:field="*{temperature}"/>
-        <select id="temperatureUnit" name="temperatureUnit" th:field="*{temperatureUnit}">
-            <option th:each="temperatureUnitOpt : ${T(ch.fhnw.digibp.sample.Sample.TemperatureUnit).values()}"
-                    th:value="${temperatureUnitOpt}" th:text="${temperatureUnitOpt}"></option>
-        </select>
     </p>
     <p><input id="submit" type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
 </form>

@@ -33,11 +33,7 @@ public class Sample extends AbstractEntity {
     @Column
     private double amount;
     @Column
-    private AmountUnit amountUnit;
-    @Column
     private double temperature;
-    @Column
-    private TemperatureUnit temperatureUnit;
     @Column
     private ZonedDateTime entryDate;
     @Column
@@ -52,9 +48,7 @@ public class Sample extends AbstractEntity {
         this.packageType = PackageType.valueOf(map);
         this.sampleType = SampleType.valueOf(map);
         amount = getDouble("amount", map);
-        loadAmountUnit(map);
         temperature = getDouble("temperature", map);
-        loadTemperatureUnit(map);
         entryDate = getZonedDateTime("entryDate", map);
         updateDate = getZonedDateTime("updateDate", map);
     }
@@ -76,9 +70,7 @@ public class Sample extends AbstractEntity {
         map.put(prefix + "sampleType", getSampleTypeValue());
         map.put(prefix + "packageType", getPackageTypeValue());
         map.put(prefix + "amount", getAmount());
-        map.put(prefix + "amountUnit", getAmountUnitValue());
         map.put(prefix + "temperature", getTemperature());
-        map.put(prefix + "temperatureUnit", getTemperatureUnitValue());
         map.put(prefix + "entryDate", toString(getEntryDate()));
         map.put(prefix + "updateDate", toString(getUpdateDate()));
         return map;
@@ -126,50 +118,12 @@ public class Sample extends AbstractEntity {
         this.amount = amount;
     }
 
-    public AmountUnit getAmountUnit() {
-        return amountUnit;
-    }
-
-    private void loadAmountUnit(Map<String, Object> map) {
-        if (mapHasKey("amountUnit", map)) {
-            amountUnit = AmountUnit.valueOf((String) map.get("amountUnit"));
-        }
-    }
-
-    public void loadAmountUnit(AmountUnit amountUnit) {
-        this.amountUnit = amountUnit;
-    }
-
-    @JsonIgnore
-    public String getAmountUnitValue() {
-        return amountUnit != null ? amountUnit.name() : null;
-    }
-
     public double getTemperature() {
         return temperature;
     }
 
     public void setTemperature(double temperature) {
         this.temperature = temperature;
-    }
-
-    public TemperatureUnit getTemperatureUnit() {
-        return temperatureUnit;
-    }
-
-    private void loadTemperatureUnit(Map<String, Object> map) {
-        if (mapHasKey("temperatureUnit", map)) {
-            temperatureUnit = TemperatureUnit.valueOf((String) map.get("temperatureUnit"));
-        }
-    }
-
-    public void loadTemperatureUnit(TemperatureUnit temperatureUnit) {
-        this.temperatureUnit = temperatureUnit;
-    }
-
-    @JsonIgnore
-    public String getTemperatureUnitValue() {
-        return temperatureUnit != null ? temperatureUnit.name() : null;
     }
 
     public ZonedDateTime getEntryDate() {
@@ -197,14 +151,6 @@ public class Sample extends AbstractEntity {
         this.sampleType = sampleType;
     }
 
-    public void setAmountUnit(AmountUnit amountUnit) {
-        this.amountUnit = amountUnit;
-    }
-
-    public void setTemperatureUnit(TemperatureUnit temperatureUnit) {
-        this.temperatureUnit = temperatureUnit;
-    }
-
     public void setPackageType(PackageType packageType) {
         this.packageType = packageType;
     }
@@ -217,19 +163,10 @@ public class Sample extends AbstractEntity {
                 ", sampleType=" + sampleType +
                 ", packageType=" + packageType +
                 ", amount=" + amount +
-                ", amountUnit=" + amountUnit +
                 ", temperature=" + temperature +
-                ", temperatureUnit=" + temperatureUnit +
                 ", entryDate=" + entryDate +
                 ", updateDate=" + updateDate +
                 '}';
     }
-
-    public enum AmountUnit {
-        MILLIGRAM, MILLILITER
-    }
-
-    public enum TemperatureUnit {
-        CELSIUS, FAHRENHEIT
-    }
+    
 }

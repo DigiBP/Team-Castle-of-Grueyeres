@@ -1,0 +1,43 @@
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Sample Entry</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h1>Form</h1>
+<form action="#" th:action="@{/order/{path}/analysis(path=${uuid})}" th:object="${analysis}" method="post">
+    <p>
+        Start Date:
+        <input type="date" th:value="*{startDate}" th:field="*{startDate}" disabled/>
+    </p>
+
+    <p>
+        End Date:
+        <input type="date" th:value="*{endDate}" th:field="*{endDate}" disabled/>
+    </p>
+    <p>
+        Result Category:
+        <select id="sampleType" name="resultCategory" th:field="*{resultCategory}">
+            <option th:each="resultCategoryOpt : ${T(ch.fhnw.digibp.analysis.Analysis.ResultCategory).values()}"
+                    th:value="${resultCategoryOpt}" th:text="${resultCategoryOpt}"></option>
+        </select>
+    </p>
+    <p>
+        Result Description:
+        <input id="resultDescription" type="text" th:field="*{resultDescription}"/>
+    </p>
+    <p>
+        Method Description:
+        <input id="methodDescription" type="text" th:field="*{methodDescription}"/>
+    </p>
+    <p>
+        Remarks:
+        <input id="remarks" type="text" th:field="*{remarks}"/>
+    </p>
+    <p>
+        <button type="submit" name="action" value="save">Save</button>
+    </p>
+</form>
+</body>
+</html>
+

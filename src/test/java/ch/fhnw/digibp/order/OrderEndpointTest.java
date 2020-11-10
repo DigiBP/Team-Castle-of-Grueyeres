@@ -30,7 +30,7 @@ class OrderEndpointTest extends AbstractIntegrationTest {
 
     private static final String ENDPOINT = "api/order";
     private static final String REQUEST_BODY = "{\"clientId\":\"test\",\"analysis\":\"sars_cov_2\",\"comment\":\"please analyse this :)\"}";
-    private static final String RESPONSE_BODY = "{\"uuid\":\"0a5fa6c2-329f-45ee-9925-13aed405dfde\",\"clientId\":\"test\",\"analysis\":\"sars_cov_2\",\"comment\":\"please analyse this :)\",\"dueDate\":null,\"priority\":null,\"state\":null,\"sample\":null,\"billingInformation\":{\"currency\":null,\"price\":0.0},\"sampleRequirements\":{\"temperature\":0.0,\"hazardCategory\":null,\"packageType\":null,\"sampleType\":null},\"biohazard\":false}";
+    private static final String RESPONSE_BODY = "{\"uuid\":\"0a5fa6c2-329f-45ee-9925-13aed405dfde\",\"clientId\":\"test\",\"analysis\":\"sars_cov_2\",\"comment\":\"please analyse this :)\",\"dueDate\":null,\"orderDate\":null,\"priority\":null,\"state\":null,\"sample\":null,\"billingInformation\":{\"currency\":null,\"price\":0.0},\"sampleRequirements\":{\"temperature\":0.0,\"hazardCategory\":null,\"packageType\":null,\"sampleType\":null},\"analysisResult\":null,\"biohazard\":false}";
 
     @LocalServerPort
     private int port;

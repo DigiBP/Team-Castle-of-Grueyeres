@@ -17,6 +17,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import ch.fhnw.digibp.AbstractEntity;
+import ch.fhnw.digibp.analysis.Analysis;
 import ch.fhnw.digibp.sample.Sample;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -35,6 +36,9 @@ public class Order extends AbstractEntity {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dueDate;
     @Column
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate orderDate;
+    @Column
     private Order.Priority priority;
     @Column
     @Enumerated(EnumType.STRING)
@@ -46,6 +50,8 @@ public class Order extends AbstractEntity {
     private BillingInformation billingInformation = new BillingInformation();
     @Embedded
     private SampleRequirements sampleRequirements = new SampleRequirements();
+    @Embedded
+    private Analysis analysisResult;
 
     public Order() {
     }
@@ -146,6 +152,22 @@ public class Order extends AbstractEntity {
         this.priority = priority;
     }
 
+    public LocalDate getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(LocalDate orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public Analysis getAnalysisResult() {
+        return analysisResult;
+    }
+
+    public void setAnalysisResult(Analysis analysisResult) {
+        this.analysisResult = analysisResult;
+    }
+
     @Override
     public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>();
@@ -209,7 +231,7 @@ public class Order extends AbstractEntity {
     }
 
     public enum State {
-        NEW, CANCELLED, CONFIRMED, SAMPLE_RECEIVED, ANALYSIS, DONE
+        NEW, CANCELLED, CONFIRMED, SAMPLE_RECEIVED, IN_ANALYSIS, ANALYSIS_DONE, DONE
     }
 
     public enum Priority {

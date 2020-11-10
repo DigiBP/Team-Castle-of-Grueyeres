@@ -13,6 +13,10 @@ import ch.fhnw.digibp.domain.SampleType;
 @Embeddable
 public class SampleRequirements extends AbstractEntity {
 
+    public enum TestingMethod {
+        TEST
+    }
+
     @Column
     private double temperature;
     @Column
@@ -21,6 +25,8 @@ public class SampleRequirements extends AbstractEntity {
     private PackageType packageType;
     @Column
     private SampleType sampleType;
+    @Column
+    private TestingMethod testingMethod;
 
     public SampleRequirements() {
     }

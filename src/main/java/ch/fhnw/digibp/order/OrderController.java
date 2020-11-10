@@ -1,5 +1,8 @@
 package ch.fhnw.digibp.order;
 
+import java.time.LocalDate;
+
+import ch.fhnw.digibp.analysis.Analysis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -59,8 +62,13 @@ public class OrderController {
     }
 
     @PostMapping(value = "/order/{order}", params = "action=startAnalysis")
-    public String start_order_analysis(@ModelAttribute Order order, @PathVariable(name = "order") String orderUuid, Model model) {
-        return "redirect:" + order.getUuid();
+    public String start_order_analysis(@ModelAttribute Order order, @PathVariable(name = "order") String orderUuid) {
+        Analysis analysis = new Analysis();
+        analysis.setStartDate(LocalDate.now());
+        order.setAnalysisResult(analysis);
+        order.setState(Order.State.IN_ANALYSIS);
+        orderRepository.save(order);
+        return "redirect:" + orderUuid + "/analysis";
     }
 
     @PostMapping(value = "/order/{order}", params = "action=enterAnalysisResult")

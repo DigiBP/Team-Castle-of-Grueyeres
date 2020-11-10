@@ -25,12 +25,15 @@
     <p th:if="${order.sample != null}">
         <a th:href="@{/order/{path}/sample(path=${order.uuid})}">Sample</a>
     </p>
+    <p th:if="${order.analysisResult != null}">
+        <a th:href="@{/order/{path}/analysis(path=${order.uuid})}">Analysis Result</a>
+    </p>
     <button type="submit" name="action" value="submit">Save</button>
     <button th:if="${T(ch.fhnw.digibp.order.Order.State).CONFIRMED == order.state}" type="submit" name="action" value="enterSample">Enter Sample
     </button>
     <button th:if="${T(ch.fhnw.digibp.order.Order.State).SAMPLE_RECEIVED == order.state}" type="submit" name="action" value="startAnalysis">Start Analysis
     </button>
-    <button th:if="${T(ch.fhnw.digibp.order.Order.State).ANALYSIS == order.state}" type="submit" name="action" value="enterAnalysisResult">Enter Analysis
+    <button th:if="${T(ch.fhnw.digibp.order.Order.State).IN_ANALYSIS == order.state}" type="submit" name="action" value="enterAnalysisResult">Enter Analysis
         Results
     </button>
     </p>

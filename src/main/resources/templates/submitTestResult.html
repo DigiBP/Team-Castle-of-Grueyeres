@@ -35,7 +35,10 @@
         <input id="remarks" type="text" th:field="*{remarks}"/>
     </p>
     <p>
-        <button type="submit" name="action" value="save">Save</button>
+        <button th:if="${T(ch.fhnw.digibp.order.Order.State).IN_ANALYSIS == order.state}" type="submit" name="action" value="save">Save</button>
+        <button th:if="${T(ch.fhnw.digibp.order.Order.State).ANALYSIS_DONE == order.state}" type="submit" name="action" value="confirm">Confirm Analysis
+        </button>
+        <button th:if="${T(ch.fhnw.digibp.order.Order.State).ANALYSIS_DONE == order.state}" type="submit" name="action" value="save">Reject Analysis</button>
     </p>
 </form>
 </body>

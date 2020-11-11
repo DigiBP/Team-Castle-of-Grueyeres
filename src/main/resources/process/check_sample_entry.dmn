@@ -7,12 +7,12 @@
           <text></text>
         </inputExpression>
       </input>
-      <input id="InputClause_0ev69uq" label="temperature indicator okay" camunda:inputVariable="temperatureOk">
+      <input id="InputClause_0ev69uq" label="temperature indicator okay" biodi:width="265" camunda:inputVariable="sample.temperatureIndicatorOk">
         <inputExpression id="LiteralExpression_0ww8f7g" typeRef="boolean">
           <text></text>
         </inputExpression>
       </input>
-      <input id="InputClause_1u0c9lt" label="sample type missmatch" camunda:inputVariable="sampleTypeMismatch">
+      <input id="InputClause_1u0c9lt" label="sample type missmatch" biodi:width="223" camunda:inputVariable="sampleTypeMismatch">
         <inputExpression id="LiteralExpression_1g0jw54" typeRef="boolean">
           <text></text>
         </inputExpression>
@@ -23,15 +23,15 @@
         </outputValues>
       </output>
       <rule id="DecisionRule_015avuw">
-        <description>Package is damaged.</description>
+        <description>Package is damaged</description>
         <inputEntry id="UnaryTests_0v2szav">
           <text>true</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0lghxoc">
-          <text></text>
+          <text>true</text>
         </inputEntry>
         <inputEntry id="UnaryTests_07xcrco">
-          <text></text>
+          <text>false</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1ehvgwt">
           <text>"CANCELLED"</text>
@@ -40,13 +40,13 @@
       <rule id="DecisionRule_0s8thcj">
         <description>Temperature indicator shows wrong package handling.</description>
         <inputEntry id="UnaryTests_18t607h">
-          <text></text>
+          <text>false</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1ywxhk1">
           <text>false</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0gtkwdc">
-          <text></text>
+          <text>false</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1x7egaa">
           <text>"CANCELLED"</text>
@@ -55,10 +55,10 @@
       <rule id="DecisionRule_1hkzmk0">
         <description>Wrong sample type is received.</description>
         <inputEntry id="UnaryTests_1i2c2o4">
-          <text></text>
+          <text>false</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1yeiyss">
-          <text></text>
+          <text>true</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0rbsgnw">
           <text>true</text>
@@ -79,7 +79,7 @@
           <text>false</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1dq0b3c">
-          <text>"OK"</text>
+          <text>"SAMPLE_RECEIVED"</text>
         </outputEntry>
       </rule>
     </decisionTable>

@@ -1,5 +1,6 @@
 package ch.fhnw.digibp.order;
 
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -31,6 +32,7 @@ public class OrderEntryService {
         final String uuid = UUID.randomUUID().toString();
         try {
             order.setUuid(uuid);
+            order.setOrderDate(LocalDate.now());
             order.setState(Order.State.NEW);
             LOGGER.info("Received new order {}", order);
             runtimeService.startProcessInstanceByMessage("OrderEntryMessage", uuid, order.toMap());
@@ -54,7 +56,7 @@ public class OrderEntryService {
         Order persistedOrder = load(uuid);
         persistedOrder.setComment(order.getComment());
         persistedOrder.setClientId(order.getClientId());
-        persistedOrder.setDueDate(order.getDueDate());
+        persistedOrder.setPriority(order.getPriority());
         return orderRepository.save(persistedOrder);
     }
 

@@ -11,15 +11,15 @@
       <bpmn:incoming>Flow_0dw7ynt</bpmn:incoming>
       <bpmn:outgoing>Flow_00h2l51</bpmn:outgoing>
     </bpmn:businessRuleTask>
-    <bpmn:exclusiveGateway id="Gateway_1bph47a" gatewayDirection="Diverging">
+    <bpmn:exclusiveGateway id="Sample_OK" name="Sample Ok?" gatewayDirection="Diverging">
       <bpmn:incoming>Flow_00h2l51</bpmn:incoming>
       <bpmn:outgoing>Flow_0rmkpcp</bpmn:outgoing>
       <bpmn:outgoing>Flow_1t731oj</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="Flow_0wldyu3" sourceRef="Event_1pq1vob" targetRef="Activity_0chp6sn" />
     <bpmn:sequenceFlow id="Flow_0dw7ynt" sourceRef="Activity_0chp6sn" targetRef="check_sample" />
-    <bpmn:sequenceFlow id="Flow_00h2l51" sourceRef="check_sample" targetRef="Gateway_1bph47a" />
-    <bpmn:sequenceFlow id="Flow_0rmkpcp" name="ok" sourceRef="Gateway_1bph47a" targetRef="Activity_1qqdeo6">
+    <bpmn:sequenceFlow id="Flow_00h2l51" sourceRef="check_sample" targetRef="Sample_OK" />
+    <bpmn:sequenceFlow id="Flow_0rmkpcp" name="ok" sourceRef="Sample_OK" targetRef="Activity_1qqdeo6">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${state == 'SAMPLE_RECEIVED'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:startEvent id="Event_1pq1vob" name="Sample received">
@@ -28,7 +28,7 @@
     <bpmn:sequenceFlow id="Flow_0fd28zr" sourceRef="Activity_1qqdeo6" targetRef="Activity_05yyot3" />
     <bpmn:sequenceFlow id="Flow_1xj6uaq" sourceRef="Activity_05yyot3" targetRef="sample_entry_finished" />
     <bpmn:sequenceFlow id="Flow_00xjjf7" sourceRef="Gateway_1q41252" targetRef="Event_12ylvfm" />
-    <bpmn:sequenceFlow id="Flow_1t731oj" name="nok" sourceRef="Gateway_1bph47a" targetRef="Gateway_0puwk8x">
+    <bpmn:sequenceFlow id="Flow_1t731oj" name="nok" sourceRef="Sample_OK" targetRef="Gateway_0puwk8x">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${state == 'CANCELLED'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_15te87p" sourceRef="Gateway_0puwk8x" targetRef="sample_cancel_notification" />
@@ -169,8 +169,11 @@
       <bpmndi:BPMNShape id="Activity_042xag6_di" bpmnElement="check_sample">
         <dc:Bounds x="398" y="232" width="96" height="76" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_1bph47a_di" bpmnElement="Gateway_1bph47a" isMarkerVisible="true">
+      <bpmndi:BPMNShape id="Gateway_1bph47a_di" bpmnElement="Sample_OK" isMarkerVisible="true">
         <dc:Bounds x="551" y="250" width="42" height="40" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="542" y="220" width="61" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1oye1mr_di" bpmnElement="Event_1pq1vob">
         <dc:Bounds x="172" y="254" width="32" height="32" />

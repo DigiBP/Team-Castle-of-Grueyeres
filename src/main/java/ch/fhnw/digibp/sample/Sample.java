@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import ch.fhnw.digibp.AbstractEntity;
-import ch.fhnw.digibp.domain.PackageType;
 import ch.fhnw.digibp.domain.SampleType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -28,8 +27,6 @@ public class Sample extends AbstractEntity {
     private boolean damaged;
     @Column
     private SampleType sampleType;
-    @Column
-    private PackageType packageType;
     @Column
     private double amount;
     @Column
@@ -47,7 +44,6 @@ public class Sample extends AbstractEntity {
     public Sample(Map<String, Object> map) {
         id = getLong("sample.id", map);
         damaged = getBoolean("sample.damaged", map);
-        this.packageType = PackageType.valueOf(map);
         this.sampleType = SampleType.valueOf("sample.sampleType", map);
         amount = getDouble("sample.amount", map);
         temperature = getDouble("sample.temperature", map);
@@ -71,11 +67,11 @@ public class Sample extends AbstractEntity {
         map.put(prefix + "id", getId());
         map.put(prefix + "damaged", isDamaged());
         map.put(prefix + "sampleType", getSampleTypeValue());
-        map.put(prefix + "packageType", getPackageTypeValue());
         map.put(prefix + "amount", getAmount());
         map.put(prefix + "temperature", getTemperature());
         map.put(prefix + "entryDate", toString(getEntryDate()));
         map.put(prefix + "updateDate", toString(getUpdateDate()));
+        map.put(prefix + "temperatureIndicatorOk", isTemperatureIndicatorOk());
         return map;
     }
 
@@ -102,11 +98,6 @@ public class Sample extends AbstractEntity {
     @JsonIgnore
     public String getSampleTypeValue() {
         return sampleType != null ? sampleType.name() : null;
-    }
-
-    @JsonIgnore
-    public String getPackageTypeValue() {
-        return packageType != null ? packageType.name() : null;
     }
 
     public void loadSampleType(SampleType sampleType) {
@@ -145,17 +136,8 @@ public class Sample extends AbstractEntity {
         this.updateDate = updateDate;
     }
 
-    public PackageType getPackageType() {
-        return packageType;
-    }
-
-
     public void setSampleType(SampleType sampleType) {
         this.sampleType = sampleType;
-    }
-
-    public void setPackageType(PackageType packageType) {
-        this.packageType = packageType;
     }
 
     public boolean isTemperatureIndicatorOk() {
@@ -172,7 +154,6 @@ public class Sample extends AbstractEntity {
                 "id=" + id +
                 ", damaged=" + damaged +
                 ", sampleType=" + sampleType +
-                ", packageType=" + packageType +
                 ", amount=" + amount +
                 ", temperature=" + temperature +
                 ", temperatureIndicatorOk=" + temperatureIndicatorOk +

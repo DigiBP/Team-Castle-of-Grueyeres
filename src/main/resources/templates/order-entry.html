@@ -8,21 +8,24 @@
 <form action="#" th:action="@{/order/{path}(path=${uuid})}" th:object="${order}" method="post">
     <p>
         Client ID:
-        <input type="number" th:field="*{clientId}"/>
+        <input type="number" th:disabled="${order.uuid != null}" th:field="*{clientId}"/>
     </p>
     <p>
         Analysis:
-        <input type="text" th:value="*{analysis}" th:field="*{analysis}"/>
+        <input type="text" th:disabled="${order.uuid != null}" th:value="*{analysis}" th:field="*{analysis}"/>
     </p>
     <p>
-        Due Date:
-        <input type="date" th:value="*{dueDate}" th:field="*{dueDate}"/>
+        Priority:
+        <select id="priority" name="priority" th:disabled="${order.uuid != null}" th:field="*{priority}">
+            <option th:each="priorityOpt : ${T(ch.fhnw.digibp.domain.Priority).values()}"
+                    th:value="${priorityOpt}" th:text="${priorityOpt}"></option>
+        </select>
     </p>
     <p>
         Comment:
         <textarea rows="5" th:field="*{comment}"/>
     </p>
-    <p th:if="${order.sample != null}">
+    <p th:if="${order.sample?.sampleType != null}">
         <a th:href="@{/order/{path}/sample(path=${order.uuid})}">Sample</a>
     </p>
     <p th:if="${order.analysisResult != null}">

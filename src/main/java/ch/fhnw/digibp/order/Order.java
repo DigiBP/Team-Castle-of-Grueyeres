@@ -34,8 +34,7 @@ public class Order extends AbstractEntity {
     @Column
     private String comment;
     @Column
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate dueDate;
+    private String laboratory;
     @Column
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate orderDate;
@@ -62,8 +61,9 @@ public class Order extends AbstractEntity {
         this.clientId = getString("clientId", map);
         this.analysis = getString("analysis", map);
         this.comment = getString("comment", map);
-        this.dueDate = getLocalDate("dueDate", map);
+        this.orderDate = getLocalDate("orderDate", map);
         this.priority = Priority.valueOf("priority", map);
+        this.laboratory = getString("laboratory", map);
         loadState(map);
         loadSample(map);
         loadSampleRequirements(map);
@@ -92,14 +92,6 @@ public class Order extends AbstractEntity {
 
     public void setComment(String analysis) {
         this.comment = analysis;
-    }
-
-    public LocalDate getDueDate() {
-        return dueDate;
-    }
-
-    public void setDueDate(LocalDate dueDate) {
-        this.dueDate = dueDate;
     }
 
     public String getUuid() {
@@ -166,6 +158,14 @@ public class Order extends AbstractEntity {
         this.analysisResult = analysisResult;
     }
 
+    public String getLaboratory() {
+        return laboratory;
+    }
+
+    public void setLaboratory(String laboratory) {
+        this.laboratory = laboratory;
+    }
+
     public boolean isSampleTypeMismatch() {
         return sample != null && sampleRequirements.getSampleType() != null && !sampleRequirements.getSampleType().equals(sample.getSampleType());
     }
@@ -181,10 +181,11 @@ public class Order extends AbstractEntity {
         map.put("clientId", getClientId());
         map.put("analysis", getAnalysis());
         map.put("comment", getComment());
-        map.put("dueDate", toString(getDueDate()));
+        map.put("orderDate", toString(getOrderDate()));
         map.put("state", getState().name());
         map.put("sampleTypeMismatch", isSampleTypeMismatch());
         map.put("temperatureOk", isTemperatureOk());
+        map.put("laboratory", getLaboratory());
 
         if (getSample() != null) {
             map.putAll(getSample().toMapWithPrefix());
@@ -238,7 +239,7 @@ public class Order extends AbstractEntity {
                 ", clientId='" + clientId + '\'' +
                 ", analysis='" + analysis + '\'' +
                 ", comment='" + comment + '\'' +
-                ", dueDate=" + dueDate +
+                ", orderDate=" + orderDate +
                 ", priority=" + priority +
                 ", state=" + state +
                 ", sample=" + sample +

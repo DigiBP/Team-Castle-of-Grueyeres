@@ -11,23 +11,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class OrderEndpoint {
 
-    private final OrderEntryService orderEntryService;
+    private final OrderService orderService;
 
     @Autowired
-    public OrderEndpoint(OrderEntryService orderEntryService) {
-        this.orderEntryService = orderEntryService;
+    public OrderEndpoint(OrderService orderService) {
+        this.orderService = orderService;
     }
 
     @PostMapping("/api/order")
     public @ResponseBody
     Order post(@RequestBody Order order) {
-        return orderEntryService.create(order);
+        return orderService.create(order);
     }
 
     @GetMapping("/api/order/{uuid}")
     public @ResponseBody
     Order get(@PathVariable("uuid") String uuid) {
-        return orderEntryService.load(uuid);
+        return orderService.load(uuid);
     }
-    
+
 }

@@ -20,6 +20,7 @@ import ch.fhnw.digibp.AbstractEntity;
 import ch.fhnw.digibp.analysis.Analysis;
 import ch.fhnw.digibp.domain.Priority;
 import ch.fhnw.digibp.sample.Sample;
+import ch.fhnw.digibp.validation.Validation;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -52,6 +53,9 @@ public class Order extends AbstractEntity {
     private SampleRequirements sampleRequirements = new SampleRequirements();
     @Embedded
     private Analysis analysisResult;
+    @Embedded
+    private Validation validation;
+
 
     public Order() {
     }
@@ -68,6 +72,7 @@ public class Order extends AbstractEntity {
         loadSample(map);
         loadSampleRequirements(map);
         loadBillingInformation(map);
+        loadRecommendation(map);
     }
 
     public String getClientId() {
@@ -166,6 +171,14 @@ public class Order extends AbstractEntity {
         this.laboratory = laboratory;
     }
 
+    public Validation getValidation() {
+        return validation;
+    }
+
+    public void setValidation(Validation validation) {
+        this.validation = validation;
+    }
+
     public boolean isSampleTypeMismatch() {
         return sample != null && sampleRequirements.getSampleType() != null && !sampleRequirements.getSampleType().equals(sample.getSampleType());
     }
@@ -188,13 +201,16 @@ public class Order extends AbstractEntity {
         map.put("laboratory", getLaboratory());
 
         if (getSample() != null) {
-            map.putAll(getSample().toMapWithPrefix());
+            map.putAll(getSample().toMap());
         }
         if (getSampleRequirements() != null) {
-            map.putAll(getSampleRequirements().toMapWithPrefix());
+            map.putAll(getSampleRequirements().toMap());
         }
         if (getBillingInformation() != null) {
-            map.putAll(getBillingInformation().toMapWithPrefix());
+            map.putAll(getBillingInformation().toMap());
+        }
+        if (getValidation() != null) {
+            map.putAll(getValidation().toMap());
         }
         if (getPriority() != null) {
             map.put("priority", getPriority().name());
@@ -232,6 +248,14 @@ public class Order extends AbstractEntity {
         }
     }
 
+    private void loadRecommendation(Map<String, Object> map) {
+        if (mapHasKey("recommendation", map)) {
+            validation = new Validation((Map<String, Object>) map.get("recommendation"));
+        } else {
+            validation = new Validation(map);
+        }
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -245,10 +269,11 @@ public class Order extends AbstractEntity {
                 ", sample=" + sample +
                 ", billingInformation=" + billingInformation +
                 ", sampleRequirements=" + sampleRequirements +
+                ", validation=" + validation +
                 '}';
     }
 
     public enum State {
-        NEW, CANCELLED, CONFIRMED, SAMPLE_RECEIVED, IN_ANALYSIS, ANALYSIS_DONE, DONE
+        NEW, CANCELLED, CONFIRMED, SAMPLE_RECEIVED, IN_ANALYSIS, ANALYSIS_DONE, ANALYSIS_REVIEWED, DONE
     }
 }

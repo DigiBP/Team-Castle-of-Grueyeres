@@ -5,7 +5,9 @@ import java.util.Optional;
 
 import ch.fhnw.digibp.order.Order;
 import ch.fhnw.digibp.order.OrderRepository;
-import org.camunda.bpm.engine.RuntimeService;
+import org.camunda.bpm.engine.ProcessEngine;
+import org.camunda.bpm.engine.task.Task;
+import org.camunda.bpm.engine.task.TaskQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -19,14 +21,14 @@ import org.springframework.web.client.HttpServerErrorException;
 @Controller
 public class AnalysisController {
 
-    private final RuntimeService runtimeService;
+    private final ProcessEngine processEngine;
 
     private final OrderRepository orderRepository;
 
     @Autowired
-    public AnalysisController(OrderRepository orderRepository, RuntimeService runtimeService) {
+    public AnalysisController(OrderRepository orderRepository, ProcessEngine processEngine) {
         this.orderRepository = orderRepository;
-        this.runtimeService = runtimeService;
+        this.processEngine = processEngine;
     }
 
     @GetMapping("/order/{uuid}/analysis")
@@ -36,22 +38,55 @@ public class AnalysisController {
             order.setAnalysisResult(new Analysis());
         }
         model.addAttribute("order", order);
-        model.addAttribute("analysis", order.getAnalysisResult());
         return "submitTestResult";
     }
 
     @PostMapping(value = "/order/{orderUuid}/analysis", params = "action=save")
-    public String save_analysis(@ModelAttribute Analysis analysis, @PathVariable(name = "orderUuid") String orderUuid, Model model) {
-        Order order = find(orderUuid);
-        order.getAnalysisResult().setMethodDescription(analysis.getMethodDescription());
-        order.getAnalysisResult().setRemarks(analysis.getRemarks());
-        order.getAnalysisResult().setResultCategory(analysis.getResultCategory());
-        order.getAnalysisResult().setResultDescription(analysis.getResultDescription());
-        order.getAnalysisResult().setEndDate(LocalDate.now());
-        order.setState(Order.State.ANALYSIS_DONE);
-        orderRepository.save(order);
+    public String save_analysis(@ModelAttribute Order order, @PathVariable(name = "orderUuid") String orderUuid, Model model) {
+        Order persistedOrder = find(orderUuid);
+        Analysis analysis = order.getAnalysisResult();
+        persistedOrder.getAnalysisResult().setMethodDescription(analysis.getMethodDescription());
+        persistedOrder.getAnalysisResult().setRemarks(analysis.getRemarks());
+        persistedOrder.getAnalysisResult().setResultCategory(analysis.getResultCategory());
+        persistedOrder.getAnalysisResult().setResultDescription(analysis.getResultDescription());
+        persistedOrder.getAnalysisResult().setEndDate(LocalDate.now());
+        persistedOrder.setState(Order.State.ANALYSIS_DONE);
+        orderRepository.save(persistedOrder);
+        Task task = findTask(orderUuid, "Lab Technician", "submit_test_result");
+        processEngine.getTaskService().complete(task.getId(), persistedOrder.toMap());
         return "redirect:/order/" + orderUuid;
     }
+
+    @PostMapping(value = "/order/{orderUuid}/analysis", params = "action=confirm")
+    public String confirm_analysis(@ModelAttribute Order order, @PathVariable(name = "orderUuid") String orderUuid, Model model) {
+        order.getValidation().setApproved(true);
+        order.setState(Order.State.ANALYSIS_REVIEWED);
+        orderRepository.save(order);
+        Task task = findTask(orderUuid, "Physician", "validate_analysis");
+        processEngine.getTaskService().complete(task.getId(), order.toMap());
+        return "redirect:/order/" + orderUuid;
+    }
+
+    @PostMapping(value = "/order/{orderUuid}/analysis", params = "action=reject")
+    public String reject_analysis(@ModelAttribute Order order, @PathVariable(name = "orderUuid") String orderUuid, Model model) {
+        Analysis analysis = new Analysis();
+        analysis.setStartDate(LocalDate.now());
+        order.setAnalysisResult(analysis);
+        order.setState(Order.State.IN_ANALYSIS);
+        orderRepository.save(order);
+        Task task = findTask(orderUuid, "Physician", "validate_analysis");
+        processEngine.getTaskService().complete(task.getId(), order.toMap());
+        return "redirect:/order/" + orderUuid;
+    }
+
+    private Task findTask(String uuid, String group, String taskKey) {
+        TaskQuery taskQuery = processEngine.getTaskService().createTaskQuery();
+        taskQuery.taskCandidateGroup(group);
+        taskQuery.taskDefinitionKey(taskKey);
+        taskQuery.processInstanceBusinessKey(uuid);
+        return taskQuery.singleResult();
+    }
+
 
     private Order find(String orderUuid) {
         Optional<Order> order = orderRepository.findById(orderUuid);

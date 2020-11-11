@@ -40,13 +40,9 @@ public class SampleRequirements extends AbstractEntity {
 
     @Override
     public Map<String, Object> toMap() {
-        return toMapWithPrefix("");
-    }
-
-    public Map<String, Object> toMapWithPrefix() {
         return toMapWithPrefix("sampleRequirements.");
     }
-
+    
     private Map<String, Object> toMapWithPrefix(String prefix) {
         Map<String, Object> map = new HashMap<>();
         map.put(prefix + "temperature", getTemperature());

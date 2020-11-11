@@ -281,7 +281,7 @@
         <semantic:incoming>_10e19b13-cfbf-4018-8904-aa3e7605eaee</semantic:incoming>
         <semantic:outgoing>_3897bad6-5fcd-4202-9f35-4873deef5582</semantic:outgoing>
       </semantic:businessRuleTask>
-      <semantic:serviceTask id="_1585928e-9839-4764-9ec1-31c53b6cbf4e" name="Evaluate test results &#38; recommendation" implementation="##WebService">
+      <semantic:serviceTask id="_1585928e-9839-4764-9ec1-31c53b6cbf4e" name="Evaluate test results &#38; validation" implementation="##WebService">
         <semantic:incoming>_13d21aad-a8f8-45eb-8113-78d4c1d5ec0f</semantic:incoming>
         <semantic:outgoing>_10e19b13-cfbf-4018-8904-aa3e7605eaee</semantic:outgoing>
         <semantic:ioSpecification>

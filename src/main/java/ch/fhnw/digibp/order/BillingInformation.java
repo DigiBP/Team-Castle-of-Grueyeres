@@ -49,13 +49,9 @@ public class BillingInformation extends AbstractEntity {
         return map;
     }
 
-    public Map<String, Object> toMapWithPrefix() {
-        return toMapWithPrefix("billingInformation.");
-    }
-
     @Override
     public Map<String, Object> toMap() {
-        return toMapWithPrefix("");
+        return toMapWithPrefix("billingInformation.");
     }
 
     private void loadCurrency(Map<String, Object> map) {

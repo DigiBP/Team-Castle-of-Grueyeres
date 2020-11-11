@@ -55,10 +55,6 @@ public class Sample extends AbstractEntity {
 
     @Override
     public Map<String, Object> toMap() {
-        return toMapWithPrefix("");
-    }
-
-    public Map<String, Object> toMapWithPrefix() {
         return toMapWithPrefix("sample.");
     }
 

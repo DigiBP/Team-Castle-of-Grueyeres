@@ -1,8 +1,5 @@
 package ch.fhnw.digibp.order;
 
-import java.time.LocalDate;
-
-import ch.fhnw.digibp.analysis.Analysis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,12 +10,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class OrderController {
-    private final OrderEntryService orderEntryService;
+    private final OrderService orderService;
     private final OrderRepository orderRepository;
 
     @Autowired
-    public OrderController(OrderEntryService orderEntryService, OrderRepository orderRepository) {
-        this.orderEntryService = orderEntryService;
+    public OrderController(OrderService orderService, OrderRepository orderRepository) {
+        this.orderService = orderService;
         this.orderRepository = orderRepository;
     }
 
@@ -36,7 +33,7 @@ public class OrderController {
 
     @GetMapping("/order/{order}")
     public String order(Model model, @PathVariable(name = "order") String orderUuid) {
-        Order order = orderEntryService.load(orderUuid);
+        Order order = orderService.load(orderUuid);
         model.addAttribute("order", order);
         model.addAttribute("uuid", orderUuid);
         return "order-entry";
@@ -44,14 +41,14 @@ public class OrderController {
 
     @PostMapping("/order/")
     public String order_submit(@ModelAttribute Order order, Model model) {
-        Order actualOrder = orderEntryService.create(order);
+        Order actualOrder = orderService.create(order);
         model.addAttribute("order", actualOrder);
         return "redirect:" + order.getUuid();
     }
 
     @PostMapping(value = "/order/{order}", params = "action=submit")
     public String order_submit(@ModelAttribute Order order, @PathVariable(name = "order") String orderUuid, Model model) {
-        Order actualOrder = orderEntryService.update(order, orderUuid);
+        Order actualOrder = orderService.update(order, orderUuid);
         model.addAttribute("order", actualOrder);
         return "redirect:" + order.getUuid();
     }
@@ -63,11 +60,7 @@ public class OrderController {
 
     @PostMapping(value = "/order/{order}", params = "action=startAnalysis")
     public String start_order_analysis(@ModelAttribute Order order, @PathVariable(name = "order") String orderUuid) {
-        Analysis analysis = new Analysis();
-        analysis.setStartDate(LocalDate.now());
-        order.setAnalysisResult(analysis);
-        order.setState(Order.State.IN_ANALYSIS);
-        orderRepository.save(order);
+        orderService.startAnalysis(order);
         return "redirect:" + orderUuid + "/analysis";
     }
 

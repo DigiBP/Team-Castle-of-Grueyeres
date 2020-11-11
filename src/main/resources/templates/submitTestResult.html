@@ -5,40 +5,64 @@
 </head>
 <body>
 <h1>Form</h1>
-<form action="#" th:action="@{/order/{path}/analysis(path=${uuid})}" th:object="${analysis}" method="post">
+<form action="#" th:action="@{/order/{path}/analysis(path=${uuid})}" th:object="${order.analysisResult}" method="post">
     <p>
         Start Date:
-        <input type="date" th:value="*{startDate}" th:field="*{startDate}" disabled/>
+        <input type="date" th:field="*{startDate}" disabled/>
     </p>
 
     <p>
         End Date:
-        <input type="date" th:value="*{endDate}" th:field="*{endDate}" disabled/>
+        <input type="date" th:field="*{endDate}" disabled/>
     </p>
     <p>
         Result Category:
-        <select id="sampleType" name="resultCategory" th:field="*{resultCategory}">
+        <select id="sampleType" name="resultCategory" th:disabled="${T(ch.fhnw.digibp.order.Order.State).IN_ANALYSIS != order.state}"
+                th:field="*{resultCategory}">
             <option th:each="resultCategoryOpt : ${T(ch.fhnw.digibp.analysis.Analysis.ResultCategory).values()}"
                     th:value="${resultCategoryOpt}" th:text="${resultCategoryOpt}"></option>
         </select>
     </p>
     <p>
         Result Description:
-        <input id="resultDescription" type="text" th:field="*{resultDescription}"/>
+        <input id="resultDescription" type="text" th:disabled="${T(ch.fhnw.digibp.order.Order.State).IN_ANALYSIS != order.state}"
+               th:field="*{resultDescription}"/>
     </p>
     <p>
         Method Description:
-        <input id="methodDescription" type="text" th:field="*{methodDescription}"/>
+        <input id="methodDescription" type="text" th:disabled="${T(ch.fhnw.digibp.order.Order.State).IN_ANALYSIS != order.state}"
+               th:field="*{methodDescription}"/>
     </p>
     <p>
         Remarks:
-        <input id="remarks" type="text" th:field="*{remarks}"/>
+        <input id="remarks" type="text" th:disabled="${T(ch.fhnw.digibp.order.Order.State).IN_ANALYSIS != order.state}" th:field="*{remarks}"/>
     </p>
     <p>
         <button th:if="${T(ch.fhnw.digibp.order.Order.State).IN_ANALYSIS == order.state}" type="submit" name="action" value="save">Save</button>
-        <button th:if="${T(ch.fhnw.digibp.order.Order.State).ANALYSIS_DONE == order.state}" type="submit" name="action" value="confirm">Confirm Analysis
+    </p>
+</form>
+<form th:if="${order.validation?.mlRecommendation != null}" action="#" th:action="@{/order/{path}/validation(path=${uuid})}"
+      th:object="${order.validation}" method="post">
+    <p>
+        ML Probability:
+        <input id="probability" type="number" th:field="*{probability}" disabled/>
+    </p>
+    <p>
+        ML Recommendation:
+        <input id="mlRecommendation" type="text" th:field="*{mlRecommendation}" disabled/>
+    </p>
+    <p>
+        Physican Recommendation:
+        <input id="physicanRecommendation" type="text" th:field="*{physicanRecommendation}"
+               th:disabled="${T(ch.fhnw.digibp.order.Order.State).ANALYSIS_DONE != order.state && !order.validation?.verificationNeeded}"/>
+    </p>
+    <p>
+        <button th:if="${T(ch.fhnw.digibp.order.Order.State).ANALYSIS_DONE == order.state }" type="submit"
+                name="action" value="confirm">Confirm Analysis
         </button>
-        <button th:if="${T(ch.fhnw.digibp.order.Order.State).ANALYSIS_DONE == order.state}" type="submit" name="action" value="save">Reject Analysis</button>
+        <button th:if="${T(ch.fhnw.digibp.order.Order.State).ANALYSIS_DONE == order.state}" type="submit"
+                name="action" value="reject">Reject Analysis
+        </button>
     </p>
 </form>
 </body>

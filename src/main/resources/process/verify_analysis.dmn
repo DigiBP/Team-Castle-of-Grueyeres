@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="Definitions_0z9q2s9" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.2.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_0z9q2s9" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.2.0">
   <decision id="verify_analysis" name="Sample Verification">
     <decisionTable id="DecisionTable_1i3dax9">
-      <input id="Input_1">
+      <input id="Input_1" label="ML Probability" camunda:inputVariable="validation.probability">
         <inputExpression id="InputExpression_1" typeRef="integer">
-          <text>ML Result</text>
+          <text></text>
         </inputExpression>
       </input>
-      <input id="InputClause_1ck2h9s">
+      <input id="InputClause_1ck2h9s" label="Severity of Misclassification" camunda:inputVariable="sampleRequirements.severityOfMisClassification">
         <inputExpression id="LiteralExpression_1umkpyq" typeRef="string">
-          <text>Severity of Misclassification</text>
+          <text></text>
         </inputExpression>
         <inputValues id="UnaryTests_0z0fg39">
-          <text>"low","medium","high"</text>
+          <text>"LOW","HIGH","MEDIUM"</text>
         </inputValues>
       </input>
       <output id="Output_1" name="Verification needed" typeRef="boolean" />
@@ -21,7 +21,7 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0octj32">
-          <text>"high"</text>
+          <text>"HIGH"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0gys488">
           <text>true</text>
@@ -32,7 +32,7 @@
           <text>&lt;70</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0dwkkdg">
-          <text>"low"</text>
+          <text>"LOW"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0anj8e6">
           <text>true</text>
@@ -43,7 +43,7 @@
           <text>&gt;=70</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0x2adm8">
-          <text>"low"</text>
+          <text>"LOW"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_165mdoz">
           <text>false</text>
@@ -54,7 +54,7 @@
           <text>&lt;80</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1x27lep">
-          <text>"medium"</text>
+          <text>"MEDIUM"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_027wx5h">
           <text>true</text>
@@ -65,7 +65,7 @@
           <text>&gt;=80</text>
         </inputEntry>
         <inputEntry id="UnaryTests_146rluz">
-          <text>"medium"</text>
+          <text>"MEDIUM"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_144ilsx">
           <text>false</text>

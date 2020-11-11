@@ -28,7 +28,7 @@
     <p th:if="${order.sample?.sampleType != null}">
         <a th:href="@{/order/{path}/sample(path=${order.uuid})}">Sample</a>
     </p>
-    <p th:if="${order.analysisResult != null}">
+    <p th:if="${order.analysisResult?.endDate != null}">
         <a th:href="@{/order/{path}/analysis(path=${order.uuid})}">Analysis Result</a>
     </p>
     <button type="submit" name="action" value="submit">Save</button>

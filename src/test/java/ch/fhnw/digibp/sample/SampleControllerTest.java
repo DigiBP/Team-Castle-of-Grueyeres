@@ -38,17 +38,19 @@ class SampleControllerTest extends AbstractSeleniumTest {
         WebElement amount = findElementByCss("#amount");
         amount.clear();
         amount.sendKeys("20");
+        findElementByCss("#temperatureIndicatorOk").click();
 
         WebElement amountUnit = findElementByCss("#sampleType");
-        new Select(amountUnit).selectByVisibleText("URINE");
-        findElementByCss("#submit").click();
+        new Select(amountUnit).selectByVisibleText("SALIVA");
+        findElementByCss("button[value=\"save\"]").click();
+
 
         verify(orderRepository, times(3)).findById(anyString());
         verify(orderRepository, times(2)).save(argThat(this::assertOrder));
     }
 
     private boolean assertOrder(Order order) {
-        return SampleType.URINE.equals(order.getSample().getSampleType()) && 20 == order.getSample().getAmount();
+        return SampleType.SALIVA.equals(order.getSample().getSampleType()) && 20 == order.getSample().getAmount();
     }
 
 }

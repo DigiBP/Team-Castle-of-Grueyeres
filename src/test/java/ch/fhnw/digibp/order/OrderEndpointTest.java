@@ -30,7 +30,7 @@ class OrderEndpointTest extends AbstractIntegrationTest {
 
     private static final String ENDPOINT = "api/order";
     private static final String REQUEST_BODY = "{\"clientId\":\"test\",\"analysis\":\"Sars_Cov_2\",\"comment\":\"please analyse this :)\"}";
-    private static final String RESPONSE_BODY = "{\"uuid\":\"0a5fa6c2-329f-45ee-9925-13aed405dfde\",\"clientId\":\"123\",\"analysis\":\"Sars_Cov_2\",\"comment\":\"please analyse this :)\",\"dueDate\":null,\"orderDate\":null,\"priority\":\"LOW\",\"state\":null,\"sample\":null,\"billingInformation\":{\"currency\":\"CHF\",\"price\":106.0},\"sampleRequirements\":{\"temperature\":0.0,\"severityOfMisClassification\":\"MEDIUM\",\"sampleType\":\"SALIVA\",\"biohazard\":true},\"analysisResult\":null,\"sampleTypeMismatch\":false,\"temperatureOk\":false}";
+    private static final String RESPONSE_BODY = "{\"uuid\":\"0a5fa6c2-329f-45ee-9925-13aed405dfde\",\"clientId\":\"123\",\"analysis\":\"Sars_Cov_2\",\"comment\":\"please analyse this :)\",\"laboratory\":null,\"orderDate\":null,\"priority\":\"LOW\",\"state\":null,\"sample\":null,\"billingInformation\":{\"currency\":\"CHF\",\"price\":106.0},\"sampleRequirements\":{\"temperature\":0.0,\"severityOfMisClassification\":\"MEDIUM\",\"sampleType\":\"SALIVA\",\"biohazard\":true},\"analysisResult\":null,\"recommendation\":null,\"sampleTypeMismatch\":false,\"temperatureOk\":false}";
 
     @LocalServerPort
     private int port;

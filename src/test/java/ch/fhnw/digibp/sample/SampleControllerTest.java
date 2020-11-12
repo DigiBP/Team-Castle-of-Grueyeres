@@ -34,10 +34,6 @@ class SampleControllerTest extends AbstractSeleniumTest {
     @Test
     public void test() {
         openUrl("order/" + TestDataFactory.ORDER_UUID + "/sample");
-
-        WebElement amount = findElementByCss("#amount");
-        amount.clear();
-        amount.sendKeys("20");
         findElementByCss("#temperatureIndicatorOk").click();
 
         WebElement amountUnit = findElementByCss("#sampleType");

@@ -11,7 +11,7 @@ public class TestDataFactory {
 
     public static Order buildTestOrder() {
         Order order = new Order();
-        order.setAnalysis("Sars_Cov_2");
+        order.setAnalysisType(Order.AnalysisType.Sars_Cov_2);
         order.setClientId("123");
         order.setComment("please analyse this :)");
         order.setUuid(ORDER_UUID);

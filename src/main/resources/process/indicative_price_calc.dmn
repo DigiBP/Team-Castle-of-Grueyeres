@@ -51,7 +51,7 @@
       </rule>
       <rule id="DecisionRule_0qlcoer">
         <inputEntry id="UnaryTests_1vqz30s">
-          <text>"HIV"</text>
+          <text>"Ferritin"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1vu7fsy">
           <text>"LOW"</text>
@@ -62,7 +62,7 @@
       </rule>
       <rule id="DecisionRule_173tygf">
         <inputEntry id="UnaryTests_15a7vse">
-          <text>"HIV"</text>
+          <text>"Ferritin"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_16pbelh">
           <text>"MEDIUM"</text>
@@ -73,7 +73,7 @@
       </rule>
       <rule id="DecisionRule_1ofx625">
         <inputEntry id="UnaryTests_0dr4pu4">
-          <text>"HIV"</text>
+          <text>"Ferritin"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0ram0xo">
           <text>"HIGH"</text>
@@ -117,7 +117,7 @@
       </rule>
       <rule id="DecisionRule_1dfo4j3">
         <inputEntry id="UnaryTests_1b9ida9">
-          <text>"Tissue"</text>
+          <text>"Cancer"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_028exss">
           <text>"LOW"</text>
@@ -128,7 +128,7 @@
       </rule>
       <rule id="DecisionRule_0r0zft4">
         <inputEntry id="UnaryTests_0zmhoy8">
-          <text>"Tissue"</text>
+          <text>"Cancer"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1if6ika">
           <text>"MEDIUM"</text>
@@ -139,7 +139,7 @@
       </rule>
       <rule id="DecisionRule_1xmk1b4">
         <inputEntry id="UnaryTests_1xgkrk5">
-          <text>"Tissue"</text>
+          <text>"Cancer"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1yqjh88">
           <text>"HIGH"</text>

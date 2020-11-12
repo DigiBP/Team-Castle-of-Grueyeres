@@ -50,7 +50,7 @@ class SampleControllerTest extends AbstractSeleniumTest {
     }
 
     private boolean assertOrder(Order order) {
-        return SampleType.SALIVA.equals(order.getSample().getSampleType()) && 20 == order.getSample().getAmount();
+        return SampleType.SALIVA.equals(order.getSample().getSampleType());
     }
 
 }

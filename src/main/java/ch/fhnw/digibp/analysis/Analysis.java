@@ -1,6 +1,7 @@
 package ch.fhnw.digibp.analysis;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.persistence.Column;
@@ -26,6 +27,20 @@ public class Analysis extends AbstractEntity {
     private String methodDescription;
     @Column
     private String remarks;
+
+    public Analysis() {
+    }
+
+    public Analysis(Map<String, Object> map) {
+        startDate = getLocalDate("analysis.startDate", map);
+        endDate = getLocalDate("analysis.endDate", map);
+        resultDescription = getString("analysis.resultDescription", map);
+        methodDescription = getString("analysis.methodDescription", map);
+        remarks = getString("analysis.remarks", map);
+        if (map.containsKey("analysis.resultCategory") && map.get("analysis.resultCategory") != null) {
+            resultCategory = ResultCategory.valueOf((String) map.get("analysis.resultCategory"));
+        }
+    }
 
     public LocalDate getStartDate() {
         return startDate;
@@ -77,7 +92,20 @@ public class Analysis extends AbstractEntity {
 
     @Override
     public Map<String, Object> toMap() {
-        return null;
+        return toMapWithPrefix("analysis.");
+    }
+
+    private Map<String, Object> toMapWithPrefix(String prefix) {
+        Map<String, Object> map = new HashMap<>();
+        map.put(prefix + "startDate", toString(getStartDate()));
+        map.put(prefix + "endDate", toString(getEndDate()));
+        map.put(prefix + "resultDescription", getResultDescription());
+        map.put(prefix + "methodDescription", getMethodDescription());
+        map.put(prefix + "remarks", getRemarks());
+        if (getResultCategory() != null) {
+            map.put(prefix + "resultCategory", getResultCategory().name());
+        }
+        return map;
     }
 
     public enum ResultCategory {

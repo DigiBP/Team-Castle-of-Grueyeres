@@ -41,7 +41,7 @@
         <button th:if="${T(ch.fhnw.digibp.order.Order.State).IN_ANALYSIS == order.state}" type="submit" name="action" value="save">Save</button>
     </p>
 </form>
-<form th:if="${order.validation?.mlRecommendation != null}" action="#" th:action="@{/order/{path}/validation(path=${uuid})}"
+<form th:if="${order.validation?.mlRecommendation != null}" action="#" th:action="@{/order/{path}/analysis(path=${uuid})}"
       th:object="${order.validation}" method="post">
     <p>
         ML Probability:

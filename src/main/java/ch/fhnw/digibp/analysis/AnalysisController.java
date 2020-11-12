@@ -59,11 +59,12 @@ public class AnalysisController {
 
     @PostMapping(value = "/order/{orderUuid}/analysis", params = "action=confirm")
     public String confirm_analysis(@ModelAttribute Order order, @PathVariable(name = "orderUuid") String orderUuid, Model model) {
-        order.getValidation().setApproved(true);
-        order.setState(Order.State.ANALYSIS_REVIEWED);
-        orderRepository.save(order);
+        Order persistedOrder = find(orderUuid);
+        persistedOrder.getValidation().setApproved(true);
+        persistedOrder.setState(Order.State.ANALYSIS_REVIEWED);
+        orderRepository.save(persistedOrder);
         Task task = findTask(orderUuid, "Physician", "validate_analysis");
-        processEngine.getTaskService().complete(task.getId(), order.toMap());
+        processEngine.getTaskService().complete(task.getId(), persistedOrder.toMap());
         return "redirect:/order/" + orderUuid;
     }
 

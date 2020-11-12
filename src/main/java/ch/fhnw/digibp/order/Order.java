@@ -31,7 +31,7 @@ public class Order extends AbstractEntity {
     @Column
     private String clientId;
     @Column
-    private String analysis;
+    private AnalysisType analysisType;
     @Column
     private String comment;
     @Column
@@ -63,16 +63,17 @@ public class Order extends AbstractEntity {
     public Order(Map<String, Object> map) {
         this.uuid = getString("uuid", map);
         this.clientId = getString("clientId", map);
-        this.analysis = getString("analysis", map);
         this.comment = getString("comment", map);
         this.orderDate = getLocalDate("orderDate", map);
         this.priority = Priority.valueOf("priority", map);
         this.laboratory = getString("laboratory", map);
         loadState(map);
+        loadAnalysisType(map);
         loadSample(map);
         loadSampleRequirements(map);
         loadBillingInformation(map);
-        loadRecommendation(map);
+        loadValidation(map);
+        loadAnalysis(map);
     }
 
     public String getClientId() {
@@ -83,12 +84,12 @@ public class Order extends AbstractEntity {
         this.clientId = clientId;
     }
 
-    public String getAnalysis() {
-        return analysis;
+    public AnalysisType getAnalysisType() {
+        return analysisType;
     }
 
-    public void setAnalysis(String analysis) {
-        this.analysis = analysis;
+    public void setAnalysisType(AnalysisType analysisType) {
+        this.analysisType = analysisType;
     }
 
     public String getComment() {
@@ -183,21 +184,15 @@ public class Order extends AbstractEntity {
         return sample != null && sampleRequirements.getSampleType() != null && !sampleRequirements.getSampleType().equals(sample.getSampleType());
     }
 
-    public boolean isTemperatureOk() {
-        return sample != null && sampleRequirements.getTemperature() == sample.getTemperature();
-    }
-
     @Override
     public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>();
         map.put("uuid", getUuid());
         map.put("clientId", getClientId());
-        map.put("analysis", getAnalysis());
         map.put("comment", getComment());
         map.put("orderDate", toString(getOrderDate()));
         map.put("state", getState().name());
         map.put("sampleTypeMismatch", isSampleTypeMismatch());
-        map.put("temperatureOk", isTemperatureOk());
         map.put("laboratory", getLaboratory());
 
         if (getSample() != null) {
@@ -215,12 +210,24 @@ public class Order extends AbstractEntity {
         if (getPriority() != null) {
             map.put("priority", getPriority().name());
         }
+        if (getAnalysisType() != null) {
+            map.put("analysis", getAnalysisType().name());
+        }
+        if (getAnalysisResult() != null) {
+            map.putAll(getAnalysisResult().toMap());
+        }
         return map;
     }
 
     private void loadState(Map<String, Object> map) {
         if (mapHasKey("state", map)) {
             state = State.valueOf((String) map.get("state"));
+        }
+    }
+
+    private void loadAnalysisType(Map<String, Object> map) {
+        if (mapHasKey("analysis", map)) {
+            analysisType = AnalysisType.valueOf((String) map.get("analysis"));
         }
     }
 
@@ -248,11 +255,19 @@ public class Order extends AbstractEntity {
         }
     }
 
-    private void loadRecommendation(Map<String, Object> map) {
+    private void loadValidation(Map<String, Object> map) {
         if (mapHasKey("recommendation", map)) {
             validation = new Validation((Map<String, Object>) map.get("recommendation"));
         } else {
             validation = new Validation(map);
+        }
+    }
+
+    private void loadAnalysis(Map<String, Object> map) {
+        if (mapHasKey("analysisResult", map)) {
+            analysisResult = new Analysis((Map<String, Object>) map.get("analysisType"));
+        } else {
+            analysisResult = new Analysis(map);
         }
     }
 
@@ -261,7 +276,7 @@ public class Order extends AbstractEntity {
         return "Order{" +
                 "uuid='" + uuid + '\'' +
                 ", clientId='" + clientId + '\'' +
-                ", analysis='" + analysis + '\'' +
+                ", analysis='" + analysisType + '\'' +
                 ", comment='" + comment + '\'' +
                 ", orderDate=" + orderDate +
                 ", priority=" + priority +
@@ -275,5 +290,9 @@ public class Order extends AbstractEntity {
 
     public enum State {
         NEW, CANCELLED, CONFIRMED, SAMPLE_RECEIVED, IN_ANALYSIS, ANALYSIS_DONE, ANALYSIS_REVIEWED, DONE
+    }
+
+    public enum AnalysisType {
+        Sars_Cov_2, Ferritin, Vitamin_D, Blood_Screening, THC, Cancer
     }
 }

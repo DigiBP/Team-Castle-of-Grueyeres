@@ -64,18 +64,6 @@
         <bpmn:targetRef>DataStoreReference_15w108l</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:businessRuleTask>
-    <bpmn:manualTask id="Activity_0chp6sn" name="Label / Scan sample">
-      <bpmn:incoming>Flow_0wldyu3</bpmn:incoming>
-      <bpmn:outgoing>Flow_0dw7ynt</bpmn:outgoing>
-      <bpmn:ioSpecification>
-        <bpmn:dataOutput name="LIMS" />
-        <bpmn:inputSet />
-        <bpmn:outputSet />
-      </bpmn:ioSpecification>
-      <bpmn:dataOutputAssociation id="DataOutputAssociation_1b0j1nu">
-        <bpmn:targetRef>DataStoreReference_15w108l</bpmn:targetRef>
-      </bpmn:dataOutputAssociation>
-    </bpmn:manualTask>
     <bpmn:sendTask id="sample_cancel_notification" name="Notify of cancellation" camunda:delegateExpression="#{sampleDelegate}">
       <bpmn:incoming>Flow_15te87p</bpmn:incoming>
       <bpmn:outgoing>Flow_0dnl3mw</bpmn:outgoing>
@@ -95,6 +83,18 @@
         <bpmn:outputSet />
       </bpmn:ioSpecification>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_03cs5x6">
+        <bpmn:targetRef>DataStoreReference_15w108l</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:manualTask>
+    <bpmn:manualTask id="Activity_0chp6sn" name="Label / Scan sample">
+      <bpmn:incoming>Flow_0wldyu3</bpmn:incoming>
+      <bpmn:outgoing>Flow_0dw7ynt</bpmn:outgoing>
+      <bpmn:ioSpecification>
+        <bpmn:dataOutput name="LIMS" />
+        <bpmn:inputSet />
+        <bpmn:outputSet />
+      </bpmn:ioSpecification>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1b0j1nu">
         <bpmn:targetRef>DataStoreReference_15w108l</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:manualTask>
@@ -199,9 +199,6 @@
       <bpmndi:BPMNShape id="Activity_1ni5x5a_di" bpmnElement="Activity_1qqdeo6">
         <dc:Bounds x="662" y="232" width="96" height="76" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_13xqybh_di" bpmnElement="Activity_0chp6sn">
-        <dc:Bounds x="263" y="232" width="96" height="76" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1sns29l_di" bpmnElement="sample_cancel_notification">
         <dc:Bounds x="662" y="432" width="96" height="76" />
       </bpmndi:BPMNShape>
@@ -214,12 +211,15 @@
       <bpmndi:BPMNShape id="Activity_0h4uidy_di" bpmnElement="Activity_05yyot3">
         <dc:Bounds x="792" y="232" width="96" height="76" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_022t8m3_di" bpmnElement="Activity_0chp6sn">
+        <dc:Bounds x="263" y="232" width="96" height="76" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="DataOutputAssociation_1ahbmue_di" bpmnElement="DataOutputAssociation_1ahbmue">
         <di:waypoint x="710" y="232" />
         <di:waypoint x="710" y="165" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataOutputAssociation_1b0j1nu_di" bpmnElement="DataOutputAssociation_1b0j1nu">
-        <di:waypoint x="311" y="230" />
+        <di:waypoint x="311" y="232" />
         <di:waypoint x="311" y="135" />
         <di:waypoint x="685" y="135" />
       </bpmndi:BPMNEdge>

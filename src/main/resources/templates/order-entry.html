@@ -12,7 +12,10 @@
     </p>
     <p>
         Analysis:
-        <input type="text" th:disabled="${order.uuid != null}" th:value="*{analysis}" th:field="*{analysis}"/>
+        <select id="analysisType" name="priority" th:disabled="${order.uuid != null}" th:field="*{analysisType}">
+            <option th:each="analysisTypeOpt : ${T(ch.fhnw.digibp.order.Order.AnalysisType).values()}"
+                    th:value="${analysisTypeOpt}" th:text="${analysisTypeOpt}"></option>
+        </select>
     </p>
     <p>
         Priority:

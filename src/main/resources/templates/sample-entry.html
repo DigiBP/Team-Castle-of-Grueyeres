@@ -17,14 +17,6 @@
     <p>Temperature Indicator Okay: <input id="temperatureIndicatorOk" type="checkbox" th:disabled="${sample.sampleType != null}"
                                           th:field="*{temperatureIndicatorOk}"/></p>
     <p>
-        Temperature:
-        <input id="temperature" type="number" th:disabled="${sample.sampleType != null}" th:field="*{temperature}"/>
-    </p>
-    <p>
-        Amount:
-        <input id="amount" type="number" th:disabled="${sample.sampleType != null}" th:field="*{amount}"/>
-    </p>
-    <p>
         <button th:disabled="${sample.sampleType != null}" type="submit" name="action" value="save">Save</button>
     </p>
 </form>

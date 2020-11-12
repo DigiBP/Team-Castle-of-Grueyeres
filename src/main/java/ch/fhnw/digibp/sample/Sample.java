@@ -28,10 +28,6 @@ public class Sample extends AbstractEntity {
     @Column
     private SampleType sampleType;
     @Column
-    private double amount;
-    @Column
-    private double temperature;
-    @Column
     private boolean temperatureIndicatorOk;
     @Column
     private ZonedDateTime entryDate;
@@ -45,8 +41,6 @@ public class Sample extends AbstractEntity {
         id = getLong("sample.id", map);
         damaged = getBoolean("sample.damaged", map);
         this.sampleType = SampleType.valueOf("sample.sampleType", map);
-        amount = getDouble("sample.amount", map);
-        temperature = getDouble("sample.temperature", map);
         entryDate = getZonedDateTime("sample.entryDate", map);
         updateDate = getZonedDateTime("sample.updateDate", map);
         temperatureIndicatorOk = getBoolean("sample.temperatureIndicatorOk", map);
@@ -63,8 +57,6 @@ public class Sample extends AbstractEntity {
         map.put(prefix + "id", getId());
         map.put(prefix + "damaged", isDamaged());
         map.put(prefix + "sampleType", getSampleTypeValue());
-        map.put(prefix + "amount", getAmount());
-        map.put(prefix + "temperature", getTemperature());
         map.put(prefix + "entryDate", toString(getEntryDate()));
         map.put(prefix + "updateDate", toString(getUpdateDate()));
         map.put(prefix + "temperatureIndicatorOk", isTemperatureIndicatorOk());
@@ -98,22 +90,6 @@ public class Sample extends AbstractEntity {
 
     public void loadSampleType(SampleType sampleType) {
         this.sampleType = sampleType;
-    }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
-    public double getTemperature() {
-        return temperature;
-    }
-
-    public void setTemperature(double temperature) {
-        this.temperature = temperature;
     }
 
     public ZonedDateTime getEntryDate() {
@@ -150,8 +126,6 @@ public class Sample extends AbstractEntity {
                 "id=" + id +
                 ", damaged=" + damaged +
                 ", sampleType=" + sampleType +
-                ", amount=" + amount +
-                ", temperature=" + temperature +
                 ", temperatureIndicatorOk=" + temperatureIndicatorOk +
                 ", entryDate=" + entryDate +
                 ", updateDate=" + updateDate +

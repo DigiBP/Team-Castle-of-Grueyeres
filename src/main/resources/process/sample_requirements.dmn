@@ -30,7 +30,7 @@
       </rule>
       <rule id="DecisionRule_1q6n0xm">
         <inputEntry id="UnaryTests_0zji8ox">
-          <text>"Tissue"</text>
+          <text>"Ferritin"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_10x5fkj">
           <text>false</text>

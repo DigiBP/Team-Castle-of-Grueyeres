@@ -23,7 +23,7 @@
     </tr>
     <tr th:each="order : ${orders}">
         <td><span th:text="${order.uuid}"> UUID </span></td>
-        <td><span th:text="${order.analysis}"> Analysis </span></td>
+        <td><span th:text="${order.analysisType}"> Analysis </span></td>
         <td><span th:text="${order.state}"> State </span></td>
         <td><span th:text="${order.laboratory}"> Laboratory </span></td>
         <td><a th:href="@{/order/{path}(path=${order.uuid})}">Open Order</a></td>

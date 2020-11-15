@@ -7,14 +7,17 @@
           <text></text>
         </inputExpression>
       </input>
-      <input id="InputClause_1ypdlhy" label="analysis" camunda:inputVariable="analysis">
+      <input id="InputClause_1ypdlhy" label="sampleType" camunda:inputVariable="sampleRequirements.sampleType">
         <inputExpression id="LiteralExpression_19wo7ma" typeRef="string">
           <text></text>
         </inputExpression>
+        <inputValues id="UnaryTests_1tn77mh">
+          <text>"BLOOD","SALIVA","URINE","TISSUE"</text>
+        </inputValues>
       </input>
       <output id="Output_1" label="laboratory" name="laboratory" typeRef="string">
         <outputValues id="UnaryTests_1hpfeur">
-          <text>"Biohazard Lab","Histo Lab","General Lab"</text>
+          <text>"biohazardLab","histoLab","generalLab"</text>
         </outputValues>
       </output>
       <rule id="DecisionRule_0hujfmc">
@@ -22,10 +25,10 @@
           <text>true</text>
         </inputEntry>
         <inputEntry id="UnaryTests_02l6pvi">
-          <text>-</text>
+          <text>"BLOOD"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_08ziw9j">
-          <text>"Biohazard Lab"</text>
+          <text>"biohazardLab"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_19o38g6">
@@ -33,21 +36,76 @@
           <text>false</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0ifrtmc">
-          <text>-</text>
+          <text>"BLOOD"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0h4qude">
-          <text>"General Lab"</text>
+          <text>"generalLab"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0itwsn0">
         <inputEntry id="UnaryTests_10utczx">
-          <text>-</text>
+          <text>true</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0enfztl">
-          <text>"Tissue"</text>
+          <text>"SALIVA"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1cx35rg">
-          <text>"Histo Lab"</text>
+          <text>"biohazardLab"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_00pt4fc">
+        <inputEntry id="UnaryTests_1y0dz78">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0p52rx2">
+          <text>"SALIVA"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1b76u8l">
+          <text>"generalLab"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_19x1hlo">
+        <inputEntry id="UnaryTests_133l8y7">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1mry4o3">
+          <text>"URINE"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1jm49wf">
+          <text>"biohazardLab"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0atve1s">
+        <inputEntry id="UnaryTests_1i8ggnw">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_05yq8t4">
+          <text>"URINE"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ko2s4q">
+          <text>"generalLab"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0wobmoa">
+        <inputEntry id="UnaryTests_0cdi3ep">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0smgmva">
+          <text>"TISSUE"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0mggf6a">
+          <text>"histoLab"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_03hrqca">
+        <inputEntry id="UnaryTests_0x77fw1">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1a1uwkk">
+          <text>"TISSUE"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_09xn1dv">
+          <text>"histoLab"</text>
         </outputEntry>
       </rule>
     </decisionTable>

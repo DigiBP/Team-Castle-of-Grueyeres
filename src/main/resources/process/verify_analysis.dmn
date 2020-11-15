@@ -18,7 +18,7 @@
       <output id="Output_1" name="Verification needed" typeRef="boolean" />
       <rule id="DecisionRule_0hmn5cc">
         <inputEntry id="UnaryTests_0tjys1c">
-          <text></text>
+          <text>&lt;=100</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0octj32">
           <text>"HIGH"</text>

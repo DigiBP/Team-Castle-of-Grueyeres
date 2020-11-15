@@ -6,6 +6,9 @@
         <inputExpression id="InputExpression_1" typeRef="string">
           <text>analysis</text>
         </inputExpression>
+        <inputValues id="UnaryTests_1iplxc2">
+          <text>"Sars_Cov_2","Ferritin","Vitamin_D","Blood_Screening","THC","Cancer"</text>
+        </inputValues>
       </input>
       <output id="OutputClause_0tgfbc0" label="biohazard" name="sampleRequirements.biohazard" typeRef="boolean" />
       <output id="OutputClause_0swr8pl" label="Severity of Misclassification" name="sampleRequirements.severityOfMisClassification" typeRef="string">
@@ -13,7 +16,11 @@
           <text>"LOW","HIGH","MEDIUM"</text>
         </outputValues>
       </output>
-      <output id="OutputClause_1s1o2js" label="Sample Type" name="sampleRequirements.sampleType" typeRef="string" />
+      <output id="OutputClause_1s1o2js" label="Sample Type" name="sampleRequirements.sampleType" typeRef="string">
+        <outputValues id="UnaryTests_0d82yh5">
+          <text>"BLOOD","TISSUE","URINE","SALIVA"</text>
+        </outputValues>
+      </output>
       <rule id="DecisionRule_1t42wsa">
         <inputEntry id="UnaryTests_0vvn9oz">
           <text>"Sars_Cov_2"</text>
@@ -44,7 +51,7 @@
       </rule>
       <rule id="DecisionRule_009a5h5">
         <inputEntry id="UnaryTests_0qbbb7u">
-          <text>"THC"</text>
+          <text>"Vitamin_D"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1n0xpqy">
           <text>false</text>
@@ -54,6 +61,48 @@
         </outputEntry>
         <outputEntry id="LiteralExpression_1x4u0d6">
           <text>"URINE"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ukwdmy">
+        <inputEntry id="UnaryTests_0qoy55e">
+          <text>"HIV"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0g4tsyh">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_18fyysb">
+          <text>"HIGH"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1k1edtu">
+          <text>"BLOOD"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1p7kftf">
+        <inputEntry id="UnaryTests_0o09q3o">
+          <text>"THC"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0dr2xav">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1vvksw5">
+          <text>"LOW"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0pkhbv0">
+          <text>"URINE"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1juvp16">
+        <inputEntry id="UnaryTests_1ycr1qw">
+          <text>"Cancer"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0xcupeg">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1x89spz">
+          <text>"HIGH"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1snvomp">
+          <text>"TISSUE"</text>
         </outputEntry>
       </rule>
     </decisionTable>

@@ -19,11 +19,11 @@
       </input>
       <output id="Output_1" label="state" name="state" typeRef="string" biodi:width="192">
         <outputValues id="UnaryTests_1b7kkw1">
-          <text>"CANCELLED","OK"</text>
+          <text>"CANCELLED","SAMPLE_RECEIVED"</text>
         </outputValues>
       </output>
       <rule id="DecisionRule_015avuw">
-        <description>Package is damaged</description>
+        <description>Super-GAU, everything made wrong.</description>
         <inputEntry id="UnaryTests_0v2szav">
           <text>true</text>
         </inputEntry>
@@ -31,19 +31,19 @@
           <text>true</text>
         </inputEntry>
         <inputEntry id="UnaryTests_07xcrco">
-          <text>false</text>
+          <text>true</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1ehvgwt">
           <text>"CANCELLED"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0s8thcj">
-        <description>Temperature indicator shows wrong package handling.</description>
+        <description>Package damaged upon arrival and temperature indicator not ok.</description>
         <inputEntry id="UnaryTests_18t607h">
-          <text>false</text>
+          <text>true</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1ywxhk1">
-          <text>false</text>
+          <text>true</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0gtkwdc">
           <text>false</text>
@@ -53,33 +53,92 @@
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1hkzmk0">
-        <description>Wrong sample type is received.</description>
+        <description>Package damaged upon arrival</description>
         <inputEntry id="UnaryTests_1i2c2o4">
-          <text>false</text>
+          <text>true</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1yeiyss">
-          <text>true</text>
+          <text>false</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0rbsgnw">
-          <text>true</text>
+          <text>false</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_162nr5a">
           <text>"CANCELLED"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0q2ldfz">
-        <description></description>
+        <description>Package damaged upon arrival and wrong sample shipped.</description>
         <inputEntry id="UnaryTests_0vhomkk">
-          <text>false</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_16vfdmv">
           <text>true</text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0913n0r">
+        <inputEntry id="UnaryTests_16vfdmv">
           <text>false</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0913n0r">
+          <text>true</text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_1dq0b3c">
+          <text>"CANCELLED"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0iiy0m8">
+        <inputEntry id="UnaryTests_1bo22d9">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ybhw58">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0lkj0zf">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1fgd0q0">
           <text>"SAMPLE_RECEIVED"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1fubhxo">
+        <description>Wrong sample shipped.</description>
+        <inputEntry id="UnaryTests_1942uwl">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1qsh7gx">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_08sa6mj">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1j7i2c1">
+          <text>"CANCELLED"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1dre0a8">
+        <description>Wrong sample shipped and temperature indicator not ok</description>
+        <inputEntry id="UnaryTests_1x6zdkd">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0pv2682">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0obr01q">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0m6ju9c">
+          <text>"CANCELLED"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0quqk8c">
+        <description>Temperature indicator not ok.</description>
+        <inputEntry id="UnaryTests_1iasujc">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1s8wsux">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_133rwtf">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_120drbg">
+          <text>"CANCELLED"</text>
         </outputEntry>
       </rule>
     </decisionTable>

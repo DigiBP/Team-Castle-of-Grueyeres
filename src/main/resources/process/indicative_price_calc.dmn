@@ -6,6 +6,9 @@
         <inputExpression id="InputExpression_1" typeRef="string">
           <text>analysis</text>
         </inputExpression>
+        <inputValues id="UnaryTests_0wtxg28">
+          <text>"Sars_Cov_2","Ferritin","Vitamin_D","HIV","THC","Cancer"</text>
+        </inputValues>
       </input>
       <input id="InputClause_1h2pz0i" label="priority" camunda:inputVariable="priority">
         <inputExpression id="LiteralExpression_1gexlf4" typeRef="string">
@@ -146,6 +149,72 @@
         </inputEntry>
         <outputEntry id="LiteralExpression_10zrcff">
           <text>449</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1m1trsl">
+        <inputEntry id="UnaryTests_1x9cnhy">
+          <text>"HIV"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0jr2qkp">
+          <text>"LOW"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_14hb7j5">
+          <text>20</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_00y13ly">
+        <inputEntry id="UnaryTests_0d0tps1">
+          <text>"HIV"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1nddcaf">
+          <text>"MEDIUM"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0jyvoln">
+          <text>44</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0oip349">
+        <inputEntry id="UnaryTests_1fvf2su">
+          <text>"HIV"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14qpv7m">
+          <text>"HIGH"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0y5z6vo">
+          <text>64</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1m7c14r">
+        <inputEntry id="UnaryTests_04zmuq6">
+          <text>"Vitamin_D"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0vvw84f">
+          <text>"LOW"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1q7d0dg">
+          <text>56</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0b07k66">
+        <inputEntry id="UnaryTests_1eynwv1">
+          <text>"Vitamin_D"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_15zvr0e">
+          <text>"MEDIUM"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_08k1t9j">
+          <text>70</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1bq9yti">
+        <inputEntry id="UnaryTests_07zmlmy">
+          <text>"Vitamin_D"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1bz2csx">
+          <text>"HIGH"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1dhr9of">
+          <text>87</text>
         </outputEntry>
       </rule>
     </decisionTable>

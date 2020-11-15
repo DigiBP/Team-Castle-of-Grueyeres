@@ -293,6 +293,6 @@ public class Order extends AbstractEntity {
     }
 
     public enum AnalysisType {
-        Sars_Cov_2, Ferritin, Vitamin_D, Blood_Screening, THC, Cancer
+        Sars_Cov_2, Ferritin, Vitamin_D, HIV, THC, Cancer
     }
 }

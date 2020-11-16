@@ -76,15 +76,6 @@
         <bpmn:targetRef>DataStoreReference_15w108l</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:manualTask>
-    <bpmn:sendTask id="sample_cancel_notification" name="Notify of cancellation" camunda:delegateExpression="#{sampleDelegate}">
-      <bpmn:incoming>Flow_15te87p</bpmn:incoming>
-      <bpmn:outgoing>Flow_0dnl3mw</bpmn:outgoing>
-      <bpmn:ioSpecification>
-        <bpmn:dataOutput name="CRM" />
-        <bpmn:inputSet />
-        <bpmn:outputSet />
-      </bpmn:ioSpecification>
-    </bpmn:sendTask>
     <bpmn:dataStoreReference id="DataStoreReference_15w108l" name="LIMS" />
     <bpmn:manualTask id="Activity_05yyot3" name="Store sample">
       <bpmn:incoming>Flow_0fd28zr</bpmn:incoming>
@@ -98,6 +89,15 @@
         <bpmn:targetRef>DataStoreReference_15w108l</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:manualTask>
+    <bpmn:sendTask id="sample_cancel_notification" name="Send Cancellation Mail" camunda:delegateExpression="#{sampleDelegate}">
+      <bpmn:incoming>Flow_15te87p</bpmn:incoming>
+      <bpmn:outgoing>Flow_0dnl3mw</bpmn:outgoing>
+      <bpmn:ioSpecification>
+        <bpmn:dataOutput name="CRM" />
+        <bpmn:inputSet />
+        <bpmn:outputSet />
+      </bpmn:ioSpecification>
+    </bpmn:sendTask>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="sample_entry">

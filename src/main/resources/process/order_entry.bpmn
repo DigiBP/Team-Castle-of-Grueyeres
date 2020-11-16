@@ -21,13 +21,13 @@
         <bpmn:targetRef>Property_0c3gpzp</bpmn:targetRef>
       </bpmn:dataInputAssociation>
     </bpmn:businessRuleTask>
-    <bpmn:endEvent id="confirm_order" name="Send confirmation">
+    <bpmn:endEvent id="confirm_order" name="Confirmation Sent">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="state">CONFIRMED</camunda:inputParameter>
         </camunda:inputOutput>
       </bpmn:extensionElements>
-      <bpmn:incoming>Flow_0xpm2vi</bpmn:incoming>
+      <bpmn:incoming>Flow_0hf9p4a</bpmn:incoming>
       <bpmn:messageEventDefinition id="MessageEventDefinition_0rf4r06" camunda:delegateExpression="#{orderDelegate}" />
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_1cuibf4" sourceRef="store_order" targetRef="shipping_information" />
@@ -49,13 +49,43 @@
       <bpmn:incoming>Flow_0z2ubfj</bpmn:incoming>
       <bpmn:outgoing>Flow_0xpm2vi</bpmn:outgoing>
     </bpmn:businessRuleTask>
-    <bpmn:sequenceFlow id="Flow_0xpm2vi" sourceRef="Activity_1rlny8w" targetRef="confirm_order" />
+    <bpmn:sequenceFlow id="Flow_0xpm2vi" sourceRef="Activity_1rlny8w" targetRef="Activity_0f9758f" />
+    <bpmn:sequenceFlow id="Flow_0hf9p4a" sourceRef="Activity_0f9758f" targetRef="confirm_order" />
+    <bpmn:serviceTask id="Activity_0f9758f" name="Send Confirmation Mail">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="payload">
+              <camunda:script scriptFormat="JavaScript">out = JSON.stringify({
+"billingInformation.price": price,
+"priority": priority,
+"biohazard": biohazard,
+"sampleType": sampleType,
+"analysis": analysis
+});
+
+</camunda:script>
+            </camunda:inputParameter>
+            <camunda:inputParameter name="method">POST</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/json</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:inputParameter name="url">https://hook.integromat.com/dkkf5659e1yaja7dbkl9r1br1hrgkisx</camunda:inputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0xpm2vi</bpmn:incoming>
+      <bpmn:outgoing>Flow_0hf9p4a</bpmn:outgoing>
+    </bpmn:serviceTask>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="order_entry">
       <bpmndi:BPMNEdge id="Flow_0xpm2vi_di" bpmnElement="Flow_0xpm2vi">
         <di:waypoint x="600" y="120" />
-        <di:waypoint x="642" y="120" />
+        <di:waypoint x="630" y="120" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0z2ubfj_di" bpmnElement="Flow_0z2ubfj">
         <di:waypoint x="468" y="120" />
@@ -68,6 +98,10 @@
       <bpmndi:BPMNEdge id="Flow_1cuibf4_di" bpmnElement="Flow_1cuibf4">
         <di:waypoint x="344" y="120" />
         <di:waypoint x="372" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0hf9p4a_di" bpmnElement="Flow_0hf9p4a">
+        <di:waypoint x="730" y="120" />
+        <di:waypoint x="772" y="120" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Event_07z3g29_di" bpmnElement="Event_07z3g29">
         <dc:Bounds x="174" y="104" width="32" height="32" />
@@ -91,10 +125,13 @@
         <dc:Bounds x="500" y="80" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_06p52x4_di" bpmnElement="confirm_order">
-        <dc:Bounds x="642" y="102" width="36" height="36" />
+        <dc:Bounds x="772" y="102" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="616" y="148" width="89" height="14" />
+          <dc:Bounds x="746" y="148" width="89" height="14" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ar70a6_di" bpmnElement="Activity_0f9758f">
+        <dc:Bounds x="630" y="80" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="DataInputAssociation_1bpjar4_di" bpmnElement="DataInputAssociation_1bpjar4">
         <di:waypoint x="375" y="205" />

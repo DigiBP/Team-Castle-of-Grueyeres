@@ -256,8 +256,8 @@ public class Order extends AbstractEntity {
     }
 
     private void loadValidation(Map<String, Object> map) {
-        if (mapHasKey("recommendation", map)) {
-            validation = new Validation((Map<String, Object>) map.get("recommendation"));
+        if (mapHasKey("validation", map)) {
+            validation = new Validation((Map<String, Object>) map.get("validation"));
         } else {
             validation = new Validation(map);
         }

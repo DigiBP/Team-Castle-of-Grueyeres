@@ -57,6 +57,11 @@
     <bpmn:sequenceFlow id="Flow_07e8wg5" sourceRef="Activity_1rlny8w" targetRef="store_order" />
     <bpmn:sequenceFlow id="Flow_06843e0" sourceRef="store_order" targetRef="send_confirmation" />
     <bpmn:serviceTask id="store_order" name="Store Order" camunda:delegateExpression="#{orderDelegate}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="state">CONFIRMED</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_07e8wg5</bpmn:incoming>
       <bpmn:outgoing>Flow_06843e0</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_0cat4l1">
@@ -76,9 +81,13 @@
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="order_entry">
-      <bpmndi:BPMNEdge id="Flow_0z2ubfj_di" bpmnElement="Flow_0z2ubfj">
-        <di:waypoint x="378" y="120" />
-        <di:waypoint x="410" y="120" />
+      <bpmndi:BPMNEdge id="Flow_13rf5pa_di" bpmnElement="Flow_13rf5pa">
+        <di:waypoint x="204" y="120" />
+        <di:waypoint x="282" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_06843e0_di" bpmnElement="Flow_06843e0">
+        <di:waypoint x="640" y="120" />
+        <di:waypoint x="681" y="120" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_07e8wg5_di" bpmnElement="Flow_07e8wg5">
         <di:waypoint x="510" y="120" />
@@ -88,14 +97,22 @@
         <di:waypoint x="781" y="120" />
         <di:waypoint x="824" y="120" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_06843e0_di" bpmnElement="Flow_06843e0">
-        <di:waypoint x="640" y="120" />
-        <di:waypoint x="681" y="120" />
+      <bpmndi:BPMNEdge id="Flow_0z2ubfj_di" bpmnElement="Flow_0z2ubfj">
+        <di:waypoint x="378" y="120" />
+        <di:waypoint x="410" y="120" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_13rf5pa_di" bpmnElement="Flow_13rf5pa">
-        <di:waypoint x="204" y="120" />
-        <di:waypoint x="282" y="120" />
-      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_07z3g29_di" bpmnElement="Event_07z3g29">
+        <dc:Bounds x="172" y="104" width="32" height="32" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="152" y="146" width="73" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataStoreReference_1datr1w_di" bpmnElement="DataStoreReference_1datr1w">
+        <dc:Bounds x="443" y="191" width="33" height="28" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="448" y="226" width="26" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0wsp352_di" bpmnElement="shipping_information">
         <dc:Bounds x="282" y="82" width="96" height="76" />
       </bpmndi:BPMNShape>
@@ -107,18 +124,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_06c3epo_di" bpmnElement="store_order">
         <dc:Bounds x="540" y="80" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="DataStoreReference_1datr1w_di" bpmnElement="DataStoreReference_1datr1w">
-        <dc:Bounds x="443" y="191" width="33" height="28" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="448" y="226" width="26" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_07z3g29_di" bpmnElement="Event_07z3g29">
-        <dc:Bounds x="172" y="104" width="32" height="32" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="152" y="146" width="73" height="14" />
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0hftv5m_di" bpmnElement="confirm_order">
         <dc:Bounds x="824" y="102" width="36" height="36" />

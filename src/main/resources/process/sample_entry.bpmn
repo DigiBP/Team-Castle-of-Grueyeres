@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_11n5fw1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.3.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_11n5fw1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.2.0">
   <bpmn:process id="sample_entry" isExecutable="true">
     <bpmn:endEvent id="sample_entry_finished" name="Sample stored">
       <bpmn:extensionElements>
@@ -16,8 +16,8 @@
       <bpmn:outgoing>Flow_0rmkpcp</bpmn:outgoing>
       <bpmn:outgoing>Flow_1t731oj</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:sequenceFlow id="Flow_0wldyu3" sourceRef="Event_1pq1vob" targetRef="Activity_0chp6sn" />
-    <bpmn:sequenceFlow id="Flow_0dw7ynt" sourceRef="Activity_0chp6sn" targetRef="check_sample" />
+    <bpmn:sequenceFlow id="Flow_0wldyu3" sourceRef="Event_1pq1vob" targetRef="enter_sample" />
+    <bpmn:sequenceFlow id="Flow_0dw7ynt" sourceRef="enter_sample" targetRef="check_sample" />
     <bpmn:sequenceFlow id="Flow_00h2l51" sourceRef="check_sample" targetRef="Gateway_1bph47a" />
     <bpmn:sequenceFlow id="Flow_0rmkpcp" name="ok" sourceRef="Gateway_1bph47a" targetRef="Activity_1qqdeo6">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${state == 'SAMPLE_RECEIVED'}</bpmn:conditionExpression>
@@ -64,18 +64,6 @@
         <bpmn:targetRef>DataStoreReference_15w108l</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:businessRuleTask>
-    <bpmn:manualTask id="Activity_0chp6sn" name="Label / Scan sample">
-      <bpmn:incoming>Flow_0wldyu3</bpmn:incoming>
-      <bpmn:outgoing>Flow_0dw7ynt</bpmn:outgoing>
-      <bpmn:ioSpecification>
-        <bpmn:dataOutput name="LIMS" />
-        <bpmn:inputSet />
-        <bpmn:outputSet />
-      </bpmn:ioSpecification>
-      <bpmn:dataOutputAssociation id="DataOutputAssociation_1b0j1nu">
-        <bpmn:targetRef>DataStoreReference_15w108l</bpmn:targetRef>
-      </bpmn:dataOutputAssociation>
-    </bpmn:manualTask>
     <bpmn:dataStoreReference id="DataStoreReference_15w108l" name="LIMS" />
     <bpmn:manualTask id="Activity_05yyot3" name="Store sample">
       <bpmn:incoming>Flow_0fd28zr</bpmn:incoming>
@@ -98,6 +86,18 @@
         <bpmn:outputSet />
       </bpmn:ioSpecification>
     </bpmn:sendTask>
+    <bpmn:userTask id="enter_sample" name="Enter Sample" camunda:candidateGroups="Lab Technician">
+      <bpmn:incoming>Flow_0wldyu3</bpmn:incoming>
+      <bpmn:outgoing>Flow_0dw7ynt</bpmn:outgoing>
+      <bpmn:ioSpecification>
+        <bpmn:dataOutput name="LIMS" />
+        <bpmn:inputSet />
+        <bpmn:outputSet />
+      </bpmn:ioSpecification>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1b0j1nu">
+        <bpmn:targetRef>DataStoreReference_15w108l</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:userTask>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="sample_entry">
@@ -196,12 +196,6 @@
       <bpmndi:BPMNShape id="Activity_1ni5x5a_di" bpmnElement="Activity_1qqdeo6">
         <dc:Bounds x="662" y="232" width="96" height="76" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_13xqybh_di" bpmnElement="Activity_0chp6sn">
-        <dc:Bounds x="263" y="232" width="96" height="76" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1sns29l_di" bpmnElement="sample_cancel_notification">
-        <dc:Bounds x="662" y="432" width="96" height="76" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataStoreReference_15w108l_di" bpmnElement="DataStoreReference_15w108l">
         <dc:Bounds x="685" y="115" width="50" height="50" />
         <bpmndi:BPMNLabel>
@@ -211,12 +205,18 @@
       <bpmndi:BPMNShape id="Activity_0h4uidy_di" bpmnElement="Activity_05yyot3">
         <dc:Bounds x="792" y="232" width="96" height="76" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1sns29l_di" bpmnElement="sample_cancel_notification">
+        <dc:Bounds x="662" y="432" width="96" height="76" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ops35b_di" bpmnElement="enter_sample">
+        <dc:Bounds x="263" y="232" width="96" height="76" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="DataOutputAssociation_1ahbmue_di" bpmnElement="DataOutputAssociation_1ahbmue">
         <di:waypoint x="710" y="232" />
         <di:waypoint x="710" y="165" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataOutputAssociation_1b0j1nu_di" bpmnElement="DataOutputAssociation_1b0j1nu">
-        <di:waypoint x="311" y="230" />
+        <di:waypoint x="311" y="232" />
         <di:waypoint x="311" y="135" />
         <di:waypoint x="685" y="135" />
       </bpmndi:BPMNEdge>

@@ -1,36 +1,27 @@
 package ch.fhnw.digibp.sample;
 
 import java.time.ZonedDateTime;
-import java.util.Optional;
 
+import ch.fhnw.digibp.AbstractCamundaController;
 import ch.fhnw.digibp.order.Order;
 import ch.fhnw.digibp.order.OrderRepository;
 import org.camunda.bpm.engine.RuntimeService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.camunda.bpm.engine.TaskService;
+import org.camunda.bpm.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.client.HttpServerErrorException;
 
 @Controller
-public class SampleController {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(SampleController.class);
-
-    private final RuntimeService runtimeService;
-
-    private final OrderRepository orderRepository;
+public class SampleController extends AbstractCamundaController {
 
     @Autowired
-    public SampleController(OrderRepository orderRepository, RuntimeService runtimeService) {
-        this.orderRepository = orderRepository;
-        this.runtimeService = runtimeService;
+    public SampleController(OrderRepository orderRepository, RuntimeService runtimeService, TaskService taskService) {
+        super(orderRepository, runtimeService, taskService);
     }
 
     @GetMapping("/order/{order}/sample")
@@ -52,15 +43,10 @@ public class SampleController {
         order.getSample().setUpdateDate(ZonedDateTime.now());
         order.setState(Order.State.SAMPLE_RECEIVED);
         orderRepository.save(order);
+        Task task = findTask(orderUuid, "Lab Technician", "enter_sample");
+        taskService.complete(task.getId(), order.toMap());
         model.addAttribute("sample", order.getSample());
         model.addAttribute("uuid", orderUuid);
-
-        runtimeService.startProcessInstanceByKey("sample_entry", order.getUuid(), order.toMap());
         return "redirect:/order/" + orderUuid;
-    }
-
-    private Order find(String orderUuid) {
-        Optional<Order> order = orderRepository.findById(orderUuid);
-        return order.orElseThrow(() -> new HttpServerErrorException(HttpStatus.NOT_FOUND));
     }
 }

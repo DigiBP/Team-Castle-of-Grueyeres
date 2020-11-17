@@ -61,6 +61,10 @@ public class OrderService {
         return orderRepository.save(persistedOrder);
     }
 
+    public void startSampleEntry(Order order) {
+        runtimeService.startProcessInstanceByKey("sample_entry", order.getUuid(), order.toMap());
+    }
+
     public Order load(String uuid) {
         Optional<Order> order = orderRepository.findById(uuid);
         return order.orElseThrow(() -> new HttpServerErrorException(HttpStatus.NOT_FOUND));

@@ -23,12 +23,6 @@ public class OrderDelegate implements JavaDelegate {
             case "store_order":
                 storeOrder(execution);
                 break;
-            case "cancel_order":
-                cancelOrder(execution);
-                break;
-            case "confirm_order":
-                confirmOrder(execution);
-                break;
             default:
                 LOGGER.error("Unexpected activity '{}'", execution.getCurrentActivityId());
         }
@@ -40,17 +34,5 @@ public class OrderDelegate implements JavaDelegate {
         execution.getVariables().clear();
         execution.setVariables(order.toMap());
         LOGGER.info("Persisting order {}", order);
-    }
-
-    private void cancelOrder(DelegateExecution execution) {
-        Order order = new Order(execution.getVariables());
-        orderRepository.save(order);
-        LOGGER.info("Cancelling order {}", order);
-    }
-
-    private void confirmOrder(DelegateExecution execution) {
-        Order order = new Order(execution.getVariables());
-        orderRepository.save(order);
-        LOGGER.info("Confirming order {}", order);
     }
 }

@@ -55,6 +55,7 @@ public class OrderController {
 
     @PostMapping(value = "/order/{order}", params = "action=enterSample")
     public String enter_sample(@ModelAttribute Order order, @PathVariable(name = "order") String orderUuid, Model model) {
+        orderService.startSampleEntry(order);
         return "redirect:" + order.getUuid() + "/sample";
     }
 

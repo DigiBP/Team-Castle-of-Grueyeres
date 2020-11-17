@@ -1,34 +1,28 @@
 package ch.fhnw.digibp.analysis;
 
 import java.time.LocalDate;
-import java.util.Optional;
 
+import ch.fhnw.digibp.AbstractCamundaController;
 import ch.fhnw.digibp.order.Order;
 import ch.fhnw.digibp.order.OrderRepository;
-import org.camunda.bpm.engine.ProcessEngine;
+import org.camunda.bpm.engine.RuntimeService;
+import org.camunda.bpm.engine.TaskService;
 import org.camunda.bpm.engine.task.Task;
-import org.camunda.bpm.engine.task.TaskQuery;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.client.HttpServerErrorException;
 
 @Controller
-public class AnalysisController {
+public class AnalysisController extends AbstractCamundaController {
 
-    private final ProcessEngine processEngine;
-
-    private final OrderRepository orderRepository;
 
     @Autowired
-    public AnalysisController(OrderRepository orderRepository, ProcessEngine processEngine) {
-        this.orderRepository = orderRepository;
-        this.processEngine = processEngine;
+    public AnalysisController(OrderRepository orderRepository, RuntimeService runtimeService, TaskService taskService) {
+        super(orderRepository, runtimeService, taskService);
     }
 
     @GetMapping("/order/{uuid}/analysis")
@@ -53,7 +47,7 @@ public class AnalysisController {
         persistedOrder.setState(Order.State.ANALYSIS_DONE);
         orderRepository.save(persistedOrder);
         Task task = findTask(orderUuid, "Lab Technician", "submit_test_result");
-        processEngine.getTaskService().complete(task.getId(), persistedOrder.toMap());
+        taskService.complete(task.getId(), persistedOrder.toMap());
         return "redirect:/order/" + orderUuid;
     }
 
@@ -64,7 +58,7 @@ public class AnalysisController {
         persistedOrder.setState(Order.State.ANALYSIS_REVIEWED);
         orderRepository.save(persistedOrder);
         Task task = findTask(orderUuid, "Physician", "validate_analysis");
-        processEngine.getTaskService().complete(task.getId(), persistedOrder.toMap());
+        taskService.complete(task.getId(), persistedOrder.toMap());
         return "redirect:/order/" + orderUuid;
     }
 
@@ -76,21 +70,9 @@ public class AnalysisController {
         order.setState(Order.State.IN_ANALYSIS);
         orderRepository.save(order);
         Task task = findTask(orderUuid, "Physician", "validate_analysis");
-        processEngine.getTaskService().complete(task.getId(), order.toMap());
+        taskService.complete(task.getId(), order.toMap());
         return "redirect:/order/" + orderUuid;
     }
 
-    private Task findTask(String uuid, String group, String taskKey) {
-        TaskQuery taskQuery = processEngine.getTaskService().createTaskQuery();
-        taskQuery.taskCandidateGroup(group);
-        taskQuery.taskDefinitionKey(taskKey);
-        taskQuery.processInstanceBusinessKey(uuid);
-        return taskQuery.singleResult();
-    }
 
-
-    private Order find(String orderUuid) {
-        Optional<Order> order = orderRepository.findById(orderUuid);
-        return order.orElseThrow(() -> new HttpServerErrorException(HttpStatus.NOT_FOUND));
-    }
 }

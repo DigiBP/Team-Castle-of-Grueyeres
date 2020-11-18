@@ -3,7 +3,7 @@
   <decision id="verify_analysis" name="Sample Verification">
     <decisionTable id="DecisionTable_1i3dax9">
       <input id="Input_1" label="ML Probability" camunda:inputVariable="validation.probability">
-        <inputExpression id="InputExpression_1" typeRef="integer">
+        <inputExpression id="InputExpression_1" typeRef="double">
           <text></text>
         </inputExpression>
       </input>
@@ -51,7 +51,7 @@
       </rule>
       <rule id="DecisionRule_0hwmhvy">
         <inputEntry id="UnaryTests_015zqai">
-          <text>&lt;80</text>
+          <text>&lt; 80.0</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1x27lep">
           <text>"MEDIUM"</text>

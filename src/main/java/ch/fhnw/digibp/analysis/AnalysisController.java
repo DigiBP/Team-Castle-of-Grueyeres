@@ -61,14 +61,14 @@ public class AnalysisController extends AbstractCamundaController {
     }
 
     @PostMapping(value = "/order/{orderUuid}/analysis", params = "action=reject")
-    public String reject_analysis(@ModelAttribute Order order, @PathVariable(name = "orderUuid") String orderUuid, Model model) {
-        Analysis analysis = new Analysis();
-        analysis.setStartDate(LocalDate.now());
-        order.setAnalysisResult(analysis);
-        order.setState(Order.State.IN_ANALYSIS);
-        orderRepository.save(order);
+    public String reject_analysis(@PathVariable(name = "orderUuid") String orderUuid, Model model) {
+        Order persistedOrder = find(orderUuid);
+        persistedOrder.getValidation().setApproved(false);
+        persistedOrder.setState(Order.State.IN_ANALYSIS);
+        persistedOrder.setValidation(null);
+        orderRepository.save(persistedOrder);
         Task task = findTask(orderUuid, "Physician", "validate_analysis");
-        taskService.complete(task.getId(), order.toMap());
+        taskService.complete(task.getId(), persistedOrder.toMap());
         return "redirect:/order/" + orderUuid;
     }
 

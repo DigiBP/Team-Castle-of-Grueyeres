@@ -67,6 +67,6 @@ public class OrderController {
 
     @PostMapping(value = "/order/{order}", params = "action=enterAnalysisResult")
     public String enter_order_analysis(@ModelAttribute Order order, @PathVariable(name = "order") String orderUuid, Model model) {
-        return "redirect:" + order.getUuid();
+        return "redirect:" + orderUuid + "/analysis";
     }
 }

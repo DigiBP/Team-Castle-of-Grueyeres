@@ -29,7 +29,7 @@
       <bpmn:outgoing>Flow_1iu1m1k</bpmn:outgoing>
       <bpmn:outgoing>Flow_1dw97cj</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:businessRuleTask id="Activity_191wmwy" name="physican review required" implementation="##unspecified" camunda:decisionRef="verify_analysis">
+    <bpmn:businessRuleTask id="Activity_191wmwy" name="physican review required" implementation="##unspecified" camunda:resultVariable="validation.verificationNeeded" camunda:decisionRef="verify_analysis" camunda:mapDecisionResult="singleEntry">
       <bpmn:incoming>Flow_0z4g4ax</bpmn:incoming>
       <bpmn:outgoing>Flow_0pz8wy6</bpmn:outgoing>
     </bpmn:businessRuleTask>
@@ -62,13 +62,13 @@
     <bpmn:dataStoreReference id="DataStoreReference_0t6qamb" name="Recommendation&#10;Engine" />
     <bpmn:sequenceFlow id="Flow_1a6m9dl" sourceRef="validate_analysis" targetRef="Gateway_0zzjvsj" />
     <bpmn:sequenceFlow id="Flow_0vh5gx6" name="ok" sourceRef="Gateway_0zzjvsj" targetRef="approve">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${true}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${execution.getVariable('validation.approved') == true}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1iu1m1k" name="yes" sourceRef="Gateway_1h32dq2" targetRef="validate_analysis">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${true}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${execution.getVariable('validation.verificationNeeded') == true}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1dw97cj" name="no" sourceRef="Gateway_1h32dq2" targetRef="approve">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${false}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${execution.getVariable('validation.verificationNeeded') == false}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1s9diir" sourceRef="Activity_00ymm66" targetRef="submit_test_result" />
     <bpmn:sequenceFlow id="Flow_0xep073" sourceRef="Activity_1e3y89f" targetRef="Activity_00ymm66" />
@@ -123,7 +123,7 @@
     <bpmn:sequenceFlow id="Flow_1lspova" sourceRef="Activity_0hmglyl" targetRef="Activity_1e3y89f" />
     <bpmn:sequenceFlow id="Flow_12mxafd" sourceRef="Event_0lbe6fs" targetRef="Activity_0hmglyl" />
     <bpmn:sequenceFlow id="Flow_06dpuxv" name="nok" sourceRef="Gateway_0zzjvsj" targetRef="Activity_0hmglyl">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${false}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${execution.getVariable('validation.approved') == false}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:task id="Activity_08gu6t3" name="Notify lab assistant for store sample again">
       <bpmn:incoming>Flow_0sfijt4</bpmn:incoming>

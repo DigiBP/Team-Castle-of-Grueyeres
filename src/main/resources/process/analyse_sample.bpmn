@@ -24,9 +24,6 @@
         <bpmn:targetRef>DataStoreReference_12z29g0</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:userTask>
-    <bpmn:endEvent id="Event_1jurvs5" name="Approved for order fullfilment">
-      <bpmn:incoming>Flow_0z37wda</bpmn:incoming>
-    </bpmn:endEvent>
     <bpmn:exclusiveGateway id="Gateway_1h32dq2" gatewayDirection="Diverging">
       <bpmn:incoming>Flow_1ibh4fp</bpmn:incoming>
       <bpmn:outgoing>Flow_1iu1m1k</bpmn:outgoing>
@@ -64,13 +61,13 @@
     <bpmn:dataStoreReference id="DataStoreReference_0rub543" name="Batch storage" />
     <bpmn:dataStoreReference id="DataStoreReference_0t6qamb" name="Recommendation&#10;Engine" />
     <bpmn:sequenceFlow id="Flow_1a6m9dl" sourceRef="validate_analysis" targetRef="Gateway_0zzjvsj" />
-    <bpmn:sequenceFlow id="Flow_0vh5gx6" name="ok" sourceRef="Gateway_0zzjvsj" targetRef="Activity_1vvqsjo">
+    <bpmn:sequenceFlow id="Flow_0vh5gx6" name="ok" sourceRef="Gateway_0zzjvsj" targetRef="approve">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${true}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1iu1m1k" name="yes" sourceRef="Gateway_1h32dq2" targetRef="validate_analysis">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${true}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_1dw97cj" name="no" sourceRef="Gateway_1h32dq2" targetRef="Activity_1vvqsjo">
+    <bpmn:sequenceFlow id="Flow_1dw97cj" name="no" sourceRef="Gateway_1h32dq2" targetRef="approve">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${false}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1s9diir" sourceRef="Activity_00ymm66" targetRef="submit_test_result" />
@@ -109,18 +106,10 @@
       <bpmn:incoming>Flow_0xep073</bpmn:incoming>
       <bpmn:outgoing>Flow_1s9diir</bpmn:outgoing>
     </bpmn:manualTask>
-    <bpmn:sequenceFlow id="Flow_0z37wda" sourceRef="Gateway_1octbme" targetRef="Event_1jurvs5" />
+    <bpmn:sequenceFlow id="Flow_0z37wda" sourceRef="Gateway_1octbme" targetRef="analysis_done" />
     <bpmn:dataStoreReference id="DataStoreReference_12z29g0" name="LIMS" />
     <bpmn:dataStoreReference id="DataStoreReference_0n0qfuo" name="LIMS" />
-    <bpmn:task id="Activity_1vvqsjo" name="Give Approval">
-      <bpmn:incoming>Flow_1dw97cj</bpmn:incoming>
-      <bpmn:incoming>Flow_0vh5gx6</bpmn:incoming>
-      <bpmn:outgoing>Flow_06i68hi</bpmn:outgoing>
-      <bpmn:dataOutputAssociation id="DataOutputAssociation_110pcu8">
-        <bpmn:targetRef>DataStoreReference_0n0qfuo</bpmn:targetRef>
-      </bpmn:dataOutputAssociation>
-    </bpmn:task>
-    <bpmn:sequenceFlow id="Flow_06i68hi" sourceRef="Activity_1vvqsjo" targetRef="Gateway_1octbme" />
+    <bpmn:sequenceFlow id="Flow_06i68hi" sourceRef="approve" targetRef="Gateway_1octbme" />
     <bpmn:task id="Activity_0hmglyl" name="Look for next sample">
       <bpmn:incoming>Flow_06dpuxv</bpmn:incoming>
       <bpmn:incoming>Flow_12mxafd</bpmn:incoming>
@@ -165,9 +154,40 @@
       <bpmn:incoming>Flow_0pz8wy6</bpmn:incoming>
       <bpmn:outgoing>Flow_1ibh4fp</bpmn:outgoing>
     </bpmn:serviceTask>
+    <bpmn:endEvent id="analysis_done" name="Approved for order fullfilment">
+      <bpmn:incoming>Flow_0z37wda</bpmn:incoming>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1dcy74r" messageRef="Message_0y6repc" />
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="approve" name="Give Approval" camunda:delegateExpression="#{orderDelegate}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="state">ANALYSIS_REVIEWED</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0vh5gx6</bpmn:incoming>
+      <bpmn:incoming>Flow_1dw97cj</bpmn:incoming>
+      <bpmn:outgoing>Flow_06i68hi</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_110pcu8">
+        <bpmn:targetRef>DataStoreReference_0n0qfuo</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:serviceTask>
   </bpmn:process>
+  <bpmn:signal id="Signal_1562wg4" name="ANALYSIS_DONE" />
+  <bpmn:message id="Message_0y6repc" name="startFulfillment" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="analyse_sample">
+      <bpmndi:BPMNEdge id="Flow_1ibh4fp_di" bpmnElement="Flow_1ibh4fp">
+        <di:waypoint x="1207" y="415" />
+        <di:waypoint x="1234" y="415" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0pz8wy6_di" bpmnElement="Flow_0pz8wy6">
+        <di:waypoint x="1081" y="415" />
+        <di:waypoint x="1107" y="415" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0z4g4ax_di" bpmnElement="Flow_0z4g4ax">
+        <di:waypoint x="940" y="415" />
+        <di:waypoint x="985" y="415" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0dfctu0_di" bpmnElement="Flow_0dfctu0">
         <di:waypoint x="890" y="280" />
         <di:waypoint x="890" y="178" />
@@ -253,32 +273,17 @@
           <dc:Bounds x="1148" y="672" width="12" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0z4g4ax_di" bpmnElement="Flow_0z4g4ax">
-        <di:waypoint x="940" y="415" />
-        <di:waypoint x="985" y="415" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0pz8wy6_di" bpmnElement="Flow_0pz8wy6">
-        <di:waypoint x="1081" y="415" />
-        <di:waypoint x="1107" y="415" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1ibh4fp_di" bpmnElement="Flow_1ibh4fp">
-        <di:waypoint x="1207" y="415" />
-        <di:waypoint x="1234" y="415" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Gateway_0zzjvsj_di" bpmnElement="Gateway_0zzjvsj" isMarkerVisible="true">
         <dc:Bounds x="1374" y="670" width="42" height="40" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1gczza2_di" bpmnElement="validate_analysis">
         <dc:Bounds x="1207" y="652" width="96" height="76" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1jurvs5_di" bpmnElement="Event_1jurvs5">
-        <dc:Bounds x="1557" y="397" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1537" y="440" width="76" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_1h32dq2_di" bpmnElement="Gateway_1h32dq2" isMarkerVisible="true">
         <dc:Bounds x="1234" y="395" width="42" height="40" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_191wmwy_di" bpmnElement="Activity_191wmwy">
+        <dc:Bounds x="985" y="377" width="96" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_14jjqcq_di" bpmnElement="submit_test_result">
         <dc:Bounds x="622" y="377" width="96" height="76" />
@@ -328,9 +333,6 @@
           <dc:Bounds x="1427" y="313" width="26" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1vvqsjo_di" bpmnElement="Activity_1vvqsjo">
-        <dc:Bounds x="1345" y="375" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0m82kyl_di" bpmnElement="Activity_0hmglyl">
         <dc:Bounds x="262" y="140" width="96" height="76" />
       </bpmndi:BPMNShape>
@@ -340,11 +342,17 @@
       <bpmndi:BPMNShape id="Activity_0gz96sp_di" bpmnElement="ml_recommendation">
         <dc:Bounds x="840" y="375" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_191wmwy_di" bpmnElement="Activity_191wmwy">
-        <dc:Bounds x="985" y="377" width="96" height="76" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0pnskek_di" bpmnElement="store_order">
         <dc:Bounds x="1107" y="375" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_04xfofn_di" bpmnElement="analysis_done">
+        <dc:Bounds x="1557" y="397" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1537" y="440" width="76" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1rfl998_di" bpmnElement="approve">
+        <dc:Bounds x="1345" y="375" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="DataInputAssociation_0u8kosa_di" bpmnElement="DataInputAssociation_0u8kosa">
         <di:waypoint x="1050" y="680" />
@@ -373,10 +381,6 @@
         <di:waypoint x="1390" y="200" />
         <di:waypoint x="1390" y="290" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="DataOutputAssociation_110pcu8_di" bpmnElement="DataOutputAssociation_110pcu8">
-        <di:waypoint x="1395" y="375" />
-        <di:waypoint x="1395" y="345" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataInputAssociation_1hju4r9_di" bpmnElement="DataInputAssociation_1hju4r9">
         <di:waypoint x="1000" y="700" />
         <di:waypoint x="339" y="700" />
@@ -395,6 +399,10 @@
         <di:waypoint x="930" y="590" />
         <di:waypoint x="1010" y="590" />
         <di:waypoint x="1010" y="665" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_110pcu8_di" bpmnElement="DataOutputAssociation_110pcu8">
+        <di:waypoint x="1395" y="375" />
+        <di:waypoint x="1395" y="345" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

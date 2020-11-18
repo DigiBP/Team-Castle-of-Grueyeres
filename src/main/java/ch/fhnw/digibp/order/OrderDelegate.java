@@ -20,6 +20,7 @@ public class OrderDelegate implements JavaDelegate {
 
     public void execute(DelegateExecution execution) {
         switch (execution.getCurrentActivityId()) {
+            case "approve":
             case "store_order":
                 storeOrder(execution);
                 break;

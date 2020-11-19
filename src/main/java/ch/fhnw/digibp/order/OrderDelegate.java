@@ -19,21 +19,11 @@ public class OrderDelegate implements JavaDelegate {
     }
 
     public void execute(DelegateExecution execution) {
-        switch (execution.getCurrentActivityId()) {
-            case "approve":
-            case "store_order":
-                storeOrder(execution);
-                break;
-            default:
-                LOGGER.error("Unexpected activity '{}'", execution.getCurrentActivityId());
-        }
-    }
-
-    private void storeOrder(DelegateExecution execution) {
         Order order = new Order(execution.getVariables());
         order = orderRepository.save(order);
         execution.getVariables().clear();
         execution.setVariables(order.toMap());
-        LOGGER.info("Persisting order {}", order);
+        LOGGER.info("Persisting order for activity {} - {}", execution.getCurrentActivityId(), order);
     }
+    
 }

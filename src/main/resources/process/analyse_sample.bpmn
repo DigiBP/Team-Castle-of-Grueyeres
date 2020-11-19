@@ -84,7 +84,7 @@
     <bpmn:parallelGateway id="Gateway_1octbme">
       <bpmn:incoming>Flow_0ponphl</bpmn:incoming>
       <bpmn:incoming>Flow_06i68hi</bpmn:incoming>
-      <bpmn:outgoing>Flow_0z37wda</bpmn:outgoing>
+      <bpmn:outgoing>Flow_06pr4n2</bpmn:outgoing>
     </bpmn:parallelGateway>
     <bpmn:manualTask id="Activity_1e3y89f" name="Withdraw / Transport sample to assigned laboratory">
       <bpmn:incoming>Flow_1lspova</bpmn:incoming>
@@ -106,7 +106,6 @@
       <bpmn:incoming>Flow_0xep073</bpmn:incoming>
       <bpmn:outgoing>Flow_1s9diir</bpmn:outgoing>
     </bpmn:manualTask>
-    <bpmn:sequenceFlow id="Flow_0z37wda" sourceRef="Gateway_1octbme" targetRef="analysis_done" />
     <bpmn:dataStoreReference id="DataStoreReference_12z29g0" name="LIMS" />
     <bpmn:dataStoreReference id="DataStoreReference_0n0qfuo" name="LIMS" />
     <bpmn:sequenceFlow id="Flow_06i68hi" sourceRef="approve" targetRef="Gateway_1octbme" />
@@ -154,10 +153,6 @@
       <bpmn:incoming>Flow_0pz8wy6</bpmn:incoming>
       <bpmn:outgoing>Flow_1ibh4fp</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:endEvent id="analysis_done" name="Approved for order fullfilment">
-      <bpmn:incoming>Flow_0z37wda</bpmn:incoming>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_1dcy74r" messageRef="Message_0y6repc" />
-    </bpmn:endEvent>
     <bpmn:serviceTask id="approve" name="Give Approval" camunda:delegateExpression="#{orderDelegate}">
       <bpmn:extensionElements>
         <camunda:inputOutput>
@@ -170,6 +165,25 @@
       <bpmn:dataOutputAssociation id="DataOutputAssociation_110pcu8">
         <bpmn:targetRef>DataStoreReference_0n0qfuo</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:task id="Activity_0p2ucyb" name="Sent report">
+      <bpmn:incoming>Flow_06pr4n2</bpmn:incoming>
+      <bpmn:outgoing>Flow_08mctsm</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_06pr4n2" sourceRef="Gateway_1octbme" targetRef="Activity_0p2ucyb" />
+    <bpmn:endEvent id="Event_0r4r0el">
+      <bpmn:incoming>Flow_08zf2v0</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_08mctsm" sourceRef="Activity_0p2ucyb" targetRef="store_order_2" />
+    <bpmn:sequenceFlow id="Flow_08zf2v0" sourceRef="store_order_2" targetRef="Event_0r4r0el" />
+    <bpmn:serviceTask id="store_order_2" name="Store Order" camunda:delegateExpression="#{orderDelegate}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="state">DONE</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_08mctsm</bpmn:incoming>
+      <bpmn:outgoing>Flow_08zf2v0</bpmn:outgoing>
     </bpmn:serviceTask>
   </bpmn:process>
   <bpmn:signal id="Signal_1562wg4" name="ANALYSIS_DONE" />
@@ -213,10 +227,6 @@
       <bpmndi:BPMNEdge id="Flow_06i68hi_di" bpmnElement="Flow_06i68hi">
         <di:waypoint x="1445" y="415" />
         <di:waypoint x="1480" y="415" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0z37wda_di" bpmnElement="Flow_0z37wda">
-        <di:waypoint x="1530" y="415" />
-        <di:waypoint x="1557" y="415" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0ponphl_di" bpmnElement="Flow_0ponphl">
         <di:waypoint x="1205" y="178" />
@@ -272,6 +282,18 @@
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1148" y="672" width="12" height="14" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_06pr4n2_di" bpmnElement="Flow_06pr4n2">
+        <di:waypoint x="1530" y="415" />
+        <di:waypoint x="1560" y="415" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_08mctsm_di" bpmnElement="Flow_08mctsm">
+        <di:waypoint x="1660" y="415" />
+        <di:waypoint x="1690" y="415" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_08zf2v0_di" bpmnElement="Flow_08zf2v0">
+        <di:waypoint x="1790" y="415" />
+        <di:waypoint x="1811" y="415" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Gateway_0zzjvsj_di" bpmnElement="Gateway_0zzjvsj" isMarkerVisible="true">
         <dc:Bounds x="1374" y="670" width="42" height="40" />
@@ -345,14 +367,17 @@
       <bpmndi:BPMNShape id="Activity_0pnskek_di" bpmnElement="store_order">
         <dc:Bounds x="1107" y="375" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_04xfofn_di" bpmnElement="analysis_done">
-        <dc:Bounds x="1557" y="397" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1537" y="440" width="76" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1rfl998_di" bpmnElement="approve">
         <dc:Bounds x="1345" y="375" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0p2ucyb_di" bpmnElement="Activity_0p2ucyb">
+        <dc:Bounds x="1560" y="375" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0r4r0el_di" bpmnElement="Event_0r4r0el">
+        <dc:Bounds x="1811" y="397" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0pj5iqo_di" bpmnElement="store_order_2">
+        <dc:Bounds x="1690" y="375" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="DataInputAssociation_0u8kosa_di" bpmnElement="DataInputAssociation_0u8kosa">
         <di:waypoint x="1050" y="680" />

@@ -47,6 +47,6 @@ public class SampleController extends AbstractCamundaController {
         taskService.complete(task.getId(), order.toMap());
         model.addAttribute("sample", order.getSample());
         model.addAttribute("uuid", orderUuid);
-        return "redirect:/order/" + orderUuid;
+        return "redirect:/orders";
     }
 }

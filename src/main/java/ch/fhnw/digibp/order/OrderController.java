@@ -43,14 +43,14 @@ public class OrderController {
     public String order_submit(@ModelAttribute Order order, Model model) {
         Order actualOrder = orderService.create(order);
         model.addAttribute("order", actualOrder);
-        return "redirect:" + order.getUuid();
+        return "redirect:/orders";
     }
 
     @PostMapping(value = "/order/{order}", params = "action=submit")
     public String order_submit(@ModelAttribute Order order, @PathVariable(name = "order") String orderUuid, Model model) {
         Order actualOrder = orderService.update(order, orderUuid);
         model.addAttribute("order", actualOrder);
-        return "redirect:" + order.getUuid();
+        return "redirect:/orders";
     }
 
     @PostMapping(value = "/order/{order}", params = "action=enterSample")

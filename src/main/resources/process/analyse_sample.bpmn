@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_07ez7et" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.2.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_07ez7et" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.3.0">
   <bpmn:process id="analyse_sample" isExecutable="true">
     <bpmn:exclusiveGateway id="Gateway_0zzjvsj" gatewayDirection="Diverging">
       <bpmn:incoming>Flow_1a6m9dl</bpmn:incoming>
@@ -166,15 +166,11 @@
         <bpmn:targetRef>DataStoreReference_0n0qfuo</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
-    <bpmn:task id="Activity_0p2ucyb" name="Sent report">
-      <bpmn:incoming>Flow_06pr4n2</bpmn:incoming>
-      <bpmn:outgoing>Flow_08mctsm</bpmn:outgoing>
-    </bpmn:task>
-    <bpmn:sequenceFlow id="Flow_06pr4n2" sourceRef="Gateway_1octbme" targetRef="Activity_0p2ucyb" />
+    <bpmn:sequenceFlow id="Flow_06pr4n2" sourceRef="Gateway_1octbme" targetRef="send_report" />
     <bpmn:endEvent id="Event_0r4r0el">
       <bpmn:incoming>Flow_08zf2v0</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="Flow_08mctsm" sourceRef="Activity_0p2ucyb" targetRef="store_order_2" />
+    <bpmn:sequenceFlow id="Flow_08mctsm" sourceRef="send_report" targetRef="store_order_2" />
     <bpmn:sequenceFlow id="Flow_08zf2v0" sourceRef="store_order_2" targetRef="Event_0r4r0el" />
     <bpmn:serviceTask id="store_order_2" name="Store Order" camunda:delegateExpression="#{orderDelegate}">
       <bpmn:extensionElements>
@@ -185,11 +181,51 @@
       <bpmn:incoming>Flow_08mctsm</bpmn:incoming>
       <bpmn:outgoing>Flow_08zf2v0</bpmn:outgoing>
     </bpmn:serviceTask>
+    <bpmn:serviceTask id="send_report" name="Send Report &#38; Billing">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="payload">
+              <camunda:script scriptFormat="JavaScript">out = JSON.stringify({
+"price": execution.getVariable("billingInformation.price"),
+"priority": priority,
+"biohazard": execution.getVariable("sampleRequirements.biohazard"),
+"sampleType": execution.getVariable("sampleRequirements.sampleType"),
+"analysis": analysis,
+"email":"javier_pose88@hotmail.com"
+});</camunda:script>
+            </camunda:inputParameter>
+            <camunda:inputParameter name="method">POST</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/json</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:inputParameter name="url">https://hook.integromat.com/fmb6q88j3sthsklnmxfwo31hi698du4s</camunda:inputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_06pr4n2</bpmn:incoming>
+      <bpmn:outgoing>Flow_08mctsm</bpmn:outgoing>
+    </bpmn:serviceTask>
   </bpmn:process>
   <bpmn:signal id="Signal_1562wg4" name="ANALYSIS_DONE" />
   <bpmn:message id="Message_0y6repc" name="startFulfillment" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="analyse_sample">
+      <bpmndi:BPMNEdge id="Flow_08zf2v0_di" bpmnElement="Flow_08zf2v0">
+        <di:waypoint x="1790" y="415" />
+        <di:waypoint x="1811" y="415" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_08mctsm_di" bpmnElement="Flow_08mctsm">
+        <di:waypoint x="1660" y="415" />
+        <di:waypoint x="1690" y="415" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_06pr4n2_di" bpmnElement="Flow_06pr4n2">
+        <di:waypoint x="1530" y="415" />
+        <di:waypoint x="1560" y="415" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1ibh4fp_di" bpmnElement="Flow_1ibh4fp">
         <di:waypoint x="1207" y="415" />
         <di:waypoint x="1234" y="415" />
@@ -283,18 +319,6 @@
           <dc:Bounds x="1148" y="672" width="12" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_06pr4n2_di" bpmnElement="Flow_06pr4n2">
-        <di:waypoint x="1530" y="415" />
-        <di:waypoint x="1560" y="415" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_08mctsm_di" bpmnElement="Flow_08mctsm">
-        <di:waypoint x="1660" y="415" />
-        <di:waypoint x="1690" y="415" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_08zf2v0_di" bpmnElement="Flow_08zf2v0">
-        <di:waypoint x="1790" y="415" />
-        <di:waypoint x="1811" y="415" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Gateway_0zzjvsj_di" bpmnElement="Gateway_0zzjvsj" isMarkerVisible="true">
         <dc:Bounds x="1374" y="670" width="42" height="40" />
       </bpmndi:BPMNShape>
@@ -370,14 +394,14 @@
       <bpmndi:BPMNShape id="Activity_1rfl998_di" bpmnElement="approve">
         <dc:Bounds x="1345" y="375" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0p2ucyb_di" bpmnElement="Activity_0p2ucyb">
-        <dc:Bounds x="1560" y="375" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0r4r0el_di" bpmnElement="Event_0r4r0el">
         <dc:Bounds x="1811" y="397" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0pj5iqo_di" bpmnElement="store_order_2">
         <dc:Bounds x="1690" y="375" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_10mdoq8_di" bpmnElement="send_report">
+        <dc:Bounds x="1560" y="375" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="DataInputAssociation_0u8kosa_di" bpmnElement="DataInputAssociation_0u8kosa">
         <di:waypoint x="1050" y="680" />

@@ -22,6 +22,7 @@
           <text>"CANCELLED","SAMPLE_RECEIVED"</text>
         </outputValues>
       </output>
+      <output id="OutputClause_14md3lf" label="Cancellation Reason" name="cancellationReason" typeRef="string" />
       <rule id="DecisionRule_015avuw">
         <description>Super-GAU, everything made wrong.</description>
         <inputEntry id="UnaryTests_0v2szav">
@@ -35,6 +36,9 @@
         </inputEntry>
         <outputEntry id="LiteralExpression_1ehvgwt">
           <text>"CANCELLED"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0rc1cxc">
+          <text>"Super-GAU, everything made wrong."</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0s8thcj">
@@ -51,6 +55,9 @@
         <outputEntry id="LiteralExpression_1x7egaa">
           <text>"CANCELLED"</text>
         </outputEntry>
+        <outputEntry id="LiteralExpression_1co6foz">
+          <text>"Package damaged upon arrival and temperature indicator not ok."</text>
+        </outputEntry>
       </rule>
       <rule id="DecisionRule_1hkzmk0">
         <description>Package damaged upon arrival</description>
@@ -65,6 +72,9 @@
         </inputEntry>
         <outputEntry id="LiteralExpression_162nr5a">
           <text>"CANCELLED"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0i6xe06">
+          <text>"Package damaged upon arrival"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0q2ldfz">
@@ -81,6 +91,9 @@
         <outputEntry id="LiteralExpression_1dq0b3c">
           <text>"CANCELLED"</text>
         </outputEntry>
+        <outputEntry id="LiteralExpression_0adoety">
+          <text>"Package damaged upon arrival and wrong sample shipped."</text>
+        </outputEntry>
       </rule>
       <rule id="DecisionRule_0iiy0m8">
         <inputEntry id="UnaryTests_1bo22d9">
@@ -94,6 +107,9 @@
         </inputEntry>
         <outputEntry id="LiteralExpression_1fgd0q0">
           <text>"SAMPLE_RECEIVED"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_03uskyf">
+          <text>"Succesfull received."</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1fubhxo">
@@ -110,9 +126,12 @@
         <outputEntry id="LiteralExpression_1j7i2c1">
           <text>"CANCELLED"</text>
         </outputEntry>
+        <outputEntry id="LiteralExpression_0d2ggjm">
+          <text>"Wrong sample shipped."</text>
+        </outputEntry>
       </rule>
       <rule id="DecisionRule_1dre0a8">
-        <description>Wrong sample shipped and temperature indicator not ok</description>
+        <description>Wrong sample shipped.</description>
         <inputEntry id="UnaryTests_1x6zdkd">
           <text>false</text>
         </inputEntry>
@@ -125,9 +144,12 @@
         <outputEntry id="LiteralExpression_0m6ju9c">
           <text>"CANCELLED"</text>
         </outputEntry>
+        <outputEntry id="LiteralExpression_0kqu9xa">
+          <text>"Wrong sample shipped."</text>
+        </outputEntry>
       </rule>
       <rule id="DecisionRule_0quqk8c">
-        <description>Temperature indicator not ok.</description>
+        <description>Wrong sample shipped.</description>
         <inputEntry id="UnaryTests_1iasujc">
           <text>false</text>
         </inputEntry>
@@ -139,6 +161,9 @@
         </inputEntry>
         <outputEntry id="LiteralExpression_120drbg">
           <text>"CANCELLED"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0175n8h">
+          <text>"Wrong sample shipped."</text>
         </outputEntry>
       </rule>
     </decisionTable>

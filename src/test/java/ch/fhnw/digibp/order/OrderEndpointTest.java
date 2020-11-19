@@ -56,7 +56,7 @@ class OrderEndpointTest extends AbstractIntegrationTest {
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(getUrl(), requestEntity, String.class);
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertEquals(RESPONSE_BODY, responseEntity.getBody());
-        verify(orderRepository, times(2)).save(any(Order.class));
+        verify(orderRepository, times(1)).save(any(Order.class));
         verify(orderRepository).findById(anyString());
     }
 

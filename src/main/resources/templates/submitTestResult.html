@@ -45,19 +45,15 @@
         <button th:if="${T(ch.fhnw.digibp.order.Order.State).IN_ANALYSIS == order.state}" type="submit" name="action" value="save">Save</button>
     </p>
 </form>
-<form th:if="${order.validation?.mlRecommendation != null}" action="#" th:action="@{/order/{path}/analysis(path=${uuid})}"
+<form th:if="${order.validation?.recommendation != null}" action="#" th:action="@{/order/{path}/analysis(path=${uuid})}"
       th:object="${order.validation}" method="post">
     <p>
         ML Probability:
         <input id="probability" type="number" th:field="*{probability}" disabled/>
     </p>
     <p>
-        ML Recommendation:
-        <input id="mlRecommendation" type="text" th:field="*{mlRecommendation}" disabled/>
-    </p>
-    <p>
-        Physican Recommendation:
-        <input id="physicanRecommendation" type="text" th:field="*{physicanRecommendation}"
+        Recommendation:
+        <input id="recommendation" type="text" th:field="*{recommendation}"
                th:disabled="${T(ch.fhnw.digibp.order.Order.State).ANALYSIS_DONE != order.state && !order.validation?.verificationNeeded}"/>
     </p>
     <p>

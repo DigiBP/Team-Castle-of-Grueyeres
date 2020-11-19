@@ -13,9 +13,7 @@ public class Validation extends AbstractEntity {
     @Column
     private double probability;
     @Column
-    private String mlRecommendation;
-    @Column
-    private String physicanRecommendation;
+    private String recommendation;
     @Column
     private boolean verificationNeeded;
     @Column
@@ -27,8 +25,7 @@ public class Validation extends AbstractEntity {
 
     public Validation(Map<String, Object> map) {
         this.probability = getDouble("validation.probability", map);
-        this.mlRecommendation = getString("validation.mlRecommendation", map);
-        this.physicanRecommendation = getString("validation.physicanRecommendation", map);
+        this.recommendation = getString("validation.recommendation", map);
         this.verificationNeeded = getBoolean("validation.verificationNeeded", map);
         this.approved = getBoolean("validation.approved", map);
     }
@@ -39,22 +36,6 @@ public class Validation extends AbstractEntity {
 
     public void setProbability(double probability) {
         this.probability = probability;
-    }
-
-    public String getMlRecommendation() {
-        return mlRecommendation;
-    }
-
-    public void setMlRecommendation(String mlRecommendation) {
-        this.mlRecommendation = mlRecommendation;
-    }
-
-    public String getPhysicanRecommendation() {
-        return physicanRecommendation;
-    }
-
-    public void setPhysicanRecommendation(String physicanRecommendation) {
-        this.physicanRecommendation = physicanRecommendation;
     }
 
     public boolean isVerificationNeeded() {
@@ -73,6 +54,14 @@ public class Validation extends AbstractEntity {
         this.approved = verified;
     }
 
+    public String getRecommendation() {
+        return recommendation;
+    }
+
+    public void setRecommendation(String recommendation) {
+        this.recommendation = recommendation;
+    }
+
     @Override
     public Map<String, Object> toMap() {
         return toMapWithPrefix("validation.");
@@ -81,8 +70,7 @@ public class Validation extends AbstractEntity {
     private Map<String, Object> toMapWithPrefix(String prefix) {
         Map<String, Object> map = new HashMap<>();
         map.put(prefix + "probability", getProbability());
-        map.put(prefix + "mlRecommendation", getMlRecommendation());
-        map.put(prefix + "physicanRecommendation", getPhysicanRecommendation());
+        map.put(prefix + "recommendation", getRecommendation());
         map.put(prefix + "verificationNeeded", isVerificationNeeded());
         map.put(prefix + "approved", isApproved());
         return map;
@@ -92,8 +80,7 @@ public class Validation extends AbstractEntity {
     public String toString() {
         return "Validation{" +
                 "probability=" + probability +
-                ", mlRecommendation='" + mlRecommendation + '\'' +
-                ", physicanRecommendation='" + physicanRecommendation + '\'' +
+                ", recommendation='" + recommendation + '\'' +
                 ", verificationNeeded=" + verificationNeeded +
                 ", approved=" + approved +
                 '}';

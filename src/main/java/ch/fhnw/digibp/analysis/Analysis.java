@@ -26,7 +26,7 @@ public class Analysis extends AbstractEntity {
     @Column
     private String resultDescription;
     @Column
-    private String methodDescription;
+    private AnalysisMethod method;
     @Column
     private String remarks;
 
@@ -37,11 +37,13 @@ public class Analysis extends AbstractEntity {
         startDate = getLocalDate("analysis.startDate", map);
         endDate = getLocalDate("analysis.endDate", map);
         resultDescription = getString("analysis.resultDescription", map);
-        methodDescription = getString("analysis.methodDescription", map);
         remarks = getString("analysis.remarks", map);
         resultValue = getDouble("analysis.resultValue", map);
         if (map.containsKey("analysis.resultCategory") && map.get("analysis.resultCategory") != null) {
             resultCategory = ResultCategory.valueOf((String) map.get("analysis.resultCategory"));
+        }
+        if (map.containsKey("analysis.method") && map.get("analysis.method") != null) {
+            method = AnalysisMethod.valueOf((String) map.get("analysis.method"));
         }
     }
 
@@ -77,12 +79,12 @@ public class Analysis extends AbstractEntity {
         this.resultDescription = resultDescription;
     }
 
-    public String getMethodDescription() {
-        return methodDescription;
+    public AnalysisMethod getMethod() {
+        return method;
     }
 
-    public void setMethodDescription(String methodDescription) {
-        this.methodDescription = methodDescription;
+    public void setMethod(AnalysisMethod method) {
+        this.method = method;
     }
 
     public String getRemarks() {
@@ -111,11 +113,13 @@ public class Analysis extends AbstractEntity {
         map.put(prefix + "startDate", toString(getStartDate()));
         map.put(prefix + "endDate", toString(getEndDate()));
         map.put(prefix + "resultDescription", getResultDescription());
-        map.put(prefix + "methodDescription", getMethodDescription());
         map.put(prefix + "remarks", getRemarks());
         map.put(prefix + "resultValue", getResultValue());
         if (getResultCategory() != null) {
             map.put(prefix + "resultCategory", getResultCategory().name());
+        }
+        if (getMethod() != null) {
+            map.put(prefix + "method", getMethod().name());
         }
         return map;
     }
@@ -124,5 +128,8 @@ public class Analysis extends AbstractEntity {
         TEST
     }
 
+    public enum AnalysisMethod {
+        TEST
+    }
 
 }

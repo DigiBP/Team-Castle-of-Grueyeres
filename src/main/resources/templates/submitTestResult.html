@@ -17,7 +17,7 @@
     </p>
     <p>
         Result Category:
-        <select id="sampleType" name="resultCategory" th:disabled="${T(ch.fhnw.digibp.order.Order.State).IN_ANALYSIS != order.state}"
+        <select id="resultCategory" name="resultCategory" th:disabled="${T(ch.fhnw.digibp.order.Order.State).IN_ANALYSIS != order.state}"
                 th:field="*{resultCategory}">
             <option th:each="resultCategoryOpt : ${T(ch.fhnw.digibp.analysis.Analysis.ResultCategory).values()}"
                     th:value="${resultCategoryOpt}" th:text="${resultCategoryOpt}"></option>
@@ -33,9 +33,12 @@
                th:field="*{resultDescription}"/>
     </p>
     <p>
-        Method Description:
-        <input id="methodDescription" type="text" th:disabled="${T(ch.fhnw.digibp.order.Order.State).IN_ANALYSIS != order.state}"
-               th:field="*{methodDescription}"/>
+        Method:
+        <select id="method" name="method" th:disabled="${T(ch.fhnw.digibp.order.Order.State).IN_ANALYSIS != order.state}"
+                th:field="*{method}">
+            <option th:each="methodOpt : ${T(ch.fhnw.digibp.analysis.Analysis.AnalysisMethod).values()}"
+                    th:value="${methodOpt}" th:text="${methodOpt}"></option>
+        </select>
     </p>
     <p>
         Remarks:

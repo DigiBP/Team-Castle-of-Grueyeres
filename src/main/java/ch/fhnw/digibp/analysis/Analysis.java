@@ -22,6 +22,8 @@ public class Analysis extends AbstractEntity {
     @Column
     private ResultCategory resultCategory;
     @Column
+    private double resultValue;
+    @Column
     private String resultDescription = "BLA BLA BLA";
     @Column
     private String methodDescription;
@@ -37,6 +39,7 @@ public class Analysis extends AbstractEntity {
         resultDescription = getString("analysis.resultDescription", map);
         methodDescription = getString("analysis.methodDescription", map);
         remarks = getString("analysis.remarks", map);
+        resultValue = getDouble("analysis.resultValue", map);
         if (map.containsKey("analysis.resultCategory") && map.get("analysis.resultCategory") != null) {
             resultCategory = ResultCategory.valueOf((String) map.get("analysis.resultCategory"));
         }
@@ -90,6 +93,14 @@ public class Analysis extends AbstractEntity {
         this.remarks = remarks;
     }
 
+    public double getResultValue() {
+        return resultValue;
+    }
+
+    public void setResultValue(double resultValue) {
+        this.resultValue = resultValue;
+    }
+
     @Override
     public Map<String, Object> toMap() {
         return toMapWithPrefix("analysis.");
@@ -102,6 +113,7 @@ public class Analysis extends AbstractEntity {
         map.put(prefix + "resultDescription", getResultDescription());
         map.put(prefix + "methodDescription", getMethodDescription());
         map.put(prefix + "remarks", getRemarks());
+        map.put(prefix + "resultValue", getResultValue());
         if (getResultCategory() != null) {
             map.put(prefix + "resultCategory", getResultCategory().name());
         }

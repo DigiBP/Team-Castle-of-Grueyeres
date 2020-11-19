@@ -24,8 +24,12 @@
         </select>
     </p>
     <p>
+        Result Value:
+        <input type="number" th:field="*{resultValue}" th:disabled="${T(ch.fhnw.digibp.order.Order.State).IN_ANALYSIS != order.state}"/>
+    </p>
+    <p>
         Result Description:
-        <input id="resultDescription" type="text" th:disabled="${T(ch.fhnw.digibp.order.Order.State).IN_ANALYSIS != order.state}"
+        <input id=" resultDescription" type="text" th:disabled="${T(ch.fhnw.digibp.order.Order.State).IN_ANALYSIS != order.state}"
                th:field="*{resultDescription}"/>
     </p>
     <p>

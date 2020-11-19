@@ -24,7 +24,7 @@ public class Analysis extends AbstractEntity {
     @Column
     private double resultValue;
     @Column
-    private String resultDescription = "BLA BLA BLA";
+    private String resultDescription;
     @Column
     private String methodDescription;
     @Column

@@ -26,7 +26,7 @@
     </p>
     <p>
         Comment:
-        <textarea rows="5" th:field="*{comment}"/>
+        <textarea rows="5" th:field="*{comment}" th:disabled="${order.uuid != null}"/>
     </p>
     <p th:if="${order.sample?.sampleType != null}">
         <a th:href="@{/order/{path}/sample(path=${order.uuid})}">Sample</a>

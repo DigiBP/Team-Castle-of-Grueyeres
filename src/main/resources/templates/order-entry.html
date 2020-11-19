@@ -8,7 +8,7 @@
 <form action="#" th:action="@{/order/{path}(path=${uuid})}" th:object="${order}" method="post">
     <p>
         Client ID:
-        <input type="number" th:disabled="${order.uuid != null}" th:field="*{clientId}"/>
+        <input type="number" th:disabled="${order.uuid != null}" th:field="*{clientId}" required/>
     </p>
     <p>
         Analysis:

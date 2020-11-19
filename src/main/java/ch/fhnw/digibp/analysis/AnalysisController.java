@@ -48,7 +48,7 @@ public class AnalysisController extends AbstractCamundaController {
         orderRepository.save(persistedOrder);
         Task task = findTask(orderUuid, "Lab Technician", "submit_test_result");
         taskService.complete(task.getId(), persistedOrder.toMap());
-        return "redirect:/order/" + orderUuid;
+        return "redirect:/orders";
     }
 
     @PostMapping(value = "/order/{orderUuid}/analysis", params = "action=confirm")
@@ -57,7 +57,7 @@ public class AnalysisController extends AbstractCamundaController {
         persistedOrder.getValidation().setApproved(true);
         Task task = findTask(orderUuid, "Physician", "validate_analysis");
         taskService.complete(task.getId(), persistedOrder.toMap());
-        return "redirect:/order/" + orderUuid;
+        return "redirect:/orders";
     }
 
     @PostMapping(value = "/order/{orderUuid}/analysis", params = "action=reject")
@@ -69,7 +69,7 @@ public class AnalysisController extends AbstractCamundaController {
         orderRepository.save(persistedOrder);
         Task task = findTask(orderUuid, "Physician", "validate_analysis");
         taskService.complete(task.getId(), persistedOrder.toMap());
-        return "redirect:/order/" + orderUuid;
+        return "redirect:/orders";
     }
 
 

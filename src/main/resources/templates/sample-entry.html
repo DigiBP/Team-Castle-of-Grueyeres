@@ -1,10 +1,20 @@
 <html xmlns:th="https://www.thymeleaf.org">
+<link rel="stylesheet" href="stylesheet.css">
 <head>
     <title>Sample Entry</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <div class="row">
+        <div class="column">
+            <h1>Sample Entry</h1>
+        </div>
+        <div class="column">
+            <img src="Logo.png" width= 300px height= 160px
+                 alt="DIGI LAB PRO">
+        </div>
+    </div>
 </head>
 <body>
-<h1>Form</h1>
+<p>Check the received sample of the corresponding order according to possible damage, correct sample type, and handling during transport for correct cooling.</p>
 <form action="#" th:action="@{/order/{path}/sample(path=${uuid})}" th:object="${sample}" method="post">
     <p>
         Sample Type:

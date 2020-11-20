@@ -1,10 +1,20 @@
 <html xmlns:th="https://www.thymeleaf.org">
+<link rel="stylesheet" href="stylesheet.css">
 <head>
-    <title>Lab Order</title>
+    <title>Order Overview</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <div class="row">
+        <div class="column">
+            <h1>Order Overview</h1>
+        </div>
+        <div class="column">
+            <img src="Logo.png" width= 300px height= 160px
+                 alt="DIGI LAB PRO">
+        </div>
+    </div>
 </head>
 <body>
-<h1>Order Overview</h1>
+<p>All open orders are listed below.</p>
 <p>
     <a th:href="@{/order}">Create Order</a>
 </p>

@@ -17,32 +17,34 @@
     </div>
     <h3>As the first completely digitalised Swiss laboratory, we are committed to improving prevention, diagnosis and therapy.</h3>
 </div>
-<p>All open orders are listed below.</p>
-<p>
-    <a th:href="@{/order}">Create Order</a>
-</p>
-<table>
-    <thead>
-    <tr>
-        <th> UUID</th>
-        <th> Analysis</th>
-        <th> State</th>
-        <th> Laboratory</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:if="${orders.empty}">
-        <td colspan="4"> No Orders</td>
-    </tr>
-    <tr th:each="order : ${orders}">
-        <td><span th:text="${order.uuid}"> UUID </span></td>
-        <td><span th:text="${order.analysisType}"> Analysis </span></td>
-        <td><span th:text="${order.state}"> State </span></td>
-        <td><span th:text="${order.laboratory}"> Laboratory </span></td>
-        <td><a th:href="@{/order/{path}(path=${order.uuid})}">Open Order</a></td>
-    </tr>
-    </tbody>
-</table>
+<div class="content">
+    <p>All open orders are listed below.</p>
+    <p>
+        <a th:href="@{/order}">Create Order</a>
+    </p>
+    <table>
+        <thead>
+        <tr>
+            <th> UUID</th>
+            <th> Analysis</th>
+            <th> State</th>
+            <th> Laboratory</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${orders.empty}">
+            <td colspan="4"> No Orders</td>
+        </tr>
+        <tr th:each="order : ${orders}">
+            <td><span th:text="${order.uuid}"> UUID </span></td>
+            <td><span th:text="${order.analysisType}"> Analysis </span></td>
+            <td><span th:text="${order.state}"> State </span></td>
+            <td><span th:text="${order.laboratory}"> Laboratory </span></td>
+            <td><a th:href="@{/order/{path}(path=${order.uuid})}">Open Order</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>
 

@@ -43,7 +43,7 @@ public class Order extends AbstractEntity {
     private Priority priority = Priority.LOW;
     @Column
     @Enumerated(EnumType.STRING)
-    private State state;
+    private State state = State.NEW;
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "sample_id")
     private Sample sample;

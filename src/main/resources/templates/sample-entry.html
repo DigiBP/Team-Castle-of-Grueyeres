@@ -17,23 +17,31 @@
     </div>
     <h3>As the first completely digitalised Swiss laboratory, we are committed to improving prevention, diagnosis and therapy.</h3>
 </div>
-<p>Check the received sample of the corresponding order according to possible damage, correct sample type, and handling during transport for correct
-    cooling.</p>
-<form action="#" th:action="@{/order/{path}/sample(path=${uuid})}" th:object="${sample}" method="post">
-    <p>
-        Sample Type:
-        <select id="sampleType" name="sampleType" th:disabled="${sample.sampleType != null}" th:field="*{sampleType}">
-            <option th:each="sampleTypeOpt : ${T(ch.fhnw.digibp.domain.SampleType).values()}"
-                    th:value="${sampleTypeOpt}" th:text="${sampleTypeOpt}"></option>
-        </select>
-    </p>
-    <p>Damaged: <input id="damaged" type="checkbox" th:disabled="${sample.sampleType != null}" th:field="*{damaged}"/></p>
-    <p>Temperature Indicator Okay: <input id="temperatureIndicatorOk" type="checkbox" th:disabled="${sample.sampleType != null}"
-                                          th:field="*{temperatureIndicatorOk}"/></p>
-    <p>
-        <button th:disabled="${sample.sampleType != null}" type="submit" name="action" value="save">Save</button>
-    </p>
-</form>
+<div class="content">
+    <p>Check the received sample of the corresponding order according to possible damage, correct sample type, and handling during transport for correct
+        cooling.</p>
+    <form action="#" th:action="@{/order/{path}/sample(path=${uuid})}" th:object="${sample}" method="post">
+        <div class="input-row">
+            <label for="sampleType">Sample Type:</label>
+            <select id="sampleType" name="sampleType" th:disabled="${sample.sampleType != null}" th:field="*{sampleType}">
+                <option th:each="sampleTypeOpt : ${T(ch.fhnw.digibp.domain.SampleType).values()}"
+                        th:value="${sampleTypeOpt}" th:text="${sampleTypeOpt}"></option>
+            </select>
+        </div>
+        <div class="input-row">
+            <label for="damaged">Damaged:</label>
+            <input id="damaged" type="checkbox" th:disabled="${sample.sampleType != null}" th:field="*{damaged}"/>
+        </div>
+        <div class="input-row">
+            <label for="temperatureIndicatorOk">Temperature Indicator Okay:</label>
+            <input id="temperatureIndicatorOk" type="checkbox" th:disabled="${sample.sampleType != null}"
+                   th:field="*{temperatureIndicatorOk}"/>
+        </div>
+        <p>
+            <button th:disabled="${sample.sampleType != null}" type="submit" name="action" value="save">Save</button>
+        </p>
+    </form>
+</div>
 </body>
 </html>
 

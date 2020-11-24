@@ -41,6 +41,7 @@ public class AnalysisController extends AbstractCamundaController {
         Analysis analysis = order.getAnalysisResult();
         persistedOrder.getAnalysisResult().setMethod(analysis.getMethod());
         persistedOrder.getAnalysisResult().setRemarks(analysis.getRemarks());
+        persistedOrder.getAnalysisResult().setResultValue(analysis.getResultValue());
         persistedOrder.getAnalysisResult().setResultCategory(analysis.getResultCategory());
         persistedOrder.getAnalysisResult().setResultDescription(analysis.getResultDescription());
         persistedOrder.getAnalysisResult().setEndDate(LocalDate.now());

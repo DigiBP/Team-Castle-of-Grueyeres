@@ -1,5 +1,6 @@
 package ch.fhnw.digibp.order;
 
+import ch.fhnw.digibp.client.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,16 +13,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class OrderController {
     private final OrderService orderService;
     private final OrderRepository orderRepository;
+    private final ClientRepository clientRepository;
 
     @Autowired
-    public OrderController(OrderService orderService, OrderRepository orderRepository) {
+    public OrderController(OrderService orderService, OrderRepository orderRepository, ClientRepository clientRepository) {
         this.orderService = orderService;
         this.orderRepository = orderRepository;
+        this.clientRepository = clientRepository;
     }
 
     @GetMapping("/order")
     public String order(Model model) {
         model.addAttribute("order", new Order());
+        model.addAttribute("clients", clientRepository.findAll());
         return "order-entry";
     }
 
@@ -36,6 +40,7 @@ public class OrderController {
         Order order = orderService.load(orderUuid);
         model.addAttribute("order", order);
         model.addAttribute("uuid", orderUuid);
+        model.addAttribute("clients", clientRepository.findAll());
         return "order-entry";
     }
 

@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import ch.fhnw.digibp.AbstractIntegrationTest;
 import ch.fhnw.digibp.TestDataFactory;
+import ch.fhnw.digibp.client.ClientRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,8 @@ import static org.mockito.Mockito.when;
 class OrderEndpointTest extends AbstractIntegrationTest {
 
     private static final String ENDPOINT = "api/order";
-    private static final String REQUEST_BODY = "{\"clientId\":\"test\",\"analysisType\":\"Sars_Cov_2\",\"comment\":\"please analyse this :)\"}";
-    private static final String RESPONSE_BODY = "{\"uuid\":\"0a5fa6c2-329f-45ee-9925-13aed405dfde\",\"clientId\":\"123\",\"analysisType\":\"Sars_Cov_2\",\"comment\":\"please analyse this :)\",\"laboratory\":null,\"orderDate\":null,\"priority\":\"LOW\",\"state\":null,\"sample\":null,\"billingInformation\":{\"currency\":\"CHF\",\"price\":106.0},\"sampleRequirements\":{\"temperature\":0.0,\"severityOfMisClassification\":\"MEDIUM\",\"sampleType\":\"SALIVA\",\"biohazard\":true},\"analysisResult\":null,\"validation\":null,\"sampleTypeMismatch\":false}";
+    private static final String REQUEST_BODY = "{\"client\":{\"name\":\"123\"},\"analysisType\":\"Sars_Cov_2\",\"comment\":\"please analyse this :)\"}";
+    private static final String RESPONSE_BODY = "{\"uuid\":\"0a5fa6c2-329f-45ee-9925-13aed405dfde\",\"analysisType\":\"Sars_Cov_2\",\"comment\":\"please analyse this :)\",\"laboratory\":null,\"orderDate\":null,\"priority\":\"LOW\",\"state\":\"NEW\",\"sample\":null,\"billingInformation\":{\"currency\":\"CHF\",\"price\":106.0},\"sampleRequirements\":{\"temperature\":0.0,\"severityOfMisClassification\":\"MEDIUM\",\"sampleType\":\"SALIVA\",\"biohazard\":true},\"analysisResult\":null,\"validation\":null,\"client\":{\"name\":\"123\",\"email\":\"123@123.ch\"},\"sampleTypeMismatch\":false}";
 
     @LocalServerPort
     private int port;
@@ -40,11 +41,14 @@ class OrderEndpointTest extends AbstractIntegrationTest {
 
     @MockBean
     private OrderRepository orderRepository;
+    @MockBean
+    private ClientRepository clientRepository;
 
     @BeforeEach
     public void before() {
         when(orderRepository.save(any(Order.class))).thenAnswer(i -> i.getArgument(0, Order.class));
         when(orderRepository.findById(anyString())).thenReturn(Optional.of(TestDataFactory.buildTestOrder()));
+        when(clientRepository.findById(anyString())).thenReturn(Optional.of(TestDataFactory.buildClient()));
     }
 
     @Test
@@ -58,6 +62,7 @@ class OrderEndpointTest extends AbstractIntegrationTest {
         assertEquals(RESPONSE_BODY, responseEntity.getBody());
         verify(orderRepository, times(1)).save(any(Order.class));
         verify(orderRepository).findById(anyString());
+        verify(clientRepository).findById(anyString());
     }
 
     @Test

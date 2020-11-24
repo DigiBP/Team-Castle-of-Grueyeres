@@ -1,5 +1,6 @@
 package ch.fhnw.digibp;
 
+import ch.fhnw.digibp.client.Client;
 import ch.fhnw.digibp.domain.Priority;
 import ch.fhnw.digibp.domain.SampleType;
 import ch.fhnw.digibp.order.BillingInformation;
@@ -12,12 +13,19 @@ public class TestDataFactory {
     public static Order buildTestOrder() {
         Order order = new Order();
         order.setAnalysisType(Order.AnalysisType.Sars_Cov_2);
-        order.setClientId("123");
+        order.setClient(buildClient());
         order.setComment("please analyse this :)");
         order.setUuid(ORDER_UUID);
         order.setBillingInformation(buildBillingInformation());
         order.setSampleRequirements(buildSampleRequirements());
         return order;
+    }
+
+    public static Client buildClient() {
+        Client client = new Client();
+        client.setName("123");
+        client.setEmail("123@123.ch");
+        return client;
     }
 
     public static BillingInformation buildBillingInformation() {

@@ -13,11 +13,13 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import ch.fhnw.digibp.AbstractEntity;
 import ch.fhnw.digibp.analysis.Analysis;
+import ch.fhnw.digibp.client.Client;
 import ch.fhnw.digibp.domain.Priority;
 import ch.fhnw.digibp.sample.Sample;
 import ch.fhnw.digibp.validation.Validation;
@@ -28,8 +30,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Order extends AbstractEntity {
     @Id
     private String uuid;
-    @Column
-    private String clientId;
     @Column
     private AnalysisType analysisType;
     @Column
@@ -55,6 +55,9 @@ public class Order extends AbstractEntity {
     private Analysis analysisResult;
     @Embedded
     private Validation validation;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_client")
+    private Client client;
 
 
     public Order() {
@@ -62,7 +65,6 @@ public class Order extends AbstractEntity {
 
     public Order(Map<String, Object> map) {
         this.uuid = getString("uuid", map);
-        this.clientId = getString("clientId", map);
         this.comment = getString("comment", map);
         this.orderDate = getLocalDate("orderDate", map);
         this.priority = Priority.valueOf("priority", map);
@@ -74,14 +76,7 @@ public class Order extends AbstractEntity {
         loadBillingInformation(map);
         loadValidation(map);
         loadAnalysis(map);
-    }
-
-    public String getClientId() {
-        return clientId;
-    }
-
-    public void setClientId(String clientId) {
-        this.clientId = clientId;
+        loadClient(map);
     }
 
     public AnalysisType getAnalysisType() {
@@ -180,6 +175,14 @@ public class Order extends AbstractEntity {
         this.validation = validation;
     }
 
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
     public boolean isSampleTypeMismatch() {
         return sample != null && sampleRequirements.getSampleType() != null && !sampleRequirements.getSampleType().equals(sample.getSampleType());
     }
@@ -188,7 +191,6 @@ public class Order extends AbstractEntity {
     public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>();
         map.put("uuid", getUuid());
-        map.put("clientId", getClientId());
         map.put("comment", getComment());
         map.put("orderDate", toString(getOrderDate()));
         map.put("state", getState().name());
@@ -215,6 +217,9 @@ public class Order extends AbstractEntity {
         }
         if (getAnalysisResult() != null) {
             map.putAll(getAnalysisResult().toMap());
+        }
+        if (getClient() != null) {
+            map.putAll(getClient().toMap());
         }
         return map;
     }
@@ -271,11 +276,18 @@ public class Order extends AbstractEntity {
         }
     }
 
+    private void loadClient(Map<String, Object> map) {
+        if (mapHasKey(Client.PREFIX, map)) {
+            client = new Client((Map<String, Object>) map.get(Client.PREFIX));
+        } else {
+            client = new Client(map);
+        }
+    }
+
     @Override
     public String toString() {
         return "Order{" +
                 "uuid='" + uuid + '\'' +
-                ", clientId='" + clientId + '\'' +
                 ", analysis='" + analysisType + '\'' +
                 ", comment='" + comment + '\'' +
                 ", orderDate=" + orderDate +
@@ -285,6 +297,7 @@ public class Order extends AbstractEntity {
                 ", billingInformation=" + billingInformation +
                 ", sampleRequirements=" + sampleRequirements +
                 ", validation=" + validation +
+                ", client=" + client +
                 '}';
     }
 

@@ -56,7 +56,7 @@ public class OrderService {
     public Order update(Order order, String uuid) {
         Order persistedOrder = load(uuid);
         persistedOrder.setComment(order.getComment());
-        persistedOrder.setClientId(order.getClientId());
+        persistedOrder.setClient(order.getClient());
         persistedOrder.setPriority(order.getPriority());
         return orderRepository.save(persistedOrder);
     }

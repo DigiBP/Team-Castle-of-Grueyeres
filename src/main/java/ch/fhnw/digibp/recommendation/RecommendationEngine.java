@@ -18,12 +18,11 @@ public class RecommendationEngine {
         long count = analysisEntryRepository.countEntries(order.getAnalysisResult().getResultValue(), order.getAnalysisType());
         RecommendationEntry highestMatch = findHighestMatch(order);
         if (highestMatch != null) {
-            AnalysisEntry analysisEntry = buildAnalysisEntry(order, highestMatch.getRecommendation());
-            analysisEntryRepository.save(analysisEntry);
+            AnalysisEntry analysisEntry = createAnalysisEntry(order, highestMatch.getRecommendation());
             double probability = calculateProbability(highestMatch.getCount(), count);
             return buildValidation(highestMatch.getRecommendation(), probability, analysisEntry);
         }
-        return buildValidation("", 0, null);
+        return buildValidation("", 0, createAnalysisEntry(order, ""));
     }
 
     private RecommendationEntry findHighestMatch(Order order) {
@@ -37,7 +36,7 @@ public class RecommendationEngine {
         return highestMatch;
     }
 
-    private AnalysisEntry buildAnalysisEntry(Order order, String recommendation) {
+    private AnalysisEntry createAnalysisEntry(Order order, String recommendation) {
         AnalysisEntry analysisEntry = new AnalysisEntry();
         if (order.getValidation() != null && order.getValidation().getAnalysisEntry() != null) {
             analysisEntry.setId(order.getValidation().getAnalysisEntry().getId());
@@ -45,7 +44,7 @@ public class RecommendationEngine {
         analysisEntry.setResultValue(order.getAnalysisResult().getResultValue());
         analysisEntry.setAnalysisType(order.getAnalysisType());
         analysisEntry.setRecommendation(recommendation);
-        return analysisEntry;
+        return analysisEntryRepository.save(analysisEntry);
     }
 
     private double calculateProbability(long matchCount, long totalCount) {

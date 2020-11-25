@@ -20,13 +20,9 @@ public class Analysis extends AbstractEntity {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
     @Column
-    private ResultCategory resultCategory;
-    @Column
     private double resultValue;
     @Column
     private String resultDescription;
-    @Column
-    private AnalysisMethod method;
     @Column
     private String remarks;
 
@@ -39,12 +35,6 @@ public class Analysis extends AbstractEntity {
         resultDescription = getString("analysis.resultDescription", map);
         remarks = getString("analysis.remarks", map);
         resultValue = getDouble("analysis.resultValue", map);
-        if (map.containsKey("analysis.resultCategory") && map.get("analysis.resultCategory") != null) {
-            resultCategory = ResultCategory.valueOf((String) map.get("analysis.resultCategory"));
-        }
-        if (map.containsKey("analysis.method") && map.get("analysis.method") != null) {
-            method = AnalysisMethod.valueOf((String) map.get("analysis.method"));
-        }
     }
 
     public LocalDate getStartDate() {
@@ -63,28 +53,12 @@ public class Analysis extends AbstractEntity {
         this.endDate = endDate;
     }
 
-    public ResultCategory getResultCategory() {
-        return resultCategory;
-    }
-
-    public void setResultCategory(ResultCategory resultCategory) {
-        this.resultCategory = resultCategory;
-    }
-
     public String getResultDescription() {
         return resultDescription;
     }
 
     public void setResultDescription(String resultDescription) {
         this.resultDescription = resultDescription;
-    }
-
-    public AnalysisMethod getMethod() {
-        return method;
-    }
-
-    public void setMethod(AnalysisMethod method) {
-        this.method = method;
     }
 
     public String getRemarks() {
@@ -115,21 +89,7 @@ public class Analysis extends AbstractEntity {
         map.put(prefix + "resultDescription", getResultDescription());
         map.put(prefix + "remarks", getRemarks());
         map.put(prefix + "resultValue", getResultValue());
-        if (getResultCategory() != null) {
-            map.put(prefix + "resultCategory", getResultCategory().name());
-        }
-        if (getMethod() != null) {
-            map.put(prefix + "method", getMethod().name());
-        }
         return map;
-    }
-
-    public enum ResultCategory {
-        TEST
-    }
-
-    public enum AnalysisMethod {
-        TEST
     }
 
 }

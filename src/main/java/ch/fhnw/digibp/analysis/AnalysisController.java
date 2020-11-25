@@ -39,10 +39,8 @@ public class AnalysisController extends AbstractCamundaController {
     public String save_analysis(@ModelAttribute Order order, @PathVariable(name = "orderUuid") String orderUuid, Model model) {
         Order persistedOrder = find(orderUuid);
         Analysis analysis = order.getAnalysisResult();
-        persistedOrder.getAnalysisResult().setMethod(analysis.getMethod());
         persistedOrder.getAnalysisResult().setRemarks(analysis.getRemarks());
         persistedOrder.getAnalysisResult().setResultValue(analysis.getResultValue());
-        persistedOrder.getAnalysisResult().setResultCategory(analysis.getResultCategory());
         persistedOrder.getAnalysisResult().setResultDescription(analysis.getResultDescription());
         persistedOrder.getAnalysisResult().setEndDate(LocalDate.now());
         persistedOrder.setState(Order.State.ANALYSIS_DONE);

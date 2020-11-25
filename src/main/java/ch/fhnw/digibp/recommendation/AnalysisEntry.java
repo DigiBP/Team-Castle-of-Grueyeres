@@ -6,7 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import ch.fhnw.digibp.analysis.Analysis;
+import ch.fhnw.digibp.order.Order;
 
 @Entity
 @Table(name = "analysis_entry")
@@ -17,7 +17,7 @@ public class AnalysisEntry {
     @Column
     private double resultValue;
     @Column
-    private Analysis.ResultCategory resultCategory;
+    private Order.AnalysisType analysisType;
     @Column
     private String recommendation;
 
@@ -37,12 +37,12 @@ public class AnalysisEntry {
         this.resultValue = resultValue;
     }
 
-    public Analysis.ResultCategory getResultCategory() {
-        return resultCategory;
+    public Order.AnalysisType getAnalysisType() {
+        return analysisType;
     }
 
-    public void setResultCategory(Analysis.ResultCategory resultCategory) {
-        this.resultCategory = resultCategory;
+    public void setAnalysisType(Order.AnalysisType analysisType) {
+        this.analysisType = analysisType;
     }
 
     public String getRecommendation() {

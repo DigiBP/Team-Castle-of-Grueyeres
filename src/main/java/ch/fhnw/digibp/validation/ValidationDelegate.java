@@ -36,7 +36,7 @@ public class ValidationDelegate implements JavaDelegate {
 
     private void ml_recommendation(DelegateExecution execution) {
         Order order = new Order(execution.getVariables());
-        Validation validation = recommendationEngine.recommend(order.getAnalysisResult());
+        Validation validation = recommendationEngine.recommend(order);
         order.setValidation(validation);
         orderRepository.save(order);
         LOGGER.info("Persisting order {}", order);

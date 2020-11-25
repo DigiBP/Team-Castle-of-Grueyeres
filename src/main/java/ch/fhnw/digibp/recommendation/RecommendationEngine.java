@@ -2,7 +2,7 @@ package ch.fhnw.digibp.recommendation;
 
 import java.util.List;
 
-import ch.fhnw.digibp.analysis.Analysis;
+import ch.fhnw.digibp.order.Order;
 import ch.fhnw.digibp.validation.Validation;
 import org.springframework.stereotype.Component;
 
@@ -14,16 +14,19 @@ public class RecommendationEngine {
         this.analysisEntryRepository = analysisEntryRepository;
     }
 
-    public Validation recommend(Analysis analysis) {
-        long count = analysisEntryRepository.countEntries(analysis.getResultValue(), analysis.getResultCategory());
-        RecommendationEntry highestMatch = findHighestMatch(analysis);
-        analysisEntryRepository.save(buildAnalysisEntry(analysis, highestMatch.getRecommendation()));
-        double probability = calculateProbability(highestMatch.getCount(), count);
-        return buildValidation(highestMatch.getRecommendation(), probability);
+    public Validation recommend(Order order) {
+        long count = analysisEntryRepository.countEntries(order.getAnalysisResult().getResultValue(), order.getAnalysisType());
+        RecommendationEntry highestMatch = findHighestMatch(order);
+        if (highestMatch != null) {
+            analysisEntryRepository.save(buildAnalysisEntry(order, highestMatch.getRecommendation()));
+            double probability = calculateProbability(highestMatch.getCount(), count);
+            return buildValidation(highestMatch.getRecommendation(), probability);
+        }
+        return buildValidation("", 0);
     }
 
-    private RecommendationEntry findHighestMatch(Analysis analysis) {
-        List<RecommendationEntry> recommendationEntries = analysisEntryRepository.findRecommendation(analysis.getResultValue(), analysis.getResultCategory());
+    private RecommendationEntry findHighestMatch(Order order) {
+        List<RecommendationEntry> recommendationEntries = analysisEntryRepository.findRecommendation(order.getAnalysisResult().getResultValue(), order.getAnalysisType());
         RecommendationEntry highestMatch = null;
         for (RecommendationEntry entry : recommendationEntries) {
             if (highestMatch == null || (highestMatch.getCount() < entry.getCount())) {
@@ -33,10 +36,10 @@ public class RecommendationEngine {
         return highestMatch;
     }
 
-    private AnalysisEntry buildAnalysisEntry(Analysis analysis, String recommendation) {
+    private AnalysisEntry buildAnalysisEntry(Order order, String recommendation) {
         AnalysisEntry analysisEntry = new AnalysisEntry();
-        analysisEntry.setResultValue(analysis.getResultValue());
-        analysisEntry.setResultCategory(analysis.getResultCategory());
+        analysisEntry.setResultValue(order.getAnalysisResult().getResultValue());
+        analysisEntry.setAnalysisType(order.getAnalysisType());
         analysisEntry.setRecommendation(recommendation);
         return analysisEntry;
     }

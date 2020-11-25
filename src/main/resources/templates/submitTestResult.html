@@ -8,7 +8,7 @@
             <h1>Submit Test Result</h1>
         </div>
         <div class="column">
-            <img src="Logo.png" width= 300px height= 160px
+            <img src="Logo.png" width=300px height=160px
                  alt="DIGI LAB PRO">
         </div>
     </div>
@@ -26,14 +26,6 @@
         <input type="date" th:field="*{endDate}" disabled/>
     </p>
     <p>
-        Result Category:
-        <select id="resultCategory" name="resultCategory" th:disabled="${T(ch.fhnw.digibp.order.Order.State).IN_ANALYSIS != order.state}"
-                th:field="*{resultCategory}" required>
-            <option th:each="resultCategoryOpt : ${T(ch.fhnw.digibp.analysis.Analysis.ResultCategory).values()}"
-                    th:value="${resultCategoryOpt}" th:text="${resultCategoryOpt}"></option>
-        </select>
-    </p>
-    <p>
         Result Value:
         <input type="number" th:field="*{resultValue}" th:disabled="${T(ch.fhnw.digibp.order.Order.State).IN_ANALYSIS != order.state}" required/>
     </p>
@@ -41,13 +33,6 @@
         Result Description:
         <input id=" resultDescription" type="text" th:disabled="${T(ch.fhnw.digibp.order.Order.State).IN_ANALYSIS != order.state}"
                th:field="*{resultDescription}" required/>
-    </p>
-    <p>
-        Method:
-        <select id="method" name="method" th:disabled="${T(ch.fhnw.digibp.order.Order.State).IN_ANALYSIS != order.state}" th:field="*{method}" required>
-            <option th:each="methodOpt : ${T(ch.fhnw.digibp.analysis.Analysis.AnalysisMethod).values()}"
-                    th:value="${methodOpt}" th:text="${methodOpt}"></option>
-        </select>
     </p>
     <p>
         Remarks:

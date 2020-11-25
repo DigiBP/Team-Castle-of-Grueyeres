@@ -54,6 +54,8 @@ public class AnalysisController extends AbstractCamundaController {
     public String confirm_analysis(@ModelAttribute Order order, @PathVariable(name = "orderUuid") String orderUuid, Model model) {
         Order persistedOrder = find(orderUuid);
         persistedOrder.getValidation().setApproved(true);
+        persistedOrder.getValidation().setRecommendation(order.getValidation().getRecommendation());
+        persistedOrder.getValidation().getAnalysisEntry().setRecommendation(order.getValidation().getRecommendation());
         Task task = findTask(orderUuid, "Physician", "validate_analysis");
         taskService.complete(task.getId(), persistedOrder.toMap());
         return "redirect:/orders";

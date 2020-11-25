@@ -38,7 +38,7 @@ public class ValidationDelegate implements JavaDelegate {
         Order order = new Order(execution.getVariables());
         Validation validation = recommendationEngine.recommend(order);
         order.setValidation(validation);
-        orderRepository.save(order);
+        order = orderRepository.save(order);
         LOGGER.info("Persisting order {}", order);
         execution.getVariables().clear();
         execution.setVariables(order.toMap());

@@ -18,11 +18,12 @@ public class RecommendationEngine {
         long count = analysisEntryRepository.countEntries(order.getAnalysisResult().getResultValue(), order.getAnalysisType());
         RecommendationEntry highestMatch = findHighestMatch(order);
         if (highestMatch != null) {
-            analysisEntryRepository.save(buildAnalysisEntry(order, highestMatch.getRecommendation()));
+            AnalysisEntry analysisEntry = buildAnalysisEntry(order, highestMatch.getRecommendation());
+            analysisEntryRepository.save(analysisEntry);
             double probability = calculateProbability(highestMatch.getCount(), count);
-            return buildValidation(highestMatch.getRecommendation(), probability);
+            return buildValidation(highestMatch.getRecommendation(), probability, analysisEntry);
         }
-        return buildValidation("", 0);
+        return buildValidation("", 0, null);
     }
 
     private RecommendationEntry findHighestMatch(Order order) {
@@ -38,6 +39,9 @@ public class RecommendationEngine {
 
     private AnalysisEntry buildAnalysisEntry(Order order, String recommendation) {
         AnalysisEntry analysisEntry = new AnalysisEntry();
+        if (order.getValidation() != null && order.getValidation().getAnalysisEntry() != null) {
+            analysisEntry.setId(order.getValidation().getAnalysisEntry().getId());
+        }
         analysisEntry.setResultValue(order.getAnalysisResult().getResultValue());
         analysisEntry.setAnalysisType(order.getAnalysisType());
         analysisEntry.setRecommendation(recommendation);
@@ -49,10 +53,11 @@ public class RecommendationEngine {
         return Math.round(probability * 100) / 100;
     }
 
-    private Validation buildValidation(String recommendation, double probability) {
+    private Validation buildValidation(String recommendation, double probability, AnalysisEntry analysisEntry) {
         Validation validation = new Validation();
         validation.setRecommendation(recommendation);
         validation.setProbability(probability);
+        validation.setAnalysisEntry(analysisEntry);
         return validation;
     }
 }

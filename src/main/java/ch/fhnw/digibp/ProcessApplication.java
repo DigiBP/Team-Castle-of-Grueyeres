@@ -4,7 +4,7 @@ import javax.annotation.PostConstruct;
 
 import ch.fhnw.digibp.client.Client;
 import ch.fhnw.digibp.client.ClientRepository;
-import ch.fhnw.digibp.order.Order;
+import ch.fhnw.digibp.domain.AnalysisType;
 import ch.fhnw.digibp.recommendation.AnalysisEntry;
 import ch.fhnw.digibp.recommendation.AnalysisEntryRepository;
 import org.camunda.bpm.spring.boot.starter.annotation.EnableProcessApplication;
@@ -27,23 +27,23 @@ public class ProcessApplication {
 
     @PostConstruct
     public void postConstruct() {
-        createEntry(Order.AnalysisType.Sars_Cov_2, 20, "Some Recommendation");
-        createEntry(Order.AnalysisType.Sars_Cov_2, 20, "Some Recommendation");
-        createEntry(Order.AnalysisType.Sars_Cov_2, 20, "Some Recommendation");
-        createEntry(Order.AnalysisType.Sars_Cov_2, 20, "Some Recommendation");
-        createEntry(Order.AnalysisType.Sars_Cov_2, 20, "Some Recommendation");
-        createEntry(Order.AnalysisType.Sars_Cov_2, 20, "Some Recommendation");
-        createEntry(Order.AnalysisType.Sars_Cov_2, 20, "Some Recommendation");
-        createEntry(Order.AnalysisType.Sars_Cov_2, 20, "Some Rare Recommendation");
-        createEntry(Order.AnalysisType.Sars_Cov_2, 20, "Some Rare Recommendation");
-        createEntry(Order.AnalysisType.Sars_Cov_2, 50, "Some Other Recommendation");
-        createEntry(Order.AnalysisType.Sars_Cov_2, 50, "Some Other Recommendation");
-        createEntry(Order.AnalysisType.Sars_Cov_2, 50, "Some Other Recommendation");
+        createEntry(AnalysisType.Sars_Cov_2, 20, "Some Recommendation");
+        createEntry(AnalysisType.Sars_Cov_2, 20, "Some Recommendation");
+        createEntry(AnalysisType.Sars_Cov_2, 20, "Some Recommendation");
+        createEntry(AnalysisType.Sars_Cov_2, 20, "Some Recommendation");
+        createEntry(AnalysisType.Sars_Cov_2, 20, "Some Recommendation");
+        createEntry(AnalysisType.Sars_Cov_2, 20, "Some Recommendation");
+        createEntry(AnalysisType.Sars_Cov_2, 20, "Some Recommendation");
+        createEntry(AnalysisType.Sars_Cov_2, 20, "Some Rare Recommendation");
+        createEntry(AnalysisType.Sars_Cov_2, 20, "Some Rare Recommendation");
+        createEntry(AnalysisType.Sars_Cov_2, 50, "Some Other Recommendation");
+        createEntry(AnalysisType.Sars_Cov_2, 50, "Some Other Recommendation");
+        createEntry(AnalysisType.Sars_Cov_2, 50, "Some Other Recommendation");
         createClient("KKH Lörrach", "timo.schoepflin@gmail.com");
         createClient("Uni Spital Basel", "javier_pose88@hotmail.com");
     }
 
-    private void createEntry(Order.AnalysisType analysisType, double value, String recommendation) {
+    private void createEntry(AnalysisType analysisType, double value, String recommendation) {
         AnalysisEntry entry = new AnalysisEntry();
         entry.setAnalysisType(analysisType);
         entry.setResultValue(value);

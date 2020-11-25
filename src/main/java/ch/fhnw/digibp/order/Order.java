@@ -20,6 +20,7 @@ import javax.persistence.Table;
 import ch.fhnw.digibp.AbstractEntity;
 import ch.fhnw.digibp.analysis.Analysis;
 import ch.fhnw.digibp.client.Client;
+import ch.fhnw.digibp.domain.AnalysisType;
 import ch.fhnw.digibp.domain.Priority;
 import ch.fhnw.digibp.sample.Sample;
 import ch.fhnw.digibp.validation.Validation;
@@ -69,8 +70,8 @@ public class Order extends AbstractEntity {
         this.orderDate = getLocalDate("orderDate", map);
         this.priority = Priority.valueOf("priority", map);
         this.laboratory = getString("laboratory", map);
+        analysisType = AnalysisType.valueOf(map);
         loadState(map);
-        loadAnalysisType(map);
         loadSample(map);
         loadSampleRequirements(map);
         loadBillingInformation(map);
@@ -230,12 +231,6 @@ public class Order extends AbstractEntity {
         }
     }
 
-    private void loadAnalysisType(Map<String, Object> map) {
-        if (mapHasKey("analysis", map)) {
-            analysisType = AnalysisType.valueOf((String) map.get("analysis"));
-        }
-    }
-
     private void loadSample(Map<String, Object> map) {
         if (mapHasKey("sample", map)) {
             sample = new Sample((Map<String, Object>) map.get("sample"));
@@ -303,9 +298,5 @@ public class Order extends AbstractEntity {
 
     public enum State {
         NEW, CANCELLED, CONFIRMED, SAMPLE_RECEIVED, IN_ANALYSIS, ANALYSIS_DONE, ANALYSIS_REVIEWED, DONE
-    }
-
-    public enum AnalysisType {
-        Sars_Cov_2, Ferritin, Vitamin_D, HIV, THC, Cancer
     }
 }

@@ -27,7 +27,7 @@
     <p>
         Analysis:
         <select id="analysisType" name="priority" th:disabled="${order.uuid != null}" th:field="*{analysisType}">
-            <option th:each="analysisTypeOpt : ${T(ch.fhnw.digibp.order.Order.AnalysisType).values()}"
+            <option th:each="analysisTypeOpt : ${T(ch.fhnw.digibp.domain.AnalysisType).values()}"
                     th:value="${analysisTypeOpt}" th:text="${analysisTypeOpt}"></option>
         </select>
     </p>

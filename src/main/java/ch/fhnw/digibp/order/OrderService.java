@@ -5,6 +5,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 import ch.fhnw.digibp.analysis.Analysis;
+import ch.fhnw.digibp.client.Client;
+import ch.fhnw.digibp.client.ClientRepository;
 import org.camunda.bpm.engine.RuntimeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,16 +24,22 @@ public class OrderService {
 
     private final RuntimeService runtimeService;
     private final OrderRepository orderRepository;
+    private final ClientRepository clientRepository;
 
     @Autowired
-    public OrderService(RuntimeService runtimeService, OrderRepository orderRepository) {
+    public OrderService(RuntimeService runtimeService, OrderRepository orderRepository, ClientRepository clientRepository) {
         this.runtimeService = runtimeService;
         this.orderRepository = orderRepository;
+        this.clientRepository = clientRepository;
     }
 
     public Order create(Order order) {
         final String uuid = UUID.randomUUID().toString();
         try {
+            if (order.getClient() == null) {
+                throw new HttpServerErrorException(HttpStatus.BAD_REQUEST, "Client information missing");
+            }
+            order.setClient(find(order.getClient().getName()));
             order.setUuid(uuid);
             order.setOrderDate(LocalDate.now());
             order.setState(Order.State.NEW);
@@ -77,6 +85,11 @@ public class OrderService {
         order.setState(Order.State.IN_ANALYSIS);
         orderRepository.save(order);
         runtimeService.startProcessInstanceByKey("analyse_sample", order.getUuid(), order.toMap());
+    }
+
+    private Client find(String name) {
+        Optional<Client> client = clientRepository.findById(name);
+        return client.orElseThrow(() -> new HttpServerErrorException(HttpStatus.NOT_FOUND, "Unknown client!"));
     }
 
     private void throwHttpServerError(HttpStatus httpStatus, String template, String uuid) throws HttpServerErrorException {

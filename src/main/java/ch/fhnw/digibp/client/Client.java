@@ -26,15 +26,15 @@ public class Client extends AbstractEntity {
     }
 
     public Client(Map<String, Object> map) {
-        name = getString(PREFIX + "name", map);
-        email = getString(PREFIX + "email", map);
+        name = getString(PREFIX + "." + "name", map);
+        email = getString(PREFIX + "." + "email", map);
     }
 
     @Override
     public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>();
-        map.put(PREFIX + "name", name);
-        map.put(PREFIX + "email", email);
+        map.put(PREFIX + "." + "name", name);
+        map.put(PREFIX + "." + "email", email);
         return map;
     }
 

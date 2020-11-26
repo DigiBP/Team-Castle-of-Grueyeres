@@ -30,9 +30,9 @@ public class AnalysisEntry extends AbstractEntity {
     }
 
     public AnalysisEntry(Map<String, Object> map) {
-        id = getLong(PREFIX + "id", map);
-        resultValue = getDouble(PREFIX + "resultValue", map);
-        recommendation = getString(PREFIX + "recommendation", map);
+        id = getLong(PREFIX + "." + "id", map);
+        resultValue = getDouble(PREFIX + "." + "resultValue", map);
+        recommendation = getString(PREFIX + "." + "recommendation", map);
         analysisType = AnalysisType.valueOf(map);
     }
 
@@ -72,12 +72,12 @@ public class AnalysisEntry extends AbstractEntity {
     @Override
     public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>();
-        map.put(PREFIX + "id", id);
-        map.put(PREFIX + "resultValue", resultValue);
+        map.put(PREFIX + "." + "id", id);
+        map.put(PREFIX + "." + "resultValue", resultValue);
         if (analysisType != null) {
-            map.put(PREFIX + "analysisType", analysisType.name());
+            map.put(PREFIX + "." + "analysisType", analysisType.name());
         }
-        map.put(PREFIX + "recommendation", recommendation);
+        map.put(PREFIX + "." + "recommendation", recommendation);
         return map;
     }
 }

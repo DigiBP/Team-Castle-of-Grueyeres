@@ -39,8 +39,9 @@ public class ProcessApplication {
         createEntry(AnalysisType.Sars_Cov_2, 50, "Some Other Recommendation");
         createEntry(AnalysisType.Sars_Cov_2, 50, "Some Other Recommendation");
         createEntry(AnalysisType.Sars_Cov_2, 50, "Some Other Recommendation");
+        createClient("Uni Spital Basel", "javier_pose88@hotmail.com");  
         createClient("KKH Lörrach", "timo.schoepflin@gmail.com");
-        createClient("Uni Spital Basel", "javier_pose88@hotmail.com");
+        
     }
 
     private void createEntry(AnalysisType analysisType, double value, String recommendation) {

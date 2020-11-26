@@ -23,17 +23,20 @@
             <table>
                 <thead>
                 <tr>
+                    <th> Date</th>
                     <th> UUID</th>
                     <th> Analysis</th>
                     <th> State</th>
                     <th> Laboratory</th>
+                    <th> Edit</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:if="${orders.empty}">
-                    <td colspan="4"> No Orders</td>
+                    <td colspan="6"> No Orders</td>
                 </tr>
-                <tr th:each="order : ${orders}">
+                <tr th:each="order : ${orders}" class="tr-body">
+                    <td><span th:text="${order.orderDate}"> Date </span></td>
                     <td><span th:text="${order.uuid}"> UUID </span></td>
                     <td><span th:text="${order.analysisType}"> Analysis </span></td>
                     <td><span th:text="${order.state}"> State </span></td>

@@ -34,7 +34,7 @@ public class OrderService {
     }
 
     public Order create(Order order) {
-        final String uuid = UUID.randomUUID().toString();
+        final String uuid = generateUuid();
         try {
             if (order.getClient() == null) {
                 throw new HttpServerErrorException(HttpStatus.BAD_REQUEST, "Client information missing");
@@ -59,6 +59,10 @@ public class OrderService {
             throwHttpServerError(HttpStatus.INTERNAL_SERVER_ERROR, UNEXPECTED_ERROR_MSG_TEMPLATE, uuid);
         }
         return null;
+    }
+
+    private String generateUuid() {
+        return UUID.randomUUID().toString().substring(0, 8).replace("-", "");
     }
 
     public Order update(Order order, String uuid) {

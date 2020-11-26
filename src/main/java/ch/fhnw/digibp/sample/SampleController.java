@@ -1,5 +1,6 @@
 package ch.fhnw.digibp.sample;
 
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
 import ch.fhnw.digibp.AbstractCamundaController;
@@ -39,7 +40,7 @@ public class SampleController extends AbstractCamundaController {
     public String sample_submit(@ModelAttribute Sample sample, @PathVariable(name = "order") String orderUuid, Model model) {
         Order order = find(orderUuid);
         order.setSample(sample);
-        order.getSample().setEntryDate(ZonedDateTime.now());
+        order.getSample().setEntryDate(LocalDate.now());
         order.getSample().setUpdateDate(ZonedDateTime.now());
         order.setState(Order.State.SAMPLE_RECEIVED);
         orderRepository.save(order);

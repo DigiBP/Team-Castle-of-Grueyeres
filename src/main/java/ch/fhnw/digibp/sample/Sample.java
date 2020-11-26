@@ -1,5 +1,6 @@
 package ch.fhnw.digibp.sample;
 
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,7 +31,7 @@ public class Sample extends AbstractEntity {
     @Column
     private boolean temperatureIndicatorOk;
     @Column
-    private ZonedDateTime entryDate;
+    private LocalDate entryDate;
     @Column
     private ZonedDateTime updateDate;
 
@@ -41,7 +42,7 @@ public class Sample extends AbstractEntity {
         id = getLong("sample.id", map);
         damaged = getBoolean("sample.damaged", map);
         this.sampleType = SampleType.valueOf("sample.sampleType", map);
-        entryDate = getZonedDateTime("sample.entryDate", map);
+        entryDate = getLocalDate("sample.entryDate", map);
         updateDate = getZonedDateTime("sample.updateDate", map);
         temperatureIndicatorOk = getBoolean("sample.temperatureIndicatorOk", map);
     }
@@ -92,11 +93,11 @@ public class Sample extends AbstractEntity {
         this.sampleType = sampleType;
     }
 
-    public ZonedDateTime getEntryDate() {
+    public LocalDate getEntryDate() {
         return entryDate;
     }
 
-    public void setEntryDate(ZonedDateTime entryDate) {
+    public void setEntryDate(LocalDate entryDate) {
         this.entryDate = entryDate;
     }
 

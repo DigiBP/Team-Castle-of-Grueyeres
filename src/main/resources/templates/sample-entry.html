@@ -32,7 +32,7 @@
                                               th:disabled="${T(ch.fhnw.digibp.order.Order.State).CONFIRMED != order.state}"
                                               th:field="*{temperatureIndicatorOk}"/></p>
         <p>
-            <button th:disabled="${sample.sampleType != null}" type="submit" name="action" value="save">Save</button>
+            <button th:disabled="${T(ch.fhnw.digibp.order.Order.State).CONFIRMED != order.state}" type="submit" name="action" value="save">Save</button>
         </p>
     </form>
 </div>

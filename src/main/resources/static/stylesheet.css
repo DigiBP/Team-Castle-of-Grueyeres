@@ -138,14 +138,15 @@ p {
 button {
     font-size: 16px;
     padding: 2px 5px;
-    border: 1px solid #ccc;
+    border: 1px solid #748cc5;
     border-radius: 4px;
     box-sizing: border-box;
     background-color: white;
+    color: #2b50a8;
 }
 
 button:hover {
     border-width: 2px;
-    border-color: black;
+    border-color: #2b50a8;
     padding: 1px 4px;
 }

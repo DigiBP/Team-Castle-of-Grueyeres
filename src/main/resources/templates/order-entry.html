@@ -1,62 +1,65 @@
 <html xmlns:th="https://www.thymeleaf.org">
-<link rel="stylesheet" href="stylesheet.css">
-<head>
-    <title>Lab Order</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <div class="row">
-        <div class="column">
-            <h1>Welcome to Digi Lab Pro</h1>
-            <h2>A promise of pioneering spirit, innovation and passion for performance.</h2>
+<link rel="stylesheet" href="/stylesheet.css">
+    <head>
+        <title>Lab Order</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    </head>
+    <body>
+        <div class="header">
+            <div class="row">
+                <div class="column">
+                    <h1>Welcome to Digi Lab Pro</h1>
+                    <h2>A promise of pioneering spirit, innovation and passion for performance.</h2>
+                </div>
+                <div class="column">
+                    <img src="/Logo.png" alt="DIGI LAB PRO" class="logo">
+                </div>
+            </div>
+            <h3>As the first completely digitalised Swiss laboratory, we are committed to improving prevention, diagnosis and therapy.</h3>
         </div>
-        <div class="column">
-            <img src="Logo.png" width=300px height=160px
-                 alt="DIGI LAB PRO">
+        <div class="content">
+            <p>Use the following input fields to enter your laboratory order.</p>
+            <form action="#" th:action="@{/order/{path}(path=${uuid})}" th:object="${order}" method="post">
+                <p>
+                    Client:
+                    <select id="client" name="client" th:disabled="${order.uuid != null}" th:field="*{client.name}">
+                        <option th:each="client : ${clients}" th:value="${client.name}" th:text="${client.name}"></option>
+                    </select>
+                </p>
+                <p>
+                    Analysis:
+                    <select id="analysisType" name="priority" th:disabled="${order.uuid != null}" th:field="*{analysisType}">
+                        <option th:each="analysisTypeOpt : ${T(ch.fhnw.digibp.domain.AnalysisType).values()}"
+                                th:value="${analysisTypeOpt}" th:text="${analysisTypeOpt}"></option>
+                    </select>
+                </p>
+                <p>
+                    Priority:
+                    <select id="priority" name="priority" th:disabled="${order.uuid != null}" th:field="*{priority}">
+                        <option th:each="priorityOpt : ${T(ch.fhnw.digibp.domain.Priority).values()}"
+                                th:value="${priorityOpt}" th:text="${priorityOpt}"></option>
+                    </select>
+                </p>
+                <p>
+                    Comment:
+                    <textarea rows="5" th:field="*{comment}" th:disabled="${order.uuid != null}"/>
+                </p>
+                <p th:if="${order.sample?.sampleType != null}">
+                    <a th:href="@{/order/{path}/sample(path=${order.uuid})}">Sample</a>
+                </p>
+                <p th:if="${order.analysisResult?.endDate != null}">
+                    <a th:href="@{/order/{path}/analysis(path=${order.uuid})}">Analysis Result</a>
+                </p>
+                <button type="submit" name="action" value="submit">Save</button>
+                <button th:if="${T(ch.fhnw.digibp.order.Order.State).CONFIRMED == order.state}" type="submit" name="action" value="enterSample">Enter Sample
+                </button>
+                <button th:if="${T(ch.fhnw.digibp.order.Order.State).SAMPLE_RECEIVED == order.state}" type="submit" name="action" value="startAnalysis">Start Analysis
+                </button>
+                <button th:if="${T(ch.fhnw.digibp.order.Order.State).IN_ANALYSIS == order.state}" type="submit" name="action" value="enterAnalysisResult">Enter Analysis
+                    Results
+                </button>
+                </p>
+            </form>
         </div>
-    </div>
-    <h3>As the first completely digitalised Swiss laboratory, we are committed to improving prevention, diagnosis and therapy.</h3>
-</head>
-<body>
-<p>Use the following input fields to enter your laboratory order.</p>
-<form action="#" th:action="@{/order/{path}(path=${uuid})}" th:object="${order}" method="post">
-    <p>
-        Client:
-        <select id="client" name="client" th:disabled="${order.uuid != null}" th:field="*{client.name}">
-            <option th:each="client : ${clients}" th:value="${client.name}" th:text="${client.name}"></option>
-        </select>
-    </p>
-    <p>
-        Analysis:
-        <select id="analysisType" name="priority" th:disabled="${order.uuid != null}" th:field="*{analysisType}">
-            <option th:each="analysisTypeOpt : ${T(ch.fhnw.digibp.domain.AnalysisType).values()}"
-                    th:value="${analysisTypeOpt}" th:text="${analysisTypeOpt}"></option>
-        </select>
-    </p>
-    <p>
-        Priority:
-        <select id="priority" name="priority" th:disabled="${order.uuid != null}" th:field="*{priority}">
-            <option th:each="priorityOpt : ${T(ch.fhnw.digibp.domain.Priority).values()}"
-                    th:value="${priorityOpt}" th:text="${priorityOpt}"></option>
-        </select>
-    </p>
-    <p>
-        Comment:
-        <textarea rows="5" th:field="*{comment}" th:disabled="${order.uuid != null}"/>
-    </p>
-    <p th:if="${order.sample?.sampleType != null}">
-        <a th:href="@{/order/{path}/sample(path=${order.uuid})}">Sample</a>
-    </p>
-    <p th:if="${order.analysisResult?.endDate != null}">
-        <a th:href="@{/order/{path}/analysis(path=${order.uuid})}">Analysis Result</a>
-    </p>
-    <button type="submit" name="action" value="submit">Save</button>
-    <button th:if="${T(ch.fhnw.digibp.order.Order.State).CONFIRMED == order.state}" type="submit" name="action" value="enterSample">Enter Sample
-    </button>
-    <button th:if="${T(ch.fhnw.digibp.order.Order.State).SAMPLE_RECEIVED == order.state}" type="submit" name="action" value="startAnalysis">Start Analysis
-    </button>
-    <button th:if="${T(ch.fhnw.digibp.order.Order.State).IN_ANALYSIS == order.state}" type="submit" name="action" value="enterAnalysisResult">Enter Analysis
-        Results
-    </button>
-    </p>
-</form>
-</body>
+    </body>
 </html>

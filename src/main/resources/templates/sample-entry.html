@@ -1,38 +1,41 @@
 <html xmlns:th="https://www.thymeleaf.org">
 <link rel="stylesheet" href="/stylesheet.css">
-    <head>
-        <title>Sample Entry</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    </head>
-    <body>
-        <div class="header">
-            <div class="row">
-                <div class="column">
-                    <h1>Sample Entry</h1>
-                </div>
-                <div class="column">
-                    <img src="/Logo.png" alt="DIGI LAB PRO" class="logo">
-                </div>
-            </div>
+<head>
+    <title>Sample Entry</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<div class="header">
+    <div class="row">
+        <div class="column">
+            <h1>Sample Entry</h1>
         </div>
-        <div class="content">
-            <p>Check the received sample of the corresponding order according to possible damage, correct sample type, and handling during transport for correct cooling.</p>
-            <form action="#" th:action="@{/order/{path}/sample(path=${uuid})}" th:object="${sample}" method="post">
-                <p>
-                    Sample Type:
-                    <select id="sampleType" name="sampleType" th:disabled="${sample.sampleType != null}" th:field="*{sampleType}">
-                        <option th:each="sampleTypeOpt : ${T(ch.fhnw.digibp.domain.SampleType).values()}"
-                                th:value="${sampleTypeOpt}" th:text="${sampleTypeOpt}"></option>
-                    </select>
-                </p>
-                <p>Damaged: <input id="damaged" type="checkbox" th:disabled="${sample.sampleType != null}" th:field="*{damaged}"/></p>
-                <p>Temperature Indicator Okay: <input id="temperatureIndicatorOk" type="checkbox" th:disabled="${sample.sampleType != null}"
-                                                      th:field="*{temperatureIndicatorOk}"/></p>
-                <p>
-                    <button th:disabled="${sample.sampleType != null}" type="submit" name="action" value="save">Save</button>
-                </p>
-            </form>
+        <div class="column">
+            <img src="/Logo.png" alt="DIGI LAB PRO" class="logo">
         </div>
-    </body>
+    </div>
+</div>
+<div class="content">
+    <p>Check the received sample of the corresponding order according to possible damage, correct sample type, and handling during transport for correct
+        cooling.</p>
+    <form action="#" th:action="@{/order/{path}/sample(path=${uuid})}" th:object="${sample}" method="post">
+        <p>
+            Sample Type:
+            <select id="sampleType" name="sampleType" th:disabled="${T(ch.fhnw.digibp.order.Order.State).CONFIRMED != order.state}" th:field="*{sampleType}">
+                <option th:each="sampleTypeOpt : ${T(ch.fhnw.digibp.domain.SampleType).values()}"
+                        th:value="${sampleTypeOpt}" th:text="${sampleTypeOpt}"></option>
+            </select>
+        </p>
+        <p>Damaged: <input id="damaged" type="checkbox" th:disabled="${T(ch.fhnw.digibp.order.Order.State).CONFIRMED != order.state}" th:field="*{damaged}"/>
+        </p>
+        <p>Temperature Indicator Okay: <input id="temperatureIndicatorOk" type="checkbox"
+                                              th:disabled="${T(ch.fhnw.digibp.order.Order.State).CONFIRMED != order.state}"
+                                              th:field="*{temperatureIndicatorOk}"/></p>
+        <p>
+            <button th:disabled="${sample.sampleType != null}" type="submit" name="action" value="save">Save</button>
+        </p>
+    </form>
+</div>
+</body>
 </html>
 

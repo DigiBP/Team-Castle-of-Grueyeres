@@ -31,6 +31,8 @@ public class SampleController extends AbstractCamundaController {
         if (order.getSample() == null) {
             order.setSample(new Sample());
         }
+        order.getSample().setSampleType(order.getSampleRequirements().getSampleType());
+        model.addAttribute("order", order);
         model.addAttribute("sample", order.getSample());
         model.addAttribute("uuid", orderUuid);
         return "sample-entry";

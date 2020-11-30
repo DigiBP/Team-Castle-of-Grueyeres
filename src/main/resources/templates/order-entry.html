@@ -51,7 +51,7 @@
             <a th:href="@{/order/{path}/analysis(path=${order.uuid})}">Analysis Result</a>
         </p>
         <a class="button" href="/orders">Back</a>
-        <button th:if="${T(ch.fhnw.digibp.order.Order.State).NEW == order.state}" type="submit" name="action" value="submit">Save</button>
+        <button th:if="${T(ch.fhnw.digibp.order.Order.State).NEW == order.state}" type="submit" name="action" value="submit">Submit Order</button>
         <button th:if="${T(ch.fhnw.digibp.order.Order.State).CONFIRMED == order.state}" type="submit" name="action" value="enterSample">Enter Sample
         </button>
         <button th:if="${T(ch.fhnw.digibp.order.Order.State).SAMPLE_RECEIVED == order.state}" type="submit" name="action" value="startAnalysis">Start Analysis

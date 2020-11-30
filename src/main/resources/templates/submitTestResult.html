@@ -41,7 +41,7 @@
             <input id="remarks" type="text" th:disabled="${T(ch.fhnw.digibp.order.Order.State).IN_ANALYSIS != order.state}" th:field="*{remarks}"/>
         </p>
         <a th:if="${T(ch.fhnw.digibp.order.Order.State).IN_ANALYSIS == order.state}" class="button" href="/orders">Back</a>
-        <button th:if="${T(ch.fhnw.digibp.order.Order.State).IN_ANALYSIS == order.state}" type="submit" name="action" value="save">Save</button>
+        <button th:if="${T(ch.fhnw.digibp.order.Order.State).IN_ANALYSIS == order.state}" type="submit" name="action" value="save">Submit Results</button>
     </form>
     <form th:if="${order.validation?.recommendation != null}" action="#" th:action="@{/order/{path}/analysis(path=${uuid})}"
           th:object="${order.validation}" method="post">

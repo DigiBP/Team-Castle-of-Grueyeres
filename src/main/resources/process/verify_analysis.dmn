@@ -15,6 +15,11 @@
           <text>"LOW","HIGH","MEDIUM"</text>
         </inputValues>
       </input>
+      <input id="InputClause_0efenjh" label="Verification Needed" camunda:inputVariable="validation.verificationNeeded">
+        <inputExpression id="LiteralExpression_1retgkb" typeRef="boolean">
+          <text></text>
+        </inputExpression>
+      </input>
       <output id="Output_1" name="Verification needed" typeRef="boolean" />
       <rule id="DecisionRule_0hmn5cc">
         <inputEntry id="UnaryTests_0tjys1c">
@@ -22,6 +27,9 @@
         </inputEntry>
         <inputEntry id="UnaryTests_0octj32">
           <text>"HIGH"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0c2b1eu">
+          <text>false</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0gys488">
           <text>true</text>
@@ -34,6 +42,9 @@
         <inputEntry id="UnaryTests_0dwkkdg">
           <text>"LOW"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0dzta0f">
+          <text>false</text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0anj8e6">
           <text>true</text>
         </outputEntry>
@@ -44,6 +55,9 @@
         </inputEntry>
         <inputEntry id="UnaryTests_0x2adm8">
           <text>"LOW"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_109zah4">
+          <text>false</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_165mdoz">
           <text>false</text>
@@ -56,6 +70,9 @@
         <inputEntry id="UnaryTests_1x27lep">
           <text>"MEDIUM"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0pw5qse">
+          <text>false</text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_027wx5h">
           <text>true</text>
         </outputEntry>
@@ -67,8 +84,25 @@
         <inputEntry id="UnaryTests_146rluz">
           <text>"MEDIUM"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0zx7krj">
+          <text>false</text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_144ilsx">
           <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_02j05hu">
+        <inputEntry id="UnaryTests_0b9qhmf">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0q9n1j2">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1j7wixd">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1cpmbsq">
+          <text>true</text>
         </outputEntry>
       </rule>
     </decisionTable>

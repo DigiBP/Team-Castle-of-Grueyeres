@@ -16,13 +16,14 @@ public class RecommendationEngine {
 
     public Validation recommend(Order order) {
         long count = analysisEntryRepository.countEntries(order.getAnalysisResult().getResultValue(), order.getAnalysisType());
+        boolean verificationNeeded = count < 10;
         RecommendationEntry highestMatch = findHighestMatch(order);
         if (highestMatch != null) {
             AnalysisEntry analysisEntry = createAnalysisEntry(order, highestMatch.getRecommendation());
             double probability = calculateProbability(highestMatch.getCount(), count);
-            return buildValidation(highestMatch.getRecommendation(), probability, analysisEntry);
+            return buildValidation(highestMatch.getRecommendation(), probability, verificationNeeded, analysisEntry);
         }
-        return buildValidation("", 0, createAnalysisEntry(order, ""));
+        return buildValidation("", 0, verificationNeeded, createAnalysisEntry(order, ""));
     }
 
     private RecommendationEntry findHighestMatch(Order order) {
@@ -52,11 +53,12 @@ public class RecommendationEngine {
         return Math.round(probability * 100) / 100;
     }
 
-    private Validation buildValidation(String recommendation, double probability, AnalysisEntry analysisEntry) {
+    private Validation buildValidation(String recommendation, double probability, boolean verificationNeeded, AnalysisEntry analysisEntry) {
         Validation validation = new Validation();
         validation.setRecommendation(recommendation);
         validation.setProbability(probability);
         validation.setAnalysisEntry(analysisEntry);
+        validation.setVerificationNeeded(verificationNeeded);
         return validation;
     }
 }

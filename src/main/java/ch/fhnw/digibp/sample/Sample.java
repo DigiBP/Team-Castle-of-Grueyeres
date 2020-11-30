@@ -29,7 +29,7 @@ public class Sample extends AbstractEntity {
     @Column
     private SampleType sampleType;
     @Column
-    private boolean temperatureIndicatorOk;
+    private boolean temperatureIndicatorNotOk;
     @Column
     private LocalDate entryDate;
     @Column
@@ -44,7 +44,7 @@ public class Sample extends AbstractEntity {
         this.sampleType = SampleType.valueOf("sample.sampleType", map);
         entryDate = getLocalDate("sample.entryDate", map);
         updateDate = getZonedDateTime("sample.updateDate", map);
-        temperatureIndicatorOk = getBoolean("sample.temperatureIndicatorOk", map);
+        temperatureIndicatorNotOk = getBoolean("sample.temperatureIndicatorNotOk", map);
     }
 
 
@@ -60,7 +60,7 @@ public class Sample extends AbstractEntity {
         map.put(prefix + "sampleType", getSampleTypeValue());
         map.put(prefix + "entryDate", toString(getEntryDate()));
         map.put(prefix + "updateDate", toString(getUpdateDate()));
-        map.put(prefix + "temperatureIndicatorOk", isTemperatureIndicatorOk());
+        map.put(prefix + "temperatureIndicatorNotOk", isTemperatureIndicatorNotOk());
         return map;
     }
 
@@ -113,12 +113,12 @@ public class Sample extends AbstractEntity {
         this.sampleType = sampleType;
     }
 
-    public boolean isTemperatureIndicatorOk() {
-        return temperatureIndicatorOk;
+    public boolean isTemperatureIndicatorNotOk() {
+        return temperatureIndicatorNotOk;
     }
 
-    public void setTemperatureIndicatorOk(boolean temperatureIndicatorOk) {
-        this.temperatureIndicatorOk = temperatureIndicatorOk;
+    public void setTemperatureIndicatorNotOk(boolean temperatureIndicatorOk) {
+        this.temperatureIndicatorNotOk = temperatureIndicatorOk;
     }
 
     @Override
@@ -127,7 +127,7 @@ public class Sample extends AbstractEntity {
                 "id=" + id +
                 ", damaged=" + damaged +
                 ", sampleType=" + sampleType +
-                ", temperatureIndicatorOk=" + temperatureIndicatorOk +
+                ", temperatureIndicatorNotOk=" + temperatureIndicatorNotOk +
                 ", entryDate=" + entryDate +
                 ", updateDate=" + updateDate +
                 '}';

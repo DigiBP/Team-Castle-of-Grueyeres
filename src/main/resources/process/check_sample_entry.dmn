@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="Definitions_0imp5sc" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.3.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="Definitions_0imp5sc" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.2.0">
   <decision id="check_sample_entry" name="Check Sample">
     <decisionTable id="DecisionTable_06825dp">
       <input id="InputClause_1yev01h" label="package damaged" camunda:inputVariable="sample.damaged">
@@ -7,7 +7,7 @@
           <text></text>
         </inputExpression>
       </input>
-      <input id="InputClause_0ev69uq" label="temperature indicator okay" biodi:width="265" camunda:inputVariable="sample.temperatureIndicatorOk">
+      <input id="InputClause_0ev69uq" label="temperature indicator okay" biodi:width="265" camunda:inputVariable="sample.temperatureIndicatorNotOk">
         <inputExpression id="LiteralExpression_0ww8f7g" typeRef="boolean">
           <text></text>
         </inputExpression>
@@ -100,7 +100,7 @@
           <text>false</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0ybhw58">
-          <text>true</text>
+          <text>false</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0lkj0zf">
           <text>false</text>
@@ -145,25 +145,7 @@
           <text>"CANCELLED"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0kqu9xa">
-          <text>"Wrong sample shipped."</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_0quqk8c">
-        <description>Wrong sample shipped.</description>
-        <inputEntry id="UnaryTests_1iasujc">
-          <text>false</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1s8wsux">
-          <text>false</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_133rwtf">
-          <text>false</text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_120drbg">
-          <text>"CANCELLED"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0175n8h">
-          <text>"Wrong sample shipped."</text>
+          <text>"Wrong sample shipped and temperature indicator not ok."</text>
         </outputEntry>
       </rule>
     </decisionTable>

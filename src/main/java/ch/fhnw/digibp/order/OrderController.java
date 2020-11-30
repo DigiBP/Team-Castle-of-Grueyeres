@@ -31,7 +31,7 @@ public class OrderController {
 
     @GetMapping("/orders")
     public String ordersOverview(Model model) {
-        model.addAttribute("orders", orderRepository.findAll());
+        model.addAttribute("orders", orderRepository.findAllSorted());
         return "order-overview";
     }
 

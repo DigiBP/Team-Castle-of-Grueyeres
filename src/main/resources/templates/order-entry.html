@@ -56,9 +56,11 @@
         </button>
         <button th:if="${T(ch.fhnw.digibp.order.Order.State).SAMPLE_RECEIVED == order.state}" type="submit" name="action" value="startAnalysis">Start Analysis
         </button>
-        <button th:if="${T(ch.fhnw.digibp.order.Order.State).IN_ANALYSIS == order.state}" type="submit" name="action" value="enterAnalysisResult">Enter Analysis
-            Results
-        </button>
+        <a th:if="${T(ch.fhnw.digibp.order.Order.State).IN_ANALYSIS == order.state}" class="button" th:href="@{/order/{path}/analysis(path=${order.uuid})}">Enter
+            Analysis Results</a>
+        </p>
+        <a th:if="${T(ch.fhnw.digibp.order.Order.State).ANALYSIS_DONE == order.state}" class="button" th:href="@{/order/{path}/analysis(path=${order.uuid})}">Review
+            Analysis</a>
         </p>
     </form>
 </div>

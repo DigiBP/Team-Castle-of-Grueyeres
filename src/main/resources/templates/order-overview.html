@@ -41,7 +41,18 @@
             <td><span th:text="${order.analysisType}"> Analysis </span></td>
             <td><span th:text="${order.state}"> State </span></td>
             <td><span th:text="${order.laboratory}"> Laboratory </span></td>
-            <td><a class="button" th:href="@{/order/{path}(path=${order.uuid})}">Open Order</a></td>
+            <td>
+                <form action="#" th:action="@{/order/{path}(path=${order.uuid})}" th:object="${order}" method="post">
+                    <a class="button" th:href="@{/order/{path}(path=${order.uuid})}">Show Details</a>
+                    <button th:if="${T(ch.fhnw.digibp.order.Order.State).CONFIRMED == order.state}" type="submit" name="action" value="enterSample">Enter Sample
+                    </button>
+                    <button th:if="${T(ch.fhnw.digibp.order.Order.State).SAMPLE_RECEIVED == order.state}" type="submit" name="action" value="startAnalysis">
+                        Start Analysis
+                    </button>
+                    <a th:if="${T(ch.fhnw.digibp.order.Order.State).ANALYSIS_DONE == order.state}" class="button"
+                       th:href="@{/order/{path}/analysis(path=${order.uuid})}">Review Analysis</a>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>

@@ -19,18 +19,23 @@
     <p>Check the received sample of the corresponding order according to possible damage, correct sample type, and handling during transport for correct
         cooling.</p>
     <form action="#" th:action="@{/order/{path}/sample(path=${uuid})}" th:object="${sample}" method="post">
-        <p>
-            Sample Type:
+        <div class="input-row">
+            <label for="sampleType">Sample Type:</label>
             <select id="sampleType" name="sampleType" th:disabled="${T(ch.fhnw.digibp.order.Order.State).CONFIRMED != order.state}" th:field="*{sampleType}">
                 <option th:each="sampleTypeOpt : ${T(ch.fhnw.digibp.domain.SampleType).values()}"
                         th:value="${sampleTypeOpt}" th:text="${sampleTypeOpt}"></option>
             </select>
-        </p>
-        <p>Damaged: <input id="damaged" type="checkbox" th:disabled="${T(ch.fhnw.digibp.order.Order.State).CONFIRMED != order.state}" th:field="*{damaged}"/>
-        </p>
-        <p>Temperature Indicator <b>Not</b> Okay: <input id="temperatureIndicatorOk" type="checkbox"
-                                                         th:disabled="${T(ch.fhnw.digibp.order.Order.State).CONFIRMED != order.state}"
-                                                         th:field="*{temperatureIndicatorNotOk}"/></p>
+        </div>
+        <div class="input-row">
+            <label for="damaged">Damaged:</label>
+            <input id="damaged" type="checkbox" th:disabled="${T(ch.fhnw.digibp.order.Order.State).CONFIRMED != order.state}" th:field="*{damaged}"/>
+        </div>
+        <div class="input-row">
+            <label for="temperatureIndicatorOk">Temperature Indicator <b>Not</b> Okay:</label>
+            <input id="temperatureIndicatorOk" type="checkbox"
+                   th:disabled="${T(ch.fhnw.digibp.order.Order.State).CONFIRMED != order.state}"
+                   th:field="*{temperatureIndicatorNotOk}"/>
+        </div>
         <a class="button" href="/orders">Back</a>
         <button th:disabled="${T(ch.fhnw.digibp.order.Order.State).CONFIRMED != order.state}" type="submit" name="action" value="save">Submit Sample</button>
     </form>

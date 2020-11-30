@@ -20,36 +20,34 @@
 <div class="content">
     <p>Use the following input fields to enter your laboratory order.</p>
     <form action="#" th:action="@{/order/{path}(path=${uuid})}" th:object="${order}" method="post">
-        <p>
-            Client:
+        <div class="input-row">
+            <label for="client">Client:</label>
             <select id="client" name="client" th:disabled="${order.uuid != null}" th:field="*{client.name}">
                 <option th:each="client : ${clients}" th:value="${client.name}" th:text="${client.name}"></option>
             </select>
-        </p>
-        <p>
-            Analysis:
+        </div>
+        <div class="input-row">
+            <label for="analysisType">Analysis:</label>
             <select id="analysisType" name="priority" th:disabled="${order.uuid != null}" th:field="*{analysisType}">
                 <option th:each="analysisTypeOpt : ${T(ch.fhnw.digibp.domain.AnalysisType).values()}"
                         th:value="${analysisTypeOpt}" th:text="${analysisTypeOpt}"></option>
             </select>
-        </p>
-        <p>
-            Priority:
+        </div>
+        <div class="input-row">
+            <label for="priority">Priority:</label>
             <select id="priority" name="priority" th:disabled="${order.uuid != null}" th:field="*{priority}">
                 <option th:each="priorityOpt : ${T(ch.fhnw.digibp.domain.Priority).values()}"
                         th:value="${priorityOpt}" th:text="${priorityOpt}"></option>
             </select>
-        </p>
-        <p>
-            Comment:
+        </div>
+        <div class="input-row">
+            <label for="comment">Comment:</label>
             <input id="comment" type="text" th:disabled="${order.uuid != null}" th:field="*{comment}"/>
-        </p>
-        <p th:if="${order.sample?.sampleType != null}">
-            <a th:href="@{/order/{path}/sample(path=${order.uuid})}">Sample</a>
-        </p>
-        <p th:if="${order.analysisResult?.endDate != null}">
-            <a th:href="@{/order/{path}/analysis(path=${order.uuid})}">Analysis Result</a>
-        </p>
+        </div>
+        <ul class="detail-list">
+            <li th:if="${order.sample?.sampleType != null}"><a th:href="@{/order/{path}/sample(path=${order.uuid})}">Sample</a></li>
+            <li th:if="${order.analysisResult?.endDate != null}"><a th:href="@{/order/{path}/analysis(path=${order.uuid})}">Analysis Result</a></li>
+        </ul>
         <a class="button" href="/orders">Back</a>
         <button th:if="${T(ch.fhnw.digibp.order.Order.State).NEW == order.state}" type="submit" name="action" value="submit">Submit Order</button>
         <button th:if="${T(ch.fhnw.digibp.order.Order.State).CONFIRMED == order.state}" type="submit" name="action" value="enterSample">Enter Sample
@@ -58,10 +56,8 @@
         </button>
         <a th:if="${T(ch.fhnw.digibp.order.Order.State).IN_ANALYSIS == order.state}" class="button" th:href="@{/order/{path}/analysis(path=${order.uuid})}">Enter
             Analysis Results</a>
-        </p>
         <a th:if="${T(ch.fhnw.digibp.order.Order.State).ANALYSIS_DONE == order.state}" class="button" th:href="@{/order/{path}/analysis(path=${order.uuid})}">Review
             Analysis</a>
-        </p>
     </form>
 </div>
 </body>

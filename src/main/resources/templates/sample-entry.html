@@ -31,9 +31,8 @@
         <p>Temperature Indicator Okay: <input id="temperatureIndicatorOk" type="checkbox"
                                               th:disabled="${T(ch.fhnw.digibp.order.Order.State).CONFIRMED != order.state}"
                                               th:field="*{temperatureIndicatorOk}"/></p>
-        <p>
-            <button th:disabled="${T(ch.fhnw.digibp.order.Order.State).CONFIRMED != order.state}" type="submit" name="action" value="save">Save</button>
-        </p>
+        <a class="button" href="/orders">Back</a>
+        <button th:disabled="${T(ch.fhnw.digibp.order.Order.State).CONFIRMED != order.state}" type="submit" name="action" value="save">Save</button>
     </form>
 </div>
 </body>

@@ -58,31 +58,28 @@ table {
 */
 
 body {
+    font-family: Arial, Helvetica, sans-serif;
     background-color: white;
     font-size: 16px;
 }
 
 h1 {
     color: #2b50a8;
-    font-family: Arial, Helvetica, sans-serif;
     font-size: 250%;
 }
 
 h2 {
     color: #53a319;
-    font-family: Arial, Helvetica, sans-serif;
     font-size: 175%;
 }
 
 h3 {
     color: #2b50a8;
-    font-family: Arial, Helvetica, sans-serif;
     font-size: 100%;
 }
 
 p {
     color: #748cc5;
-    font-family: Arial, Helvetica, sans-serif;
     font-size: 100%;
 }
 
@@ -135,7 +132,7 @@ p {
     font-size: 16px;
 }
 
-button {
+button, .button {
     font-size: 16px;
     padding: 2px 5px;
     border: 1px solid #748cc5;
@@ -143,9 +140,13 @@ button {
     box-sizing: border-box;
     background-color: white;
     color: #2b50a8;
+    text-decoration: none;
+    cursor: grab;
+    display: inline-block;
+    line-height: 25px;
 }
 
-button:hover {
+button:hover, .button:hover {
     border-width: 2px;
     border-color: #2b50a8;
     padding: 1px 4px;
@@ -160,7 +161,6 @@ th, td {
     text-align: left;
     border-bottom: 1px solid #2b50a8;
     white-space: nowrap;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 thead {
@@ -174,4 +174,6 @@ tbody {
     color: #748cc5;
 }
 
-.tr-body:hover {background-color: #cdd9e1;}
+.tr-body:hover {
+    background-color: #cdd9e1;
+}

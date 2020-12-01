@@ -39,11 +39,15 @@ public class ProcessApplication {
         createEntry(AnalysisType.Ferritin, 100, "Average ferritin level. No action required.");
         createEntry(AnalysisType.Ferritin, 600, "Ferritin level above average. Try to eat less meat and other ferritin containing food.");
         createEntry(AnalysisType.Ferritin, 1000, "Ferritin level too high. Please contact your physician.");
-        createEntry(AnalysisType.Vitamin_D, 10, "Vitamine D level way too low. Get in touch with your phycisian.");
+        createEntry(AnalysisType.Vitamin_D, 10, "Vitamine D level way too low. Get in touch with your physician.");
         createEntry(AnalysisType.Vitamin_D, 20, "Vitamine D level at the lower limit. Consider the intake of food additives.");
         createEntry(AnalysisType.Vitamin_D, 40, "Vitamien D level in a ideal range. No action required.");
         createEntry(AnalysisType.Vitamin_D, 60, "Vitamien D level in a ideal range. No action required.");
-        createEntry(AnalysisType.Vitamin_D, 100, "Vitamine D level too high. Reduce food additives if applicable. Otherwise please contact your phycision too discuss your diet.");
+        createEntry(AnalysisType.Vitamin_D, 100, "Vitamine D level too high. Reduce food additives if applicable. Otherwise please contact your physician too discuss your diet.");
+        createEntry(AnalysisType.THC, 0, "No THC found.");
+        createEntry(AnalysisType.THC, 1, "Patient might have consumed THC in the last few days. A hair analysis should be performed for a more accurate result.");
+        createEntry(AnalysisType.THC, 5, "Patient did consume THC on a regular basis. Driver's license should be revoked");
+        createEntry(AnalysisType.THC, 10, "THC level very high. Patient should do a drugs rehabilitation");
         createEntry(AnalysisType.HIV, 0, "HIV test negative. No action required.");
         createEntry(AnalysisType.HIV, 1, "HIV test positive. Get in touch with an expert immediately.");
         createEntry(AnalysisType.Cancer, 0, "Test negative. No cancer cells found. No action required.");

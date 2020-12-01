@@ -25,7 +25,7 @@
     <bpmn:sequenceFlow id="Flow_0fd28zr" sourceRef="Activity_1qqdeo6" targetRef="Activity_05yyot3" />
     <bpmn:sequenceFlow id="Flow_1xj6uaq" sourceRef="Activity_05yyot3" targetRef="Gateway_0ggp35l" />
     <bpmn:sequenceFlow id="Flow_1t731oj" name="nok" sourceRef="Gateway_1bph47a" targetRef="Gateway_0puwk8x">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${check_sample.state == 'CANCELLED'}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${check_sample.state != 'SAMPLE_RECEIVED'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_15te87p" sourceRef="Gateway_0puwk8x" targetRef="sample_cancel_notification" />
     <bpmn:parallelGateway id="Gateway_0puwk8x">

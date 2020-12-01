@@ -148,6 +148,23 @@
           <text>"Wrong sample shipped and temperature indicator not ok."</text>
         </outputEntry>
       </rule>
+      <rule id="DecisionRule_0rppzy7">
+        <inputEntry id="UnaryTests_0n1z111">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1qsg4mn">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0k67pyr">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_186a5ok">
+          <text>"CANCELLED"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1virh12">
+          <text>"Temperature indicator not ok."</text>
+        </outputEntry>
+      </rule>
     </decisionTable>
   </decision>
   <dmndi:DMNDI>

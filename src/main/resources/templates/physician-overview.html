@@ -1,0 +1,54 @@
+<html xmlns:th="https://www.thymeleaf.org">
+<link rel="stylesheet" href="/stylesheet.css">
+<head>
+    <title>Physician Overview</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<div class="header">
+    <div class="row">
+        <div class="column">
+            <h1>Physician Overview</h1>
+        </div>
+        <div class="column">
+            <img src="/Logo.png" alt="DIGI LAB PRO" class="logo">
+        </div>
+    </div>
+</div>
+<div class="content">
+    <p>All open orders requiring a physician review are listed below.</p>
+    <table>
+        <thead>
+        <tr>
+            <th> Date</th>
+            <th> UUID</th>
+            <th> Analysis</th>
+            <th> State</th>
+            <th> Laboratory</th>
+            <th> Edit</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${orders.empty}">
+            <td colspan="6"> No Orders</td>
+        </tr>
+        <tr th:each="order : ${orders}" class="tr-body">
+            <td><span th:text="${order.orderDate}"> Date </span></td>
+            <td><span th:text="${order.uuid}"> UUID </span></td>
+            <td><span th:text="${order.analysisType}"> Analysis </span></td>
+            <td><span th:text="${order.state}"> State </span></td>
+            <td><span th:text="${order.laboratory}"> Laboratory </span></td>
+            <td>
+                <form action="#" th:action="@{/order/{path}(path=${order.uuid})}" th:object="${order}" method="post">
+                    <a class="button" th:href="@{/order/{path}(path=${order.uuid})}">Show Details</a>
+                    <a th:if="${T(ch.fhnw.digibp.order.Order.State).ANALYSIS_DONE == order.state}" class="button"
+                       th:href="@{/order/{path}/analysis(path=${order.uuid})}">Review Analysis</a>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
+

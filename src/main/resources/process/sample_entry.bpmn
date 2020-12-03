@@ -88,7 +88,7 @@
           <camunda:inputOutput>
             <camunda:inputParameter name="payload">
               <camunda:script scriptFormat="JavaScript">out = JSON.stringify({
-"Annotations": execution.getVariable("check_sample.cancellationReason"),
+"Annotations": check_sample.cancellationReason,
 "e-mail": execution.getVariable("client.email")
 });</camunda:script>
             </camunda:inputParameter>

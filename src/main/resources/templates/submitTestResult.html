@@ -18,6 +18,15 @@
 <div class="content">
     <p class="text-padding">Check the test result for completeness and possible errors.</p>
     <form action="#" th:action="@{/order/{path}/analysis(path=${uuid})}" th:object="${order.analysisResult}" method="post">
+
+        <div class="input-row">
+            <label for="analysisType">Analysis:</label>
+            <input id="analysisType" type="text" th:value="${order.analysisType}" disabled/>
+        </div>
+        <div class="input-row">
+            <label for="sampleType">Sample Type:</label>
+            <input id="sampleType" type="text" th:value="${order.sampleRequirements.sampleType}" disabled/>
+        </div>
         <div class="input-row">
             <label for="startDate">Start Date:</label>
             <input id="startDate" type="date" th:field="*{startDate}" disabled/>

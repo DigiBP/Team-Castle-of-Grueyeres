@@ -251,7 +251,7 @@ public class Order extends AbstractEntity {
         if (mapHasKey("billingInformation", map)) {
             billingInformation = new BillingInformation((Map<String, Object>) map.get("billingInformation"));
         } else {
-            sampleRequirements = new SampleRequirements(map);
+            billingInformation = new BillingInformation(map);
         }
     }
 

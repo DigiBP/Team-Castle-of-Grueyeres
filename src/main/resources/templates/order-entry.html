@@ -18,7 +18,7 @@
     <h3>As the first completely digitalised Swiss laboratory, we are committed to improving prevention, diagnosis and therapy.</h3>
 </div>
 <div class="content">
-    <p>Use the following input fields to enter your laboratory order.</p>
+    <p class="text-padding">Use the following input fields to enter your laboratory order.</p>
     <form action="#" th:action="@{/order/{path}(path=${uuid})}" th:object="${order}" method="post">
         <div class="input-row">
             <label for="client">Client:</label>

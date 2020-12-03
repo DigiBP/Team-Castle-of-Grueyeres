@@ -16,7 +16,7 @@
     </div>
 </div>
 <div class="content">
-    <p>Check the test result for completeness and possible errors.</p>
+    <p class="text-padding">Check the test result for completeness and possible errors.</p>
     <form action="#" th:action="@{/order/{path}/analysis(path=${uuid})}" th:object="${order.analysisResult}" method="post">
         <div class="input-row">
             <label for="startDate">Start Date:</label>

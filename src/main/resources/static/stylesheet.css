@@ -180,3 +180,7 @@ tbody {
 .tr-body:hover {
     background-color: #cdd9e1;
 }
+
+.text-padding{
+    padding-bottom: 5px;
+}

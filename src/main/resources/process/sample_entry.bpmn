@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_11n5fw1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.2.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_11n5fw1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.3.0">
   <bpmn:process id="sample_entry" isExecutable="true">
     <bpmn:endEvent id="sample_entry_finished" name="Sample processed">
       <bpmn:incoming>Flow_1v0woql</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:businessRuleTask id="check_sample" name="Check sample" implementation="##unspecified" camunda:resultVariable="check_sample" camunda:decisionRef="check_sample_entry" camunda:mapDecisionResult="singleResult">
+    <bpmn:businessRuleTask id="check_sample" name="Check Sample" implementation="##unspecified" camunda:resultVariable="check_sample" camunda:decisionRef="check_sample_entry" camunda:mapDecisionResult="singleResult">
       <bpmn:incoming>Flow_0dw7ynt</bpmn:incoming>
       <bpmn:outgoing>Flow_00h2l51</bpmn:outgoing>
     </bpmn:businessRuleTask>
@@ -58,7 +58,7 @@
       </bpmn:dataOutputAssociation>
     </bpmn:businessRuleTask>
     <bpmn:dataStoreReference id="DataStoreReference_15w108l" name="LIMS" />
-    <bpmn:manualTask id="Activity_05yyot3" name="Store sample">
+    <bpmn:manualTask id="Activity_05yyot3" name="Store Sample">
       <bpmn:incoming>Flow_0fd28zr</bpmn:incoming>
       <bpmn:outgoing>Flow_1xj6uaq</bpmn:outgoing>
       <bpmn:ioSpecification>

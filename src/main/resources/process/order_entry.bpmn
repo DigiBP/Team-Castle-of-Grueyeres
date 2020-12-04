@@ -22,7 +22,7 @@
       </bpmn:dataInputAssociation>
     </bpmn:businessRuleTask>
     <bpmn:sequenceFlow id="Flow_0z2ubfj" sourceRef="shipping_information" targetRef="Activity_1rlny8w" />
-    <bpmn:businessRuleTask id="Activity_1rlny8w" name="Calculate indicative price" camunda:resultVariable="billingInformation" camunda:decisionRef="indicative_price_calc" camunda:mapDecisionResult="singleResult">
+    <bpmn:businessRuleTask id="Activity_1rlny8w" name="Calculate Price" camunda:resultVariable="billingInformation" camunda:decisionRef="indicative_price_calc" camunda:mapDecisionResult="singleResult">
       <bpmn:incoming>Flow_0z2ubfj</bpmn:incoming>
       <bpmn:outgoing>Flow_07e8wg5</bpmn:outgoing>
     </bpmn:businessRuleTask>

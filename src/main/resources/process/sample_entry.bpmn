@@ -98,7 +98,7 @@
                 <camunda:entry key="Content-Type">application/json</camunda:entry>
               </camunda:map>
             </camunda:inputParameter>
-            <camunda:inputParameter name="url">https://hook.integromat.com/frgvvp8o3c2fgvnfng71x742ilbneuit</camunda:inputParameter>
+            <camunda:inputParameter name="url">https://cb37ff62-a23c-499c-91c3-97f3e7caecc5.mock.pstmn.io/test</camunda:inputParameter>
           </camunda:inputOutput>
           <camunda:connectorId>http-connector</camunda:connectorId>
         </camunda:connector>

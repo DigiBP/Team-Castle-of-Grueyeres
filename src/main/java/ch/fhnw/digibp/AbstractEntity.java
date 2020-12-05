@@ -33,6 +33,10 @@ public abstract class AbstractEntity {
         return mapHasKey(key, map) ? (double) map.get(key) : -0.0;
     }
 
+    protected int getInt(String key, Map<String, Object> map) {
+        return mapHasKey(key, map) ? (int) map.get(key) : 0;
+    }
+
     protected ZonedDateTime getZonedDateTime(String key, Map<String, Object> map) {
         if (mapHasKey(key, map)) {
             String str = (String) map.get(key);

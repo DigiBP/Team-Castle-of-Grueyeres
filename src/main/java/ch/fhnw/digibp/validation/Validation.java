@@ -16,7 +16,7 @@ import ch.fhnw.digibp.recommendation.AnalysisEntry;
 @Embeddable
 public class Validation extends AbstractEntity {
     @Column
-    private double probability;
+    private int similarAnalysisCount;
     @Column
     private String recommendation;
     @Column
@@ -33,7 +33,7 @@ public class Validation extends AbstractEntity {
     }
 
     public Validation(Map<String, Object> map) {
-        this.probability = getDouble("validation.probability", map);
+        this.similarAnalysisCount = getInt("validation.similarAnalysisCount", map);
         this.recommendation = getString("validation.recommendation", map);
         this.verificationNeeded = getBoolean("validation.verificationNeeded", map);
         this.approved = getBoolean("validation.approved", map);
@@ -51,12 +51,12 @@ public class Validation extends AbstractEntity {
         }
     }
 
-    public double getProbability() {
-        return probability;
+    public int getSimilarAnalysisCount() {
+        return similarAnalysisCount;
     }
 
-    public void setProbability(double probability) {
-        this.probability = probability;
+    public void setSimilarAnalysisCount(int similarAnalysisCount) {
+        this.similarAnalysisCount = similarAnalysisCount;
     }
 
     public boolean isVerificationNeeded() {
@@ -98,7 +98,7 @@ public class Validation extends AbstractEntity {
 
     private Map<String, Object> toMapWithPrefix(String prefix) {
         Map<String, Object> map = new HashMap<>();
-        map.put(prefix + "probability", getProbability());
+        map.put(prefix + "similarAnalysisCount", getSimilarAnalysisCount());
         map.put(prefix + "recommendation", getRecommendation());
         map.put(prefix + "verificationNeeded", isVerificationNeeded());
         map.put(prefix + "approved", isApproved());
@@ -111,7 +111,7 @@ public class Validation extends AbstractEntity {
     @Override
     public String toString() {
         return "Validation{" +
-                "probability=" + probability +
+                "similarAnalysisCount=" + similarAnalysisCount +
                 ", recommendation='" + recommendation + '\'' +
                 ", verificationNeeded=" + verificationNeeded +
                 ", approved=" + approved +

@@ -56,8 +56,8 @@
     <form th:if="${order.validation?.recommendation != null}" action="#" th:action="@{/order/{path}/analysis(path=${uuid})}"
           th:object="${order.validation}" method="post">
         <div class="input-row">
-            <label for="probability">ML Probability:</label>
-            <input id="probability" type="number" th:field="*{probability}" disabled/>
+            <label for="similarAnalysisCount">Similar Analysis Count:</label>
+            <input id="similarAnalysisCount" type="number" th:field="*{similarAnalysisCount}" disabled/>
         </div>
         <div class="input-row">
             <label for="recommendation">Recommendation:</label>

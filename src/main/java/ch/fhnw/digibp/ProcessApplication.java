@@ -28,11 +28,11 @@ public class ProcessApplication {
     @PostConstruct
     public void postConstruct() {
         createEntry(AnalysisType.Sars_Cov_2, 0, "No quarantine required.");
-        createEntry(AnalysisType.Sars_Cov_2, 5, "Low virus level, quarantine for 3 days.");
-        createEntry(AnalysisType.Sars_Cov_2, 10, "Low virus level, quarantine for 5 days.");
-        createEntry(AnalysisType.Sars_Cov_2, 20, "Medium virus level, quarantine for 10 days, person(s) with close contact in quarantine for 2 days.");
-        createEntry(AnalysisType.Sars_Cov_2, 50, "High virus level, quarantine for 10 days, person(s) with close contact in quarantine for 5 days.");
-        createEntry(AnalysisType.Sars_Cov_2, 80, "Very high virus level, quarantine for 10 days, person(s) with close contact in quarantine for 10 days.");
+        createEntry(AnalysisType.Sars_Cov_2, 100, "Low virus level, quarantine for 3 days.");
+        createEntry(AnalysisType.Sars_Cov_2, 1000, "Low virus level, quarantine for 5 days.");
+        createEntry(AnalysisType.Sars_Cov_2, 10000, "Medium virus level, quarantine for 10 days, person(s) with close contact in quarantine for 2 days.");
+        createEntry(AnalysisType.Sars_Cov_2, 100000, "High virus level, quarantine for 10 days, person(s) with close contact in quarantine for 5 days.");
+        createEntry(AnalysisType.Sars_Cov_2, 1000000, "Very high virus level, quarantine for 10 days, person(s) with close contact in quarantine for 10 days.");
         createEntry(AnalysisType.Ferritin, 10, "Ferritin level too low, diet change highly recommended.");
         createEntry(AnalysisType.Ferritin, 20, "Ferritin level at the lower end. diet change recommended.");
         createEntry(AnalysisType.Ferritin, 50, "Average ferritin level. No action required.");
@@ -48,8 +48,9 @@ public class ProcessApplication {
         createEntry(AnalysisType.THC, 1, "Patient might have consumed THC in the last few days. A hair analysis should be performed for a more accurate result.");
         createEntry(AnalysisType.THC, 5, "Patient did consume THC on a regular basis. Driver's license should be revoked");
         createEntry(AnalysisType.THC, 10, "THC level very high. Patient should do a drugs rehabilitation");
-        createEntry(AnalysisType.HIV, 0, "HIV test negative. No action required.");
-        createEntry(AnalysisType.HIV, 1, "HIV test positive. Get in touch with an expert immediately.");
+        createEntry(AnalysisType.HIV, 40, "HIV test negative. Viral load below threshold");
+        createEntry(AnalysisType.HIV, 50, "HIV test positive. Viral load at the threshold. Get in touch with an expert immediately.");
+        createEntry(AnalysisType.HIV, 1000, "HIV test positive. Viral load above threshold. Get in touch with an expert immediately");
         createEntry(AnalysisType.Cancer, 0, "Test negative. No cancer cells found. No action required.");
         createEntry(AnalysisType.Cancer, 1, "Test positive. Get in touch with an expert immediately.");
         createClient("KKH Lörrach", "timo.schoepflin@gmail.com");

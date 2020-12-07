@@ -38,7 +38,8 @@
 "biohazard": execution.getVariable("sampleRequirements.biohazard"),
 "sampleType": execution.getVariable("sampleRequirements.sampleType"),
 "analysis": analysis,
-"email":execution.getVariable("client.email")
+"email":execution.getVariable("client.email"),
+"uuid":execution.getVariable("uuid")
 });</camunda:script>
             </camunda:inputParameter>
             <camunda:inputParameter name="method">POST</camunda:inputParameter>

@@ -18,7 +18,7 @@
       <output id="Output_1" name="Verification needed" typeRef="boolean" />
       <rule id="DecisionRule_0hmn5cc">
         <inputEntry id="UnaryTests_0tjys1c">
-          <text>&lt;=100</text>
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0octj32">
           <text>"HIGH"</text>
@@ -68,17 +68,6 @@
           <text>"MEDIUM"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_144ilsx">
-          <text>false</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_0yum1ze">
-        <inputEntry id="UnaryTests_15l274c">
-          <text>&gt;100</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_16d132u">
-          <text>"HIGH"</text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_0w4w2py">
           <text>false</text>
         </outputEntry>
       </rule>

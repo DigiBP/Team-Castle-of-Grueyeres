@@ -103,14 +103,18 @@ h3 {
 }
 
 .input-row {
-    width: 100%;
+    width: 410px;
     padding: 5px 0;
+    display: flex;
+    flex-direction: row;
 }
 
 .input-row > label {
     width: 190px;
     display: inline-block;
     font-size: 16px;
+    padding: 2px;
+    flex-shrink: 0;
 }
 
 .input-row > input[type="number"], .input-row > input[type="text"], .input-row > input[type="date"], .input-row > select, .input-row > textarea {
@@ -121,10 +125,16 @@ h3 {
     border-radius: 4px;
     box-sizing: border-box;
     background-color: white;
+    min-width: 10px;
+    flex: 1;
 }
 
 .input-row > select > option {
     font-size: 16px;
+}
+
+.input-row > input[type="number"].short-input {
+    text-align: right;
 }
 
 button, .button {
@@ -139,6 +149,11 @@ button, .button {
     cursor: grab;
     display: inline-block;
     line-height: 25px;
+}
+
+.input-unit {
+    flex-shrink: 0;
+    padding: 2px;
 }
 
 button:hover, .button:hover {
@@ -181,6 +196,6 @@ tbody {
     background-color: #cdd9e1;
 }
 
-.text-padding{
+.text-padding {
     padding-bottom: 5px;
 }

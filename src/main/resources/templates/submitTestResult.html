@@ -40,7 +40,7 @@
             <label for="resultValue">Result Value:</label>
             <input class="short-input" id="resultValue" type="number" th:field="*{resultValue}"
                    th:disabled="${T(ch.fhnw.digibp.order.Order.State).IN_ANALYSIS != order.state}"
-                   required/>
+                   required th:autofocus="${T(ch.fhnw.digibp.order.Order.State).IN_ANALYSIS == order.state }"/>
             <span class="input-unit" th:text="${order.analysisType.getUnit()}"></span>
         </div>
         <div class="input-row">
@@ -64,7 +64,8 @@
         <div class="input-row">
             <label for="recommendation">Recommendation:</label>
             <input id="recommendation" type="text" th:field="*{recommendation}"
-                   th:disabled="${T(ch.fhnw.digibp.order.Order.State).ANALYSIS_DONE != order.state && !order.validation?.verificationNeeded}"/>
+                   th:disabled="${T(ch.fhnw.digibp.order.Order.State).ANALYSIS_DONE != order.state && !order.validation?.verificationNeeded}"
+                   th:autofocus="${T(ch.fhnw.digibp.order.Order.State).ANALYSIS_DONE == order.state }"/>
         </div>
         <a th:if="${T(ch.fhnw.digibp.order.Order.State).IN_ANALYSIS != order.state}" class="button" href="/orders">Back</a>
         <button th:if="${T(ch.fhnw.digibp.order.Order.State).ANALYSIS_DONE == order.state }" type="submit" name="action" value="confirm">Confirm Analysis

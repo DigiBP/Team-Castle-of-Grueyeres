@@ -21,6 +21,10 @@
     <p class="text-padding">Use the following input fields to enter your laboratory order.</p>
     <form action="#" th:action="@{/order/{path}(path=${uuid})}" th:object="${order}" method="post">
         <div class="input-row">
+            <label for="state">State:</label>
+            <input id="state" type="text" th:field="*{state}" disabled/>
+        </div>
+        <div class="input-row">
             <label for="client">Client:</label>
             <select id="client" name="client" th:disabled="${order.uuid != null}" th:field="*{client.name}">
                 <option th:each="client : ${clients}" th:value="${client.name}" th:text="${client.name}"></option>

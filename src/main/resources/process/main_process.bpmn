@@ -2,7 +2,7 @@
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_0wuavgf" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.3.0">
   <bpmn:collaboration id="Collaboration_00ex3dv">
     <bpmn:participant id="Participant_0w5472y" name="client" processRef="Process_0jxrg7r" />
-    <bpmn:participant id="Participant_1d0zaem" name="clinical laboratory" processRef="Process_05mtszn" />
+    <bpmn:participant id="Participant_1d0zaem" name="Analysis Processing Process" processRef="Process_05mtszn" />
     <bpmn:messageFlow id="Flow_1r2m0vi" sourceRef="Activity_004t7d1" targetRef="Participant_0w5472y" />
     <bpmn:messageFlow id="Flow_0px1hek" sourceRef="Activity_165sm9z" targetRef="Participant_0w5472y" />
     <bpmn:messageFlow id="Flow_0a6i6ul" sourceRef="Participant_0w5472y" targetRef="Event_1ujjm9g" />
@@ -72,10 +72,10 @@
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_00ex3dv">
       <bpmndi:BPMNShape id="Participant_0w5472y_di" bpmnElement="Participant_0w5472y" isHorizontal="true">
-        <dc:Bounds x="160" y="120" width="1152" height="77" />
+        <dc:Bounds x="160" y="120" width="1100" height="77" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Participant_1d0zaem_di" bpmnElement="Participant_1d0zaem" isHorizontal="true">
-        <dc:Bounds x="160" y="231" width="1152" height="370" />
+        <dc:Bounds x="160" y="231" width="1100" height="309" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_0nfpgm4_di" bpmnElement="Flow_0nfpgm4">
         <di:waypoint x="1084" y="340" />
@@ -167,20 +167,20 @@
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1r2m0vi_di" bpmnElement="Flow_1r2m0vi">
-        <di:waypoint x="359" y="301" />
+        <di:waypoint x="359" y="302" />
         <di:waypoint x="359" y="197" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0px1hek_di" bpmnElement="Flow_0px1hek">
-        <di:waypoint x="1036" y="301" />
+        <di:waypoint x="1036" y="302" />
         <di:waypoint x="1036" y="197" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0a6i6ul_di" bpmnElement="Flow_0a6i6ul">
-        <di:waypoint x="244" y="196" />
+        <di:waypoint x="244" y="197" />
         <di:waypoint x="244" y="324" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_011sgic_di" bpmnElement="Flow_011sgic">
         <di:waypoint x="590" y="197" />
-        <di:waypoint x="590" y="325" />
+        <di:waypoint x="590" y="324" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

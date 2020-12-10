@@ -6,12 +6,13 @@
     <semantic:laneSet>
       <semantic:lane id="_a9af297a-4d5b-45bd-81c6-fd44aeae0137" name="Backoffice">
         <semantic:flowNodeRef>_a6906d8b-5831-473e-a3c8-d54394321f68</semantic:flowNodeRef>
+        <semantic:flowNodeRef>_8f01e019-a4ba-45af-94f8-ca33a4b2d73b</semantic:flowNodeRef>
         <semantic:flowNodeRef>_6e5767f5-4464-4ce0-aa30-02624b3d8b06</semantic:flowNodeRef>
         <semantic:flowNodeRef>_21a8e879-c695-4698-9c9d-33199513652f</semantic:flowNodeRef>
         <semantic:flowNodeRef>_554d2013-470e-4e33-a621-c116dc02b1b4</semantic:flowNodeRef>
         <semantic:flowNodeRef>_1609f8eb-f9a5-4e63-9041-0f7656c10296</semantic:flowNodeRef>
         <semantic:flowNodeRef>_a6f0f302-637e-4d9d-bc62-faca207bf224</semantic:flowNodeRef>
-        <semantic:flowNodeRef>_8f01e019-a4ba-45af-94f8-ca33a4b2d73b</semantic:flowNodeRef>
+        <semantic:flowNodeRef>Activity_0ki76cc</semantic:flowNodeRef>
       </semantic:lane>
     </semantic:laneSet>
     <semantic:manualTask id="_a6906d8b-5831-473e-a3c8-d54394321f68" name="Prepare &#38; print Invoice">
@@ -22,7 +23,7 @@
       </semantic:dataOutputAssociation>
     </semantic:manualTask>
     <semantic:endEvent id="_a6f0f302-637e-4d9d-bc62-faca207bf224" name="Order&#10;completed">
-      <semantic:incoming>_996629af-e291-44c6-9c05-031b5515159d</semantic:incoming>
+      <semantic:incoming>Flow_0jx2pvm</semantic:incoming>
     </semantic:endEvent>
     <semantic:startEvent id="_8f01e019-a4ba-45af-94f8-ca33a4b2d73b" name="Analysis done">
       <semantic:outgoing>_a869f46b-a058-4a1a-aff4-7f2456512bfa</semantic:outgoing>
@@ -37,7 +38,7 @@
       <semantic:outgoing>_ad09b521-4a10-4ed4-9e97-0a3f8591de02</semantic:outgoing>
       <semantic:outgoing>_b4a5d59c-d812-452e-81d2-05b62bdb9108</semantic:outgoing>
     </semantic:parallelGateway>
-    <semantic:manualTask id="_554d2013-470e-4e33-a621-c116dc02b1b4" name="Send final report / invoice">
+    <semantic:manualTask id="_554d2013-470e-4e33-a621-c116dc02b1b4" name="Send final Report / Invoice">
       <semantic:incoming>_ae45c020-f007-4e1a-b3ee-f190cc80d3ec</semantic:incoming>
       <semantic:outgoing>_996629af-e291-44c6-9c05-031b5515159d</semantic:outgoing>
       <semantic:property id="Property_0dnk7i0" name="__targetRef_placeholder" />
@@ -57,7 +58,7 @@
         <semantic:targetRef>DataObjectReference_1oyoed2</semantic:targetRef>
       </semantic:dataOutputAssociation>
     </semantic:manualTask>
-    <semantic:sequenceFlow id="_996629af-e291-44c6-9c05-031b5515159d" sourceRef="_554d2013-470e-4e33-a621-c116dc02b1b4" targetRef="_a6f0f302-637e-4d9d-bc62-faca207bf224" />
+    <semantic:sequenceFlow id="_996629af-e291-44c6-9c05-031b5515159d" sourceRef="_554d2013-470e-4e33-a621-c116dc02b1b4" targetRef="Activity_0ki76cc" />
     <semantic:sequenceFlow id="_ae45c020-f007-4e1a-b3ee-f190cc80d3ec" sourceRef="_6e5767f5-4464-4ce0-aa30-02624b3d8b06" targetRef="_554d2013-470e-4e33-a621-c116dc02b1b4" />
     <semantic:sequenceFlow id="_888e45d8-2210-46a2-a1c0-96ad2cc71186" sourceRef="_1609f8eb-f9a5-4e63-9041-0f7656c10296" targetRef="_6e5767f5-4464-4ce0-aa30-02624b3d8b06" />
     <semantic:sequenceFlow id="_2628f236-3c1c-4802-9e30-1ba6e814b94c" sourceRef="_a6906d8b-5831-473e-a3c8-d54394321f68" targetRef="_6e5767f5-4464-4ce0-aa30-02624b3d8b06" />
@@ -68,35 +69,49 @@
     <semantic:dataObject id="DataObject_1cddweb" />
     <semantic:dataObjectReference id="DataObjectReference_1eacojp" name="Invoice" dataObjectRef="DataObject_18vo4zn" />
     <semantic:dataObject id="DataObject_18vo4zn" />
+    <semantic:sequenceFlow id="Flow_0jx2pvm" sourceRef="Activity_0ki76cc" targetRef="_a6f0f302-637e-4d9d-bc62-faca207bf224" />
+    <semantic:userTask id="Activity_0ki76cc" name="Mark order as &#34;invoiced&#34;">
+      <semantic:incoming>_996629af-e291-44c6-9c05-031b5515159d</semantic:incoming>
+      <semantic:outgoing>Flow_0jx2pvm</semantic:outgoing>
+      <semantic:dataOutputAssociation id="DataOutputAssociation_061jtia">
+        <semantic:targetRef>DataStoreReference_0fso3uv</semantic:targetRef>
+      </semantic:dataOutputAssociation>
+    </semantic:userTask>
+    <semantic:dataStoreReference id="DataStoreReference_0fso3uv" name="LIMS" />
   </semantic:process>
   <bpmndi:BPMNDiagram id="_7148cac4-44bd-4f1b-9fd3-eb67db4f9ac4" name="Page 6">
     <bpmndi:BPMNPlane id="_7148cac4-44bd-4f1b-9fd3-eb67db4f9ac4_plane" bpmnElement="_20b7a880-e9c1-4ab9-8f27-5cba176655ef" trisobpmn:diagramWidth="1485" trisobpmn:diagramHeight="1050">
       <bpmndi:BPMNShape id="_dad0daba-9383-4d5c-8fd8-9e0e41e0b2e0" bpmnElement="_a9af297a-4d5b-45bd-81c6-fd44aeae0137" isHorizontal="true" color:background-color="#ffffff" color:border-color="#000000">
-        <dc:Bounds x="163" y="80" width="637" height="320" />
+        <dc:Bounds x="163" y="80" width="777" height="320" />
         <bpmndi:BPMNLabel labelStyle="LS_7148cac4-44bd-4f1b-9fd3-eb67db4f9ac4_0" color:color="#000000" triso:defaultBounds="true">
           <dc:Bounds x="167.5" y="161" width="12.3125" height="262" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0jx2pvm_di" bpmnElement="Flow_0jx2pvm">
+        <di:waypoint x="810" y="240" />
+        <di:waypoint x="852" y="240" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="_ddc5523f-c17a-4344-980f-8623079bb327" bpmnElement="_a869f46b-a058-4a1a-aff4-7f2456512bfa" color:border-color="#000000">
+        <di:waypoint x="269" y="240" />
+        <di:waypoint x="311" y="240" />
+        <bpmndi:BPMNLabel labelStyle="LS_7148cac4-44bd-4f1b-9fd3-eb67db4f9ac4_0" color:color="#000000" triso:defaultBounds="true" triso:labelPosition="midbottom" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="_e6d14d3d-eb10-4051-81dd-02f0b5e9397c" bpmnElement="_b4a5d59c-d812-452e-81d2-05b62bdb9108" color:border-color="#000000">
         <di:waypoint x="332" y="260" />
         <di:waypoint x="331.5" y="296" />
         <di:waypoint x="371" y="296" />
         <bpmndi:BPMNLabel labelStyle="LS_7148cac4-44bd-4f1b-9fd3-eb67db4f9ac4_0" color:color="#000000" triso:defaultBounds="true" triso:labelPosition="midbottom" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="_5105ff8d-691e-4e89-9056-6bea491af108" bpmnElement="_ad09b521-4a10-4ed4-9e97-0a3f8591de02" color:border-color="#000000">
+        <di:waypoint x="332" y="220" />
+        <di:waypoint x="331.5" y="195" />
+        <di:waypoint x="371" y="195" />
+        <bpmndi:BPMNLabel labelStyle="LS_7148cac4-44bd-4f1b-9fd3-eb67db4f9ac4_0" color:color="#000000" triso:defaultBounds="true" triso:labelPosition="midbottom" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="_4a4e2859-6602-4720-8955-21c98288007a" bpmnElement="_2628f236-3c1c-4802-9e30-1ba6e814b94c" color:border-color="#000000">
         <di:waypoint x="467" y="296" />
         <di:waypoint x="511" y="296" />
         <di:waypoint x="511" y="260" />
-        <bpmndi:BPMNLabel labelStyle="LS_7148cac4-44bd-4f1b-9fd3-eb67db4f9ac4_0" color:color="#000000" triso:defaultBounds="true" triso:labelPosition="midbottom" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="_96080258-73da-436d-80ea-d98d58062804" bpmnElement="_996629af-e291-44c6-9c05-031b5515159d" color:border-color="#000000">
-        <di:waypoint x="669" y="240" />
-        <di:waypoint x="711" y="240" />
-        <bpmndi:BPMNLabel labelStyle="LS_7148cac4-44bd-4f1b-9fd3-eb67db4f9ac4_0" color:color="#000000" triso:defaultBounds="true" triso:labelPosition="midbottom" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="_ddc5523f-c17a-4344-980f-8623079bb327" bpmnElement="_a869f46b-a058-4a1a-aff4-7f2456512bfa" color:border-color="#000000">
-        <di:waypoint x="269" y="240" />
-        <di:waypoint x="311" y="240" />
         <bpmndi:BPMNLabel labelStyle="LS_7148cac4-44bd-4f1b-9fd3-eb67db4f9ac4_0" color:color="#000000" triso:defaultBounds="true" triso:labelPosition="midbottom" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="_357fd07e-2226-4bd1-abe1-07412fce15ca" bpmnElement="_888e45d8-2210-46a2-a1c0-96ad2cc71186" color:border-color="#000000">
@@ -110,10 +125,9 @@
         <di:waypoint x="573" y="240" />
         <bpmndi:BPMNLabel labelStyle="LS_7148cac4-44bd-4f1b-9fd3-eb67db4f9ac4_0" color:color="#000000" triso:defaultBounds="true" triso:labelPosition="midbottom" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="_5105ff8d-691e-4e89-9056-6bea491af108" bpmnElement="_ad09b521-4a10-4ed4-9e97-0a3f8591de02" color:border-color="#000000">
-        <di:waypoint x="332" y="220" />
-        <di:waypoint x="331.5" y="195" />
-        <di:waypoint x="371" y="195" />
+      <bpmndi:BPMNEdge id="_96080258-73da-436d-80ea-d98d58062804" bpmnElement="_996629af-e291-44c6-9c05-031b5515159d" color:border-color="#000000">
+        <di:waypoint x="669" y="240" />
+        <di:waypoint x="710" y="240" />
         <bpmndi:BPMNLabel labelStyle="LS_7148cac4-44bd-4f1b-9fd3-eb67db4f9ac4_0" color:color="#000000" triso:defaultBounds="true" triso:labelPosition="midbottom" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="_9f7ab08d-9fd7-4613-8ddc-0309241ceb22" bpmnElement="_a6906d8b-5831-473e-a3c8-d54394321f68" color:background-color="#ffffff" color:border-color="#000000">
@@ -123,9 +137,9 @@
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="_55f7072d-8b02-4c28-83d1-9933a71a1eef" bpmnElement="_a6f0f302-637e-4d9d-bc62-faca207bf224" color:background-color="#ffffff" color:border-color="#000000">
-        <dc:Bounds x="711" y="222" width="36" height="36" />
+        <dc:Bounds x="852" y="222" width="36" height="36" />
         <bpmndi:BPMNLabel labelStyle="LS_7148cac4-44bd-4f1b-9fd3-eb67db4f9ac4_0" color:color="#000000" triso:defaultBounds="true">
-          <dc:Bounds x="703" y="268" width="51" height="27" />
+          <dc:Bounds x="844" y="268" width="51" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="_ef19777f-df64-4fec-b704-eafed9a056ff" bpmnElement="_8f01e019-a4ba-45af-94f8-ca33a4b2d73b" color:background-color="#ffffff" color:border-color="#000000">
@@ -166,6 +180,15 @@
           <dc:Bounds x="604" y="362" width="35" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_03vpjy6_di" bpmnElement="Activity_0ki76cc">
+        <dc:Bounds x="710" y="200" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataStoreReference_0fso3uv_di" bpmnElement="DataStoreReference_0fso3uv">
+        <dc:Bounds x="735" y="125" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="747" y="101" width="26" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="DataOutputAssociation_08qdnsq_di" bpmnElement="DataOutputAssociation_08qdnsq">
         <di:waypoint x="467" y="330" />
         <di:waypoint x="603" y="330" />
@@ -181,6 +204,10 @@
       <bpmndi:BPMNEdge id="DataOutputAssociation_16l8m9q_di" bpmnElement="DataOutputAssociation_16l8m9q">
         <di:waypoint x="467" y="155" />
         <di:waypoint x="603" y="155" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_061jtia_di" bpmnElement="DataOutputAssociation_061jtia">
+        <di:waypoint x="760" y="200" />
+        <di:waypoint x="760" y="175" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
     <bpmndi:BPMNLabelStyle id="LS_7148cac4-44bd-4f1b-9fd3-eb67db4f9ac4_0">

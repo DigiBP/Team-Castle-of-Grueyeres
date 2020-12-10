@@ -45,7 +45,7 @@
       <bpmn:incoming>Flow_09db1ze</bpmn:incoming>
       <bpmn:outgoing>Flow_1bgaaqf</bpmn:outgoing>
     </bpmn:task>
-    <bpmn:task id="Activity_0vzxw2f" name="order older 2 weeks">
+    <bpmn:task id="Activity_0vzxw2f" name="Order older 2 weeks">
       <bpmn:incoming>Flow_091xvlo</bpmn:incoming>
       <bpmn:outgoing>Flow_1820qby</bpmn:outgoing>
     </bpmn:task>

@@ -4,7 +4,7 @@
   <semantic:resource id="_a487eefa-0db0-47f3-83b8-c540bf0931b9" name="someone" />
   <semantic:collaboration id="_65e02d2b-32cf-4afb-a709-4ac1f0a49601">
     <semantic:participant id="_cfb3db2c-fec2-4f5b-9749-38a928c38e2a" name="client" />
-    <semantic:participant id="_917d9d5b-c337-4fe6-863f-12b2c392adc0" name="clinical laboratory" processRef="_6aad95f6-365b-4102-860e-922c3afdb32b" />
+    <semantic:participant id="_917d9d5b-c337-4fe6-863f-12b2c392adc0" name="Analysis Processing Process" processRef="_6aad95f6-365b-4102-860e-922c3afdb32b" />
     <semantic:messageFlow id="_8c99ccc5-3c90-45d8-88ba-c7587ec4391d" sourceRef="_cfb3db2c-fec2-4f5b-9749-38a928c38e2a" targetRef="_ccc7e41c-62cd-47f4-b19a-7a8aefe0b851" />
     <semantic:messageFlow id="_361a09be-d6a1-4959-8313-a4509aea1a20" sourceRef="_fdc011c5-a9c6-4fd4-91e0-e1ce1fbf6bd7" targetRef="_cfb3db2c-fec2-4f5b-9749-38a928c38e2a" />
   </semantic:collaboration>
@@ -15,7 +15,7 @@
     <semantic:dataObject id="_175b9882-f952-4de7-8419-6a4520c3b5d4" name="signed &#10;result form" itemSubjectRef="_triso-default-bpmnItemDefinition-string_id" />
     <semantic:dataObject id="_0d596af3-3e6e-4933-8423-bafff20c163a" itemSubjectRef="_triso-default-bpmnItemDefinition-string_id" />
     <semantic:dataObject id="_f27dba8d-4638-4d30-a007-fc5357c726b2" itemSubjectRef="_triso-default-bpmnItemDefinition-string_id" />
-    <semantic:endEvent id="_c1a1f724-2302-414e-848e-ed62ce03f318" name="Order fulfiled">
+    <semantic:endEvent id="_c1a1f724-2302-414e-848e-ed62ce03f318" name="Order completed">
       <semantic:incoming>_7e2797ff-287a-4a39-86f7-6e932f13704b</semantic:incoming>
     </semantic:endEvent>
     <semantic:subProcess id="_142ae34e-29d8-4b74-baa8-50fdf1da7ee7" name="Order Entry">
@@ -172,7 +172,7 @@
       <semantic:outgoing>_f6e59663-cdc2-424a-bae6-669dae15b214</semantic:outgoing>
       <semantic:messageEventDefinition id="_ac94ebbb-051b-4b0a-8edc-215e1901a8e0" />
     </semantic:startEvent>
-    <semantic:endEvent id="_2602d0e1-8e9d-4cd0-8086-000b5012a634" name="Order processed">
+    <semantic:endEvent id="_2602d0e1-8e9d-4cd0-8086-000b5012a634" name="Order recorded">
       <semantic:incoming>_a0c36edf-63eb-4e3c-a445-aeda2ce5cad8</semantic:incoming>
     </semantic:endEvent>
     <semantic:subProcess id="_c537c8ea-7a1e-4174-bfd7-b85302231392" name="Sample Analysis">
@@ -749,14 +749,9 @@
           <dc:Bounds x="29" y="193.00000286102295" width="12.3125" height="223.99609375" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="_387c840d-c459-439b-ac10-c80f73d9c208" bpmnElement="_f6e59663-cdc2-424a-bae6-669dae15b214" color:border-color="#000000">
-        <di:waypoint x="253" y="299.2530486434698" />
-        <di:waypoint x="322.2867965698242" y="299.2530486434698" />
-        <bpmndi:BPMNLabel labelStyle="LS_0fbf4f1b-a8ad-4ba2-a28c-b70f657910d8_0" color:color="#000000" triso:defaultBounds="true" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="_3cfe9b0d-bd51-4245-a58a-2af5409af508" bpmnElement="_7e2797ff-287a-4a39-86f7-6e932f13704b" color:border-color="#000000">
-        <di:waypoint x="826" y="299" />
-        <di:waypoint x="882" y="299" />
+      <bpmndi:BPMNEdge id="_7b81090d-e512-447e-b087-f4e2a2f1a2ed" bpmnElement="_51ba41eb-79e2-4010-ab54-c6a19f18b404" color:border-color="#000000">
+        <di:waypoint x="676" y="299" />
+        <di:waypoint x="730" y="299" />
         <bpmndi:BPMNLabel labelStyle="LS_0fbf4f1b-a8ad-4ba2-a28c-b70f657910d8_0" color:color="#000000" triso:defaultBounds="true" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="_f3739167-c3c9-4f44-bd8e-2c55bbdc4087" bpmnElement="_a0c36edf-63eb-4e3c-a445-aeda2ce5cad8" color:border-color="#000000">
@@ -764,15 +759,20 @@
         <di:waypoint x="466" y="299.2530486434698" />
         <bpmndi:BPMNLabel labelStyle="LS_0fbf4f1b-a8ad-4ba2-a28c-b70f657910d8_0" color:color="#000000" triso:defaultBounds="true" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="_7b81090d-e512-447e-b087-f4e2a2f1a2ed" bpmnElement="_51ba41eb-79e2-4010-ab54-c6a19f18b404" color:border-color="#000000">
-        <di:waypoint x="676" y="299" />
-        <di:waypoint x="730" y="299" />
+      <bpmndi:BPMNEdge id="_3cfe9b0d-bd51-4245-a58a-2af5409af508" bpmnElement="_7e2797ff-287a-4a39-86f7-6e932f13704b" color:border-color="#000000">
+        <di:waypoint x="826" y="299" />
+        <di:waypoint x="882" y="299" />
+        <bpmndi:BPMNLabel labelStyle="LS_0fbf4f1b-a8ad-4ba2-a28c-b70f657910d8_0" color:color="#000000" triso:defaultBounds="true" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="_387c840d-c459-439b-ac10-c80f73d9c208" bpmnElement="_f6e59663-cdc2-424a-bae6-669dae15b214" color:border-color="#000000">
+        <di:waypoint x="253" y="299.2530486434698" />
+        <di:waypoint x="322.2867965698242" y="299.2530486434698" />
         <bpmndi:BPMNLabel labelStyle="LS_0fbf4f1b-a8ad-4ba2-a28c-b70f657910d8_0" color:color="#000000" triso:defaultBounds="true" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Event_1gt4hut_di" bpmnElement="_c1a1f724-2302-414e-848e-ed62ce03f318">
         <dc:Bounds x="882" y="281" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="869" y="327" width="63" height="14" />
+          <dc:Bounds x="860" y="327" width="82" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="_3830e902-85cf-4200-978c-4255b0f101df" bpmnElement="_142ae34e-29d8-4b74-baa8-50fdf1da7ee7" triso:targetpage="_18369312-483c-4455-9080-8d021f58d380" color:background-color="#ffffff" color:border-color="#000000">
@@ -790,7 +790,7 @@
       <bpmndi:BPMNShape id="_48777e3e-822d-479a-9d2e-e3ef721ba64f" bpmnElement="_2602d0e1-8e9d-4cd0-8086-000b5012a634" color:background-color="#ffffff" color:border-color="#000000">
         <dc:Bounds x="466" y="281" width="36" height="36" />
         <bpmndi:BPMNLabel labelStyle="LS_0fbf4f1b-a8ad-4ba2-a28c-b70f657910d8_0" color:color="#000000" triso:defaultBounds="true">
-          <dc:Bounds x="443" y="327" width="82" height="14" />
+          <dc:Bounds x="447" y="327" width="75" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="_adad13e2-abe2-4b18-a700-5c21ce053605" bpmnElement="_c537c8ea-7a1e-4174-bfd7-b85302231392" triso:targetpage="_c687770c-dd2a-4553-b826-db36fea3598e" color:background-color="#ffffff" color:border-color="#000000">

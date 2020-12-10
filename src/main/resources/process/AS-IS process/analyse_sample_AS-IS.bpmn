@@ -153,7 +153,6 @@
       <semantic:incoming>_cfd862a2-74b8-4743-bd49-9b3a9cb95bcc</semantic:incoming>
       <semantic:outgoing>Flow_1dnpb05</semantic:outgoing>
       <semantic:dataOutputAssociation id="_562bc90f-6a4f-4977-a916-5f0d79f0aa8a">
-        <semantic:sourceRef>_d94854f1-6f00-46ac-8080-cad82f1ba214</semantic:sourceRef>
         <semantic:targetRef>_8105b139-67a9-43b2-b7c2-ab3a6b19eeef</semantic:targetRef>
       </semantic:dataOutputAssociation>
     </semantic:userTask>

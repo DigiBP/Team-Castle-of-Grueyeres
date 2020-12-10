@@ -113,7 +113,7 @@ h3 {
     width: 190px;
     display: inline-block;
     font-size: 16px;
-    padding: 2px;
+    padding: 3px;
     flex-shrink: 0;
 }
 
@@ -153,7 +153,7 @@ button, .button {
 
 .input-unit {
     flex-shrink: 0;
-    padding: 2px;
+    padding: 3px 3px 3px 6px;
 }
 
 button:hover, .button:hover {

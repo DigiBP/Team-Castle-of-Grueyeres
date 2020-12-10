@@ -3,6 +3,7 @@
 <head>
     <title>Sample Entry</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <div class="header">
@@ -16,7 +17,8 @@
     </div>
 </div>
 <div class="content">
-    <p class="text-padding">Check the received sample of the corresponding order according to possible damage, correct sample type, and handling during transport for correct
+    <p class="text-padding">Check the received sample of the corresponding order according to possible damage, correct sample type, and handling during
+        transport for correct
         cooling.</p>
     <form action="#" th:action="@{/order/{path}/sample(path=${uuid})}" th:object="${sample}" method="post">
         <div class="input-row">

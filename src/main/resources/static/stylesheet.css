@@ -61,6 +61,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
     color: #748cc5;
+    width: 100vw;
 }
 
 h1 {
@@ -119,7 +120,6 @@ h3 {
 
 .input-row > input[type="number"], .input-row > input[type="text"], .input-row > input[type="date"], .input-row > select, .input-row > textarea {
     font-size: 16px;
-    width: 220px;
     padding: 2px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -149,6 +149,7 @@ button, .button {
     cursor: grab;
     display: inline-block;
     line-height: 25px;
+    text-align: center;
 }
 
 .input-unit {
@@ -198,4 +199,95 @@ tbody {
 
 .text-padding {
     padding-bottom: 5px;
+}
+
+@media only screen and (max-width: 600px) {
+    .header {
+        padding-left: 5vw;
+        padding-right: 5vw;
+        margin-bottom: 5vw;
+    }
+
+    .logo {
+        width: 100%;
+        height: auto;
+    }
+
+    .content {
+        padding-left: 5vw;
+        padding-right: 5vw;
+        margin: 0 auto;
+        width: 90vw;
+    }
+
+    .input-row {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .input-row > label {
+        width: 100%;
+        display: inline-block;
+    }
+
+    button, .button {
+        width: 100%;
+        display: block;
+        margin: 5px 0;
+    }
+
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr {
+        border: 1px solid #ccc;
+    }
+
+    td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        margin-left: 80px;
+    }
+
+    td:before {
+        position: absolute;
+        top: 12px;
+        left: 6px;
+        width: 200px;
+        padding-right: 40px;
+        white-space: nowrap;
+        margin-left: -80px;
+    }
+
+    td:nth-of-type(1):before {
+        content: "Date";
+    }
+
+    td:nth-of-type(2):before {
+        content: "UUID";
+    }
+
+    td:nth-of-type(3):before {
+        content: "Analysis";
+    }
+
+    td:nth-of-type(4):before {
+        content: "State";
+    }
+
+    td:nth-of-type(5):before {
+        content: "Laboratory";
+    }
+
+    td:nth-of-type(6):before {
+        content: "Action";
+    }
 }

@@ -3,7 +3,7 @@ package ch.fhnw.digibp.domain;
 import java.util.Map;
 
 public enum AnalysisType {
-    Sars_Cov_2("copies (RNA) per mL"), Ferritin("ng/mL"), Vitamin_D("ng/mL"), HIV("copies (RNA) per mL"), THC("ng/mL"), Cancer("");
+    Sars_Cov_2("copies (RNA) per mL"), Ferritin("ng/mL"), Vitamin_D("ng/mL"), HIV("copies (RNA) per mL"), THC("ng/mL"), Cancer("boolean (1|0)");
 
     private final String unit;
 

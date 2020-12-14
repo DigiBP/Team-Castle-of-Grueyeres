@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "6cc3c445-4b19-4f08-bd57-fe2a48e6b62b",
+		"_postman_id": "3bc06098-27a4-459c-966d-46e3a85994da",
 		"name": "Clinical Lab",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -12,7 +12,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"clientId\":\"test\",\n    \"analysis\":\"sars_cov_2\"\n}",
+					"raw": "{\n    \"client\":{\n        \"name\":\"KKH Lörrach\"\n    },\n    \"analysis\":\"sars_cov_2\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -20,14 +20,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/order/",
+					"raw": "http://localhost:8080/order/",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"api",
 						"order",
 						""
 					]
@@ -36,22 +35,23 @@
 			"response": []
 		},
 		{
-			"name": "Check Order",
+			"name": "Get Order Info",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/order/7086ff40-8871-4bb5-8a08-3a26d2084414",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"order",
-						"7086ff40-8871-4bb5-8a08-3a26d2084414"
-					]
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Submit Analysis",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
 				}
 			},
 			"response": []

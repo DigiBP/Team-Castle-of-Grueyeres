@@ -32,7 +32,7 @@ public abstract class AbstractCamundaController {
     }
 
 
-    protected Order find(String orderUuid) {
+    public Order find(String orderUuid) {
         Optional<Order> order = orderRepository.findById(orderUuid);
         return order.orElseThrow(() -> new HttpServerErrorException(HttpStatus.NOT_FOUND));
     }
